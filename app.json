@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "Shopper Map",
+    "description": "Shopping centre navigation",
+    "slug": "shoppermapcw",
+    "privacy": "public",
+    "sdkVersion": "33.0.0",
+    "primaryColor": "#cccccc",
+    "platforms": ["ios", "android", "web"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "https://dl.dropboxusercontent.com/u/51229796/logosquare.png",
+    "splash": {
+      "image": "https://dl.dropboxusercontent.com/u/51229796/logosquare.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#cccccc"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "android": {
+      "package": "org.shoppermap.exp",
+      "versionCode": 1,
+      "permissions": [],
+      "icon": "https://dl.dropboxusercontent.com/u/51229796/logosquare.png"
+    },
+    "ios": {
+      "bundleIdentifier": "org.shoppermap.exp",
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "supportsTablet": true
+    }
+  }
+}

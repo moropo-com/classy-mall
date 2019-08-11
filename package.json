@@ -1,0 +1,19 @@
+{
+  "name": "shoppermap",
+  "version": "0.0.0",
+  "description": "ShopperMap",
+  "author": "ckiller",
+  "main": "node_modules/expo/AppEntry.js",
+  "private": true,
+  "dependencies": {
+    "@babel/plugin-proposal-export-namespace-from": "^7.5.2",
+    "@expo/vector-icons": "^10.0.3",
+    "expo": "^33.0.0",
+    "react": "16.8.3",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+    "react-native-gesture-handler": "^1.2.2",
+    "react-native-looped-carousel": "^0.1.5",
+    "react-native-paper": "^2.16.0",
+    "react-navigation": "^3.11.1"
+  }
+}
