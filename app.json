@@ -2,18 +2,18 @@
   "expo": {
     "name": "Shopper Map",
     "description": "Shopping centre navigation",
-    "slug": "shoppermapcw",
+    "slug": "shoppermap",
     "privacy": "public",
     "sdkVersion": "33.0.0",
-    "primaryColor": "#cccccc",
+    "primaryColor": "#fff",
     "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "https://dl.dropboxusercontent.com/u/51229796/logosquare.png",
+    "icon": "./img/square.png",
     "splash": {
-      "image": "https://dl.dropboxusercontent.com/u/51229796/logosquare.png",
+      "image": "./img/launch.png",
       "resizeMode": "contain",
-      "backgroundColor": "#cccccc"
+      "backgroundColor": "#fff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -23,7 +23,7 @@
       "package": "org.shoppermap.exp",
       "versionCode": 1,
       "permissions": [],
-      "icon": "https://dl.dropboxusercontent.com/u/51229796/logosquare.png"
+      "icon": "./img/square.png"
     },
     "ios": {
       "bundleIdentifier": "org.shoppermap.exp",
