@@ -1,9 +1,12 @@
-import { MapView } from "./components/MapView";
-import SVGWebView from "./components/SVGWebView";
-import ShopList from "./components/ShopList";
-import ShopDetails from "./components/ShopDetails";
+import React from "react";
+import { SVGWebView } from "./components/SVGWebView";
+import { ShopList } from "./components/ShopList";
+import { ShopDetails } from "./components/ShopDetails";
 
 import { createStackNavigator, createAppContainer } from "react-navigation";
+import { Image, View } from "react-native";
+import { Title } from "react-native-paper";
+import ClassyMall from "./img/ClassyMall";
 
 const AppNavigator = createStackNavigator(
   {
@@ -18,20 +21,22 @@ const AppNavigator = createStackNavigator(
     }
   },
   {
-    navigationBar: {
-      renderTitle: Title,
-      renderLeft: () => (
-        <Text style={{ color: "lightgrey", fontSize: 25 }}>V2.8</Text>
+    defaultNavigationOptions: {
+      headerTitle: (
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          <Title>classy</Title>
+          <ClassyMall />
+          <Title>mall</Title>
+        </View>
       )
     }
   }
-);
-
-const Title = () => (
-  <Image
-    source={require("./img/logo.jpg")}
-    style={{ flex: 1, width: null, height: null }}
-    resizeMode="contain"
-  />
 );
 export default createAppContainer(AppNavigator);
