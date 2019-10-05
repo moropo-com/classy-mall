@@ -1,8 +1,9 @@
 import React from "react";
-
 import Svg, { G, Path, Text, TSpan } from "react-native-svg";
+import { getHightLightColorForShop } from "../helpers/hightlighting";
+import { SHOP_LIST } from "../constants/constants";
 
-const SvgComponent = ({ navigateToShopId }) => (
+const SvgComponent = ({ navigateToShopId, highlightedShops }) => (
   <Svg width={400} height={558} viewBox="10 -25 250 1000">
     <G fill="none" stroke="#000" strokeWidth={0.493}>
       <Path
@@ -306,11 +307,23 @@ const SvgComponent = ({ navigateToShopId }) => (
         />
       </G>
     </G>
-    <G data-id="orangecafe" onPress={() => navigateToShopId("orangecafe")}>
+    <G
+      data-id={SHOP_LIST.orangecafe.key}
+      onPress={() => navigateToShopId(SHOP_LIST.orangecafe.key)}
+    >
       <Path
-        fill="none"
-        stroke="#000"
-        strokeWidth={1.0007899999999998}
+        fill={
+          getHightLightColorForShop(SHOP_LIST.orangecafe.key, highlightedShops)
+            .fill
+        }
+        stroke={
+          getHightLightColorForShop(SHOP_LIST.orangecafe.key, highlightedShops)
+            .stroke
+        }
+        strokeWidth={
+          getHightLightColorForShop(SHOP_LIST.orangecafe.key, highlightedShops)
+            .strokeWidth
+        }
         d="M174.337 745.493v31.262l14.108 2.03v14.21l4.67 9.034 3.349.406v8.12l.609.101 54.404 7.714v-6.293l1.116.102 1.32.203.304.101 10.962 1.421.102-92.67-26.898-2.841-40.6-4.263v10.251l-3.35-.406-2.74 3.451-2.74 3.451v4.06l-.102 12.18-14.514-1.624"
       />
       <Text
@@ -328,11 +341,21 @@ const SvgComponent = ({ navigateToShopId }) => (
         </TSpan>
       </Text>
     </G>
-    <G data-id="tea" onPress={() => navigateToShopId("tea")}>
+    <G
+      data-id={SHOP_LIST.tea.key}
+      onPress={() => navigateToShopId(SHOP_LIST.tea.key)}
+    >
       <Path
-        fill="none"
-        stroke="#000"
-        strokeWidth={1.0007899999999998}
+        fill={
+          getHightLightColorForShop(SHOP_LIST.tea.key, highlightedShops).fill
+        }
+        stroke={
+          getHightLightColorForShop(SHOP_LIST.tea.key, highlightedShops).stroke
+        }
+        strokeWidth={
+          getHightLightColorForShop(SHOP_LIST.tea.key, highlightedShops)
+            .strokeWidth
+        }
         d="M174.641 511.84l.102.61 10.15.405 12.687 16.24 35.322 1.421h2.538l2.334.102 4.06.203v10.353l10.15.507v-10.454l2.436.101 11.267.406.101-46.08-5.176-.102v-22.533l-9.541-.203h-8.323l-6.496-.203-39.991-.508-13.5 17.458-8.12-.203v32.48"
       />
       <Text
@@ -349,11 +372,21 @@ const SvgComponent = ({ navigateToShopId }) => (
         </TSpan>
       </Text>
     </G>
-    <G data-id="babies" onPress={() => navigateToShopId("babies")}>
+    <G
+      data-id={SHOP_LIST.babies.key}
+      onPress={() => navigateToShopId(SHOP_LIST.babies.key)}
+    >
       <Path
-        fill="none"
-        stroke="#000"
-        strokeWidth={1.0007899999999998}
+        fill={
+          getHightLightColorForShop(SHOP_LIST.babies.key, highlightedShops).fill
+        }
+        stroke={
+          getHightLightColorForShop(SHOP_LIST.babies.key, highlightedShops).stroke
+        }
+        strokeWidth={
+          getHightLightColorForShop(SHOP_LIST.babies.key, highlightedShops)
+            .strokeWidth
+        }
         d="M175.758 246.925v8.019l1.522 2.03 2.944 19.792 3.045 19.894 14.007-.609 14.007-.71v38.773l26.491-.812v-24.563l13.5-.508v-18.777l13.702-.61.102-115.202v-1.015l-51.765 4.466-8.526.71v18.474l-12.282 17.56-17.762 1.319-5.583 7.714v18.27l4.162 5.785h1.725l.71-.101"
       />
       <Text

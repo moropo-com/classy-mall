@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -14,43 +14,53 @@ import SVGMapUL from "./SVGMapUL";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "./theme";
 import theme from "./theme";
+import { searchShopsTitles } from "../helpers/filtering";
+import { LEVELS } from "../constants/constants";
+
 var BGWASH = "rgba(255,255,255,0.8)";
 
 const { width, height } = Dimensions.get("window");
 
+const blankShopsHighlight = {
+  [LEVELS.LL]: [],
+  [LEVELS.UL]: []
+};
+
 export const SVGWebView = ({ navigation }) => {
   let textInput = React.useRef();
-  const [left, setLeft] = React.useState(new Animated.Value(0));
+  const [left] = React.useState(new Animated.Value(0));
   const [position, setPosition] = React.useState("right");
-  const [shouldPulseLeft, setShouldPulseLeft] = React.useState(false);
   const [shouldPulse, setShouldPulse] = React.useState(false);
   const [pulse] = React.useState(new Animated.Value(1));
+  const [highlightedShops, setHighlightedShops] = React.useState(
+    blankShopsHighlight
+  );
 
   const navigateToShopList = () => {
     navigation.navigate("ShopList");
   };
 
   const search = text => {
-    text.replace(/ /g, "").toLowerCase();
+    const searchTerm = text.replace(/ /g, "").toLowerCase();
+    const foundShops = searchTerm
+      ? searchShopsTitles(searchTerm)
+      : blankShopsHighlight;
+    setHighlightedShops(foundShops);
+    handleSearchResults(
+      foundShops,
+      position === "right" ? LEVELS.LL : LEVELS.UL
+    );
   };
 
   const handleSearchResults = (result, floor) => {
-    if (floor == "UL" && result[0] != "" && !shouldPulse) {
-      setShouldPulse(true);
-      pulseAnimation();
-    } else if (floor == "UL" && result[0] == "" && shouldPulse) {
-      setShouldPulse(false);
-    }
-
-    if (floor == "LL" && result[0] != "" && !shouldPulseLeft) {
-      setShouldPulseLeft(true);
-      pulseAnimation();
-    } else if (floor == "LL" && result[0] == "" && shouldPulseLeft) {
-      setShouldPulseLeft(false);
+    if (floor == LEVELS.LL) {
+      setShouldPulse(result[LEVELS.UL].length > 0);
+    } else if (floor === LEVELS.UL) {
+      setShouldPulse(result[LEVELS.LL].length > 0);
     }
   };
 
-  const pulseAnimation = () => {
+  const PulseAnimation = Animated.loop(
     Animated.sequence([
       Animated.timing(pulse, {
         toValue: 1.2,
@@ -72,12 +82,16 @@ export const SVGWebView = ({ navigation }) => {
         duration: 200,
         easing: Easing.linear
       })
-    ]).start(event => {
-      if (event.finished && shouldPulse) {
-        pulseAnimation();
-      }
-    });
-  };
+    ])
+  );
+
+  useEffect(() => {
+    if (shouldPulse) {
+      PulseAnimation.start();
+    } else {
+      PulseAnimation.stop();
+    }
+  }, [shouldPulse]);
 
   const navigateToShopId = shopkey => {
     navigation.navigate("ShopDetails", { shopkey });
@@ -85,6 +99,11 @@ export const SVGWebView = ({ navigation }) => {
 
   const clearText = () => {
     textInput.setNativeProps({ text: "" });
+    setHighlightedShops(blankShopsHighlight);
+    handleSearchResults(
+      blankShopsHighlight,
+      position === "right" ? LEVELS.LL : LEVELS.UL
+    );
   };
 
   const scroll = () => {
@@ -158,7 +177,10 @@ export const SVGWebView = ({ navigation }) => {
               })
             }}
           >
-            <SVGMapLL navigateToShopId={navigateToShopId} />
+            <SVGMapLL
+              navigateToShopId={navigateToShopId}
+              highlightedShops={highlightedShops[LEVELS.LL]}
+            />
           </Animated.View>
           <Animated.View
             style={{
@@ -183,7 +205,10 @@ export const SVGWebView = ({ navigation }) => {
               })
             }}
           >
-            <SVGMapUL navigateToShopId={navigateToShopId} />
+            <SVGMapUL
+              navigateToShopId={navigateToShopId}
+              highlightedShops={highlightedShops[LEVELS.UL]}
+            />
           </Animated.View>
           <Animated.View
             style={[

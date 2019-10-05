@@ -1,7 +1,11 @@
 import React from "react";
 import Svg, { G, Path, Text, TSpan } from "react-native-svg";
+import { getHightLightColorForShop } from "../helpers/hightlighting";
+import { SHOP_LIST } from "../constants/constants";
 
-const SvgComponent = ({ navigateToShopId }) => (
+// 2do Export each shop in an individual parametrized component
+
+const SvgComponent = ({ navigateToShopId, highlightedShops }) => (
   <Svg width={400} height={560} viewBox="0 0 104 273">
     <G fillOpacity={0} stroke="#000" strokeWidth={0.485} fill="none">
       <Path
@@ -350,13 +354,28 @@ const SvgComponent = ({ navigateToShopId }) => (
       </G>
     </G>
     <G
-      data-id="tattooparlour"
-      onPress={() => navigateToShopId("tattooparlour")}
+      data-id={SHOP_LIST.tattooparlour.key}
+      onPress={() => navigateToShopId(SHOP_LIST.tattooparlour.key)}
     >
       <Path
-        fill="transparent"
-        stroke="#000"
-        strokeWidth={0.26432500000000003}
+        fill={
+          getHightLightColorForShop(
+            SHOP_LIST.tattooparlour.key,
+            highlightedShops
+          ).fill
+        }
+        stroke={
+          getHightLightColorForShop(
+            SHOP_LIST.tattooparlour.key,
+            highlightedShops
+          ).stroke
+        }
+        strokeWidth={
+          getHightLightColorForShop(
+            SHOP_LIST.tattooparlour.key,
+            highlightedShops
+          ).strokeWidth
+        }
         d="M39.069 225.157l-.191-.245-16.84 16.295 14.823 18.34 1.063-1.09.082.109 3.379 3.896-1.635 1.635 4.85 5.641 1.09-1.063.055.055 3.46 4.006 7.849-7.767.054.055 1.962 2.207 5.178-5.068-1.227-1.363 3.76-3.706-5.722-6.404-1.962-2.18-3.324-3.76-3.624-3.979-2.97-3.57-3.325-3.95-3.706-4.415-3.08-3.679"
       />
       <Text
@@ -378,11 +397,23 @@ const SvgComponent = ({ navigateToShopId }) => (
         </TSpan>
       </Text>
     </G>
-    <G data-id="orangecafe" onPress={() => navigateToShopId("orangecafe")}>
+    <G
+      data-id={SHOP_LIST.orangecafe.key}
+      onPress={() => navigateToShopId(SHOP_LIST.orangecafe.key)}
+    >
       <Path
-        fill="transparent"
-        stroke="#000"
-        strokeWidth={0.26432500000000003}
+        fill={
+          getHightLightColorForShop(SHOP_LIST.orangecafe.key, highlightedShops)
+            .fill
+        }
+        stroke={
+          getHightLightColorForShop(SHOP_LIST.orangecafe.key, highlightedShops)
+            .stroke
+        }
+        strokeWidth={
+          getHightLightColorForShop(SHOP_LIST.orangecafe.key, highlightedShops)
+            .strokeWidth
+        }
         d="M91.552 230.28l.354.027 8.53 1.009v1.798l3.052.354.027-32.727-14.824-1.226-.11-5.69-5.177-.382.11 6.617-9.484-.818-.3-.027h-.217V205.101l-1.118-.109-1.035 1.308v5.069l-6.54-.654v8.883l6.131.654v2.943l2.752 3.243v3.515l17.85 2.098v-1.771"
       />
       <Text
@@ -427,11 +458,29 @@ const SvgComponent = ({ navigateToShopId }) => (
         </TSpan>
       </Text>
     </G>
-    <G data-id="artsncrafts" onPress={() => navigateToShopId("artsncrafts")}>
+    <G
+      data-id={SHOP_LIST.artsncrafts.key}
+      onPress={() => navigateToShopId(SHOP_LIST.artsncrafts.key)}
+    >
       <Path
-        fill="transparent"
-        stroke="#000"
-        strokeWidth={0.26432500000000003}
+        fill={
+          getHightLightColorForShop(
+            SHOP_LIST.artsncrafts.key,
+            highlightedShops
+          ).fill
+        }
+        stroke={
+          getHightLightColorForShop(
+            SHOP_LIST.artsncrafts.key,
+            highlightedShops
+          ).stroke
+        }
+        strokeWidth={
+          getHightLightColorForShop(
+            SHOP_LIST.artsncrafts.key,
+            highlightedShops
+          ).strokeWidth
+        }
         d="M23.89 154.098l-1.58 1.935-2.67-.109-5.096-.19-2.262-.082-.027 16.377v.572l9.428.545v-4.987l8.884-8.883 2.806-2.807 3.815-3.815-2.098-2.452-3.08-.082-1.498-1.58-2.044-.055-4.578 5.613"
       />
       <Text
@@ -475,11 +524,23 @@ const SvgComponent = ({ navigateToShopId }) => (
         </TSpan>
       </Text>
     </G>
-    <G data-id="wonderland" onPress={() => navigateToShopId("wonderland")}>
+    <G
+      data-id={SHOP_LIST.wonderland.key}
+      onPress={() => navigateToShopId(SHOP_LIST.wonderland.key)}
+    >
       <Path
-        fill="transparent"
-        stroke="#000"
-        strokeWidth={0.26432500000000003}
+        fill={
+          getHightLightColorForShop(SHOP_LIST.wonderland.key, highlightedShops)
+            .fill
+        }
+        stroke={
+          getHightLightColorForShop(SHOP_LIST.wonderland.key, highlightedShops)
+            .stroke
+        }
+        strokeWidth={
+          getHightLightColorForShop(SHOP_LIST.wonderland.key, highlightedShops)
+            .strokeWidth
+        }
         d="M19.721 91.214l-6.758.246-.027 25.397h.49l1.8-.028h.163V127.811l-.709.763v.79l4.224 4.687 2.78.082v-5.532h-1.99l.027-27.032V91.214"
       />
       <Text
@@ -505,11 +566,22 @@ const SvgComponent = ({ navigateToShopId }) => (
         </TSpan>
       </Text>
     </G>
-    <G data-id="shoes" onPress={() => navigateToShopId("shoes")}>
+    <G
+      data-id={SHOP_LIST.shoes.key}
+      onPress={() => navigateToShopId(SHOP_LIST.shoes.key)}
+    >
       <Path
-        fill="transparent"
-        stroke="#000"
-        strokeWidth={0.26432500000000003}
+        fill={
+          getHightLightColorForShop(SHOP_LIST.shoes.key, highlightedShops).fill
+        }
+        stroke={
+          getHightLightColorForShop(SHOP_LIST.shoes.key, highlightedShops)
+            .stroke
+        }
+        strokeWidth={
+          getHightLightColorForShop(SHOP_LIST.shoes.key, highlightedShops)
+            .strokeWidth
+        }
         d="M27.035 46.557L23.22 60.182h-1.635v4.905h-2.18v3.27l-1.09.545v5.995h1.09v3.27h1.635v13.08l19.075-1.09v-.545H35.21V81.982l5.995-.545 1.09-5.45-6.54.545h-.545V72.717l.545-10.9 2.725-3.815z"
       />
       <Text
@@ -535,11 +607,23 @@ const SvgComponent = ({ navigateToShopId }) => (
         </TSpan>
       </Text>
     </G>
-    <G data-id="bikeshop" onPress={() => navigateToShopId("bikeshop")}>
+    <G
+      data-id={SHOP_LIST.bikeshop.key}
+      onPress={() => navigateToShopId(SHOP_LIST.bikeshop.key)}
+    >
       <Path
-        fill="transparent"
-        stroke="#000"
-        strokeWidth={0.26432500000000003}
+        fill={
+          getHightLightColorForShop(SHOP_LIST.bikeshop.key, highlightedShops)
+            .fill
+        }
+        stroke={
+          getHightLightColorForShop(SHOP_LIST.bikeshop.key, highlightedShops)
+            .stroke
+        }
+        strokeWidth={
+          getHightLightColorForShop(SHOP_LIST.bikeshop.key, highlightedShops)
+            .strokeWidth
+        }
         d="M46.655 48.837h.545l4.36-4.905h-.545l5.45-5.995h.545L69 23.767l-5.45-5.45 5.45-6.54v-3.27L59.735.332 57.01.877l-5.45 6.54-5.45-4.905-8.175 10.355-4.905-4.36-11.99 15.26v5.45l4.36 4.36-4.905 5.995 7.085 7.63 10.9 10.9 2.18-2.18 2.18-2.18 1.635-2.725z"
       />
       <Text
@@ -558,11 +642,22 @@ const SvgComponent = ({ navigateToShopId }) => (
         </TSpan>
       </Text>
     </G>
-    <G data-id="babies" onPress={() => navigateToShopId("babies")}>
+    <G
+      data-id={SHOP_LIST.babies.key}
+      onPress={() => navigateToShopId(SHOP_LIST.babies.key)}
+    >
       <Path
-        fill="transparent"
-        stroke="#000"
-        strokeWidth={0.26432500000000003}
+        fill={
+          getHightLightColorForShop(SHOP_LIST.babies.key, highlightedShops).fill
+        }
+        stroke={
+          getHightLightColorForShop(SHOP_LIST.babies.key, highlightedShops)
+            .stroke
+        }
+        strokeWidth={
+          getHightLightColorForShop(SHOP_LIST.babies.key, highlightedShops)
+            .strokeWidth
+        }
         d="M96.25 52.997l-16.895 1.09-2.725.545v3.815l-4.905 5.45-5.995.545-1.09 1.635v7.085l1.09 3.815 9.81-.545v5.45l8.72-.545v4.905h3.27v3.815h4.905v-3.815h3.815z"
       />
       <Text
@@ -581,11 +676,21 @@ const SvgComponent = ({ navigateToShopId }) => (
         </TSpan>
       </Text>
     </G>
-    <G data-id="tea" onPress={() => navigateToShopId("tea")}>
+    <G
+      data-id={SHOP_LIST.tea.key}
+      onPress={() => navigateToShopId(SHOP_LIST.tea.key)}
+    >
       <Path
-        fill="transparent"
-        stroke="#000"
-        strokeWidth={0.26432500000000003}
+        fill={
+          getHightLightColorForShop(SHOP_LIST.tea.key, highlightedShops).fill
+        }
+        stroke={
+          getHightLightColorForShop(SHOP_LIST.tea.key, highlightedShops).stroke
+        }
+        strokeWidth={
+          getHightLightColorForShop(SHOP_LIST.tea.key, highlightedShops)
+            .strokeWidth
+        }
         d="M73.213 150.22l1.117 1.09 14.797.463h.354l2.725.082.027-18.558-19.02-.19-3.27 3.95-5.014-.081-.027 9.32 4.441.109 3.87 3.815"
       />
       <Text
@@ -604,11 +709,23 @@ const SvgComponent = ({ navigateToShopId }) => (
         </TSpan>
       </Text>
     </G>
-    <G data-id="floraver21" onPress={() => navigateToShopId("floraver21")}>
+    <G
+      data-id={SHOP_LIST.floraver21.key}
+      onPress={() => navigateToShopId(SHOP_LIST.floraver21.key)}
+    >
       <Path
-        fill="transparent"
-        stroke="#000"
-        strokeWidth={0.26432500000000003}
+        fill={
+          getHightLightColorForShop(SHOP_LIST.floraver21.key, highlightedShops)
+            .fill
+        }
+        stroke={
+          getHightLightColorForShop(SHOP_LIST.floraver21.key, highlightedShops)
+            .stroke
+        }
+        strokeWidth={
+          getHightLightColorForShop(SHOP_LIST.floraver21.key, highlightedShops)
+            .strokeWidth
+        }
         d="M46.535 179.459l-2.37 2.125 5.858.382v6.567l.436.027 2.643.218v2.29l.545.027.518.054.027-4.605 9.265.681.763-4.142-2.78-2.098.028-4.633 2.153-2.48-10.546-.599-1.417-.082v-4.578l-8.202-.436v3.434l3.08 3.297v4.55"
       />
       <Text
@@ -643,11 +760,23 @@ const SvgComponent = ({ navigateToShopId }) => (
         </TSpan>
       </Text>
     </G>
-    <G data-id="foodcourt" onPress={() => navigateToShopId("foodcourt")}>
+    <G
+      data-id={SHOP_LIST.foodcourt.key}
+      onPress={() => navigateToShopId(SHOP_LIST.foodcourt.key)}
+    >
       <Path
-        fill="transparent"
-        stroke="#000"
-        strokeWidth={0.26432500000000003}
+        fill={
+          getHightLightColorForShop(SHOP_LIST.foodcourt.key, highlightedShops)
+            .fill
+        }
+        stroke={
+          getHightLightColorForShop(SHOP_LIST.foodcourt.key, highlightedShops)
+            .stroke
+        }
+        strokeWidth={
+          getHightLightColorForShop(SHOP_LIST.foodcourt.key, highlightedShops)
+            .strokeWidth
+        }
         d="M18.86 145.847V136.8h14.17v9.047z"
       />
       <Text
