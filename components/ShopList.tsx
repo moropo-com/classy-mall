@@ -358,6 +358,7 @@ export const ShopList = ({ navigation }) => {
               borderWidth: 1
             }}
           >
+              {/* 2do: refactor TextInput to a controlled component */}
             <TextInput
               underlineColorAndroid="rgba(0,0,0,0)"
               ref={component => (textInput = component)}

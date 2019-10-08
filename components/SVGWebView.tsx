@@ -16,18 +16,19 @@ import { colors } from "./theme";
 import theme from "./theme";
 import { searchShopsTitles } from "../helpers/filtering";
 import { LEVELS } from "../constants/constants";
+import { ShopSearchResult, NavToShopIdFunc } from "../types/types";
 
 var BGWASH = "rgba(255,255,255,0.8)";
 
 const { width, height } = Dimensions.get("window");
 
-const blankShopsHighlight = {
+const blankShopsHighlight: ShopSearchResult = {
   [LEVELS.LL]: [],
   [LEVELS.UL]: []
 };
 
 export const SVGWebView = ({ navigation }) => {
-  let textInput = React.useRef();
+  const [textInput, setTextInput] = React.useState("");
   const [left] = React.useState(new Animated.Value(0));
   const [position, setPosition] = React.useState("right");
   const [shouldPulse, setShouldPulse] = React.useState(false);
@@ -41,6 +42,7 @@ export const SVGWebView = ({ navigation }) => {
   };
 
   const search = text => {
+    setTextInput(text);
     const searchTerm = text.replace(/ /g, "").toLowerCase();
     const foundShops = searchTerm
       ? searchShopsTitles(searchTerm)
@@ -52,7 +54,7 @@ export const SVGWebView = ({ navigation }) => {
     );
   };
 
-  const handleSearchResults = (result, floor) => {
+  const handleSearchResults = (result: ShopSearchResult, floor: string) => {
     if (floor == LEVELS.LL) {
       setShouldPulse(result[LEVELS.UL].length > 0);
     } else if (floor === LEVELS.UL) {
@@ -97,12 +99,12 @@ export const SVGWebView = ({ navigation }) => {
     }
   }, [shouldPulse]);
 
-  const navigateToShopId = shopkey => {
+  const navigateToShopId: NavToShopIdFunc = shopkey => {
     navigation.navigate("ShopDetails", { shopkey });
   };
 
   const clearText = () => {
-    textInput.setNativeProps({ text: "" });
+    setTextInput("");
     setHighlightedShops(blankShopsHighlight);
     handleSearchResults(
       blankShopsHighlight,
@@ -137,7 +139,7 @@ export const SVGWebView = ({ navigation }) => {
       >
         <TextInput
           underlineColorAndroid="rgba(0,0,0,0)"
-          ref={component => (textInput = component)}
+          value={textInput}
           style={{ fontSize: 20 }}
           onChangeText={search}
           placeholder="Search"
@@ -168,7 +170,7 @@ export const SVGWebView = ({ navigation }) => {
                 outputRange: [0, 1]
               }),
               transform: [
-                {perspective: 1000},
+                { perspective: 1000 },
                 {
                   scale: left.interpolate({
                     inputRange: [-width, 0],
@@ -236,6 +238,8 @@ export const SVGWebView = ({ navigation }) => {
           </Animated.View>
         </View>
       </View>
+
+      {/* 2do: Fix react-native-paper to be compatible with typescript */}
       <Button
         style={[theme.groupButton, styles.footer]}
         onPress={() => {
@@ -289,3 +293,5 @@ var styles = StyleSheet.create({
     fontSize: 14
   }
 });
+
+// 2do: Fix ShopList button safe area view in iPhone

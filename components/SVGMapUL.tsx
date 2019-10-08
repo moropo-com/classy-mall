@@ -2,8 +2,14 @@ import React from "react";
 import Svg, { G, Path, Text, TSpan } from "react-native-svg";
 import { getHightLightColorForShop } from "../helpers/hightlighting";
 import { SHOP_LIST } from "../constants/constants";
+import { SvgComponentProps as Props } from '../types/types';
 
-const SvgComponent = ({ navigateToShopId, highlightedShops }) => (
+// 2do: Fix issue with TS complaining on typing of Text component from
+// react-native-svg
+
+// 2do Export each shop in an individual parametrized component
+
+const SvgComponent = ({ navigateToShopId, highlightedShops }: Props) => (
   <Svg width={400} height={558} viewBox="10 -25 250 1000">
     <G fill="none" stroke="#000" strokeWidth={0.493}>
       <Path
