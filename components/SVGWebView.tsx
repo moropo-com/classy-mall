@@ -5,10 +5,12 @@ import {
   View,
   Dimensions,
   Animated,
-  Easing
+  Easing,
+  ScrollView
 } from "react-native";
-
 import { Button } from "react-native-paper";
+import { SafeAreaView } from "react-navigation";
+
 import SVGMapLL from "./SVGMapLL";
 import SVGMapUL from "./SVGMapUL";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -124,7 +126,7 @@ export const SVGWebView = ({ navigation }) => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }} forceInset={{ bottom: 'always'}}>
       <View
         style={{
           marginTop: 5,
@@ -156,7 +158,7 @@ export const SVGWebView = ({ navigation }) => {
           name="clear"
         />
       </View>
-      <View>
+      <ScrollView style={{ flex: 1, overflow: 'scroll'}}>
         <View
           style={{ flexDirection: "row", width: width, height: height - 170 }}
         >
@@ -237,20 +239,21 @@ export const SVGWebView = ({ navigation }) => {
             />
           </Animated.View>
         </View>
-      </View>
+      </ScrollView>
 
-      {/* 2do: Fix react-native-paper to be compatible with typescript */}
-      <Button
-        style={[theme.groupButton, styles.footer]}
-        onPress={() => {
-          navigateToShopList();
-        }}
-        color={colors.secondary}
-        mode="contained"
-      >
-        Shop List
-      </Button>
-    </View>
+      <View>
+        <Button
+          style={[theme.groupButton, styles.footer]}
+          onPress={() => {
+            navigateToShopList();
+          }}
+          color={colors.secondary}
+          mode="contained"
+        >
+          Shop List
+        </Button>
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -274,11 +277,8 @@ var styles = StyleSheet.create({
     }
   },
   footer: {
-    flex: 1,
     width: "100%",
-    borderRadius: 0,
-    position: "absolute",
-    bottom: 0
+    borderRadius: 0
   },
   addressBarTextInput: {
     backgroundColor: BGWASH,
@@ -294,4 +294,4 @@ var styles = StyleSheet.create({
   }
 });
 
-// 2do: Fix ShopList button safe area view in iPhone
+// 2do: Fix ShopList button safe area view in iPhoneX in a pretty way
