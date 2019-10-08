@@ -3,7 +3,7 @@ import React from "react";
 import { View, Text, StyleSheet, Animated, Image } from "react-native";
 
 import theme, { sizes } from "./theme";
-import { SHOP_LIST } from "./ShopList";
+import { SHOP_LIST } from "../constants/constants";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import Carousel from "react-native-looped-carousel";

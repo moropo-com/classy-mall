@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import {
   StyleSheet,
   TextInput,
   View,
   Dimensions,
   Animated,
-  Easing,
   ScrollView
 } from "react-native";
 import { Button } from "react-native-paper";
@@ -19,6 +18,7 @@ import theme from "./theme";
 import { searchShopsTitles } from "../helpers/filtering";
 import { LEVELS } from "../constants/constants";
 import { ShopSearchResult, NavToShopIdFunc } from "../types/types";
+import PulseButton from './PulseButton';
 
 var BGWASH = "rgba(255,255,255,0.8)";
 
@@ -34,7 +34,6 @@ export const SVGWebView = ({ navigation }) => {
   const [left] = React.useState(new Animated.Value(0));
   const [position, setPosition] = React.useState("right");
   const [shouldPulse, setShouldPulse] = React.useState(false);
-  const [pulse] = React.useState(new Animated.Value(1));
   const [highlightedShops, setHighlightedShops] = React.useState(
     blankShopsHighlight
   );
@@ -64,43 +63,6 @@ export const SVGWebView = ({ navigation }) => {
     }
   };
 
-  const PulseAnimation = Animated.loop(
-    Animated.sequence([
-      Animated.timing(pulse, {
-        toValue: 1.2,
-        duration: 200,
-        easing: Easing.linear,
-        useNativeDriver: true
-      }),
-      Animated.timing(pulse, {
-        toValue: 1,
-        duration: 200,
-        easing: Easing.linear,
-        useNativeDriver: true
-      }),
-      Animated.timing(pulse, {
-        toValue: 0.8,
-        duration: 200,
-        easing: Easing.linear,
-        useNativeDriver: true
-      }),
-      Animated.timing(pulse, {
-        toValue: 1,
-        duration: 200,
-        easing: Easing.linear,
-        useNativeDriver: true
-      })
-    ])
-  );
-
-  useEffect(() => {
-    if (shouldPulse) {
-      PulseAnimation.start();
-    } else {
-      PulseAnimation.stop();
-    }
-  }, [shouldPulse]);
-
   const navigateToShopId: NavToShopIdFunc = shopkey => {
     navigation.navigate("ShopDetails", { shopkey });
   };
@@ -125,8 +87,10 @@ export const SVGWebView = ({ navigation }) => {
     setPosition(position === "left" ? "right" : "left");
   };
 
+  useEffect(() => search(textInput), [position]); // make sure that button stops pulsating if needed, when changing level
+
   return (
-    <SafeAreaView style={{ flex: 1 }} forceInset={{ bottom: 'always'}}>
+    <SafeAreaView style={{ flex: 1 }}>
       <View
         style={{
           marginTop: 5,
@@ -158,7 +122,7 @@ export const SVGWebView = ({ navigation }) => {
           name="clear"
         />
       </View>
-      <ScrollView style={{ flex: 1, overflow: 'scroll'}}>
+      <ScrollView style={{ flex: 1}}>
         <View
           style={{ flexDirection: "row", width: width, height: height - 170 }}
         >
@@ -219,25 +183,7 @@ export const SVGWebView = ({ navigation }) => {
               highlightedShops={highlightedShops[LEVELS.UL]}
             />
           </Animated.View>
-          <Animated.View
-            style={[
-              styles.upButton,
-              { opacity: 0.99, zIndex: 10 },
-              { transform: [{ scale: pulse }] }
-            ]}
-          >
-            <MaterialIcons
-              name="chevron-right"
-              style={{
-                transform: [
-                  { rotate: position === "left" ? "90deg" : "270deg" }
-                ]
-              }}
-              size={40}
-              color="white"
-              onPress={scroll}
-            />
-          </Animated.View>
+          <PulseButton shouldPulse={shouldPulse} position={position} onPress={scroll}/>
         </View>
       </ScrollView>
 
@@ -294,4 +240,5 @@ var styles = StyleSheet.create({
   }
 });
 
-// 2do: Fix ShopList button safe area view in iPhoneX in a pretty way
+// 2do: Make ShopList button look pretty in iPhoneX
+
