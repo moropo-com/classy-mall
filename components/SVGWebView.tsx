@@ -65,22 +65,26 @@ export const SVGWebView = ({ navigation }) => {
       Animated.timing(pulse, {
         toValue: 1.2,
         duration: 200,
-        easing: Easing.linear
+        easing: Easing.linear,
+        useNativeDriver: true
       }),
       Animated.timing(pulse, {
         toValue: 1,
         duration: 200,
-        easing: Easing.linear
+        easing: Easing.linear,
+        useNativeDriver: true
       }),
       Animated.timing(pulse, {
         toValue: 0.8,
         duration: 200,
-        easing: Easing.linear
+        easing: Easing.linear,
+        useNativeDriver: true
       }),
       Animated.timing(pulse, {
         toValue: 1,
         duration: 200,
-        easing: Easing.linear
+        easing: Easing.linear,
+        useNativeDriver: true
       })
     ])
   );
@@ -164,6 +168,7 @@ export const SVGWebView = ({ navigation }) => {
                 outputRange: [0, 1]
               }),
               transform: [
+                {perspective: 1000},
                 {
                   scale: left.interpolate({
                     inputRange: [-width, 0],
