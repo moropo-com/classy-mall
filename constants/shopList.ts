@@ -1,4 +1,4 @@
-import { ShopList } from "../types/types";
+import { IShopList } from "../types";
 
 export const LEVELS: { UL: string; LL: string } = {
   LL: "LL",
@@ -7,7 +7,7 @@ export const LEVELS: { UL: string; LL: string } = {
 
 export const LEVEL_VALUES = Object.values(LEVELS);
 
-export const SHOP_LIST: ShopList = {
+export const SHOP_LIST: IShopList = {
   orangecafe: {
     key: "orangecafe",
     image: require("../img/promos/orange/main.jpg"),

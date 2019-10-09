@@ -10,7 +10,7 @@ import {
   TouchableHighlight,
   TextInput
 } from "react-native";
-import { SHOP_LIST } from '../constants/constants';
+import { SHOP_LIST } from '../constants/shopList';
 
 const { width, height } = Dimensions.get("window");
 import theme from "./theme";
@@ -169,7 +169,7 @@ export const ShopList = ({ navigation }) => {
               borderWidth: 1
             }}
           >
-              {/* 2do: refactor TextInput to a controlled component */}
+              {/* TODO refactor TextInput to a controlled component */}
             <TextInput
               underlineColorAndroid="rgba(0,0,0,0)"
               ref={component => (textInput = component)}

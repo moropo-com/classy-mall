@@ -1,4 +1,4 @@
-import { colors } from '../components/theme';
+import { colors } from '../constants/colors';
 
 const notHighlightedColors = {
   fill: "transparent",
@@ -12,7 +12,7 @@ const highLightedColors = {
   strokeWidth: 0.26432500000000003 * 5
 };
 
-export const getHightLightColorForShop = (shopKey, highlightedShops = []) =>
+export const getHightLightColorForShop = (shopKey: string, highlightedShops: string[] = []) =>
   highlightedShops.includes(shopKey) ? highLightedColors : notHighlightedColors;
 
-// 2do: Allow overriding of storke-width;
+// TODO Allow overriding of storke-width;

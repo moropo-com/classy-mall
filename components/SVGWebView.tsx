@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -13,18 +13,18 @@ import { SafeAreaView } from "react-navigation";
 import SVGMapLL from "./SVGMapLL";
 import SVGMapUL from "./SVGMapUL";
 import { MaterialIcons } from "@expo/vector-icons";
-import { colors } from "./theme";
+import { colors } from "../constants/colors";
 import theme from "./theme";
 import { searchShopsTitles } from "../helpers/filtering";
-import { LEVELS } from "../constants/constants";
-import { ShopSearchResult, NavToShopIdFunc } from "../types/types";
-import PulseButton from './PulseButton';
+import { LEVELS } from "../constants/shopList";
+import { IShopSearchResult, NavToShopIdFunc } from "../types";
+import PulseButton from "./PulseButton";
 
-var BGWASH = "rgba(255,255,255,0.8)";
+// var BGWASH = "rgba(255,255,255,0.8)";
 
 const { width, height } = Dimensions.get("window");
 
-const blankShopsHighlight: ShopSearchResult = {
+const blankShopsHighlight: IShopSearchResult = {
   [LEVELS.LL]: [],
   [LEVELS.UL]: []
 };
@@ -55,7 +55,7 @@ export const SVGWebView = ({ navigation }) => {
     );
   };
 
-  const handleSearchResults = (result: ShopSearchResult, floor: string) => {
+  const handleSearchResults = (result: IShopSearchResult, floor: string) => {
     if (floor == LEVELS.LL) {
       setShouldPulse(result[LEVELS.UL].length > 0);
     } else if (floor === LEVELS.UL) {
@@ -122,7 +122,7 @@ export const SVGWebView = ({ navigation }) => {
           name="clear"
         />
       </View>
-      <ScrollView style={{ flex: 1}}>
+      <ScrollView style={{ flex: 1 }}>
         <View
           style={{ flexDirection: "row", width: width, height: height - 170 }}
         >
@@ -183,18 +183,19 @@ export const SVGWebView = ({ navigation }) => {
               highlightedShops={highlightedShops[LEVELS.UL]}
             />
           </Animated.View>
-          <PulseButton shouldPulse={shouldPulse} position={position} onPress={scroll}/>
+          <PulseButton
+            shouldPulse={shouldPulse}
+            position={position}
+            onPress={scroll}
+          />
         </View>
       </ScrollView>
 
       <View>
         <Button
           style={[theme.groupButton, styles.footer]}
-          onPress={() => {
-            navigateToShopList();
-          }}
+          onPress={navigateToShopList}
           color={colors.secondary}
-          mode="contained"
         >
           Shop List
         </Button>
@@ -225,20 +226,5 @@ var styles = StyleSheet.create({
   footer: {
     width: "100%",
     borderRadius: 0
-  },
-  addressBarTextInput: {
-    backgroundColor: BGWASH,
-    borderColor: "transparent",
-    borderRadius: 3,
-    borderWidth: 1,
-    height: 24,
-    paddingLeft: 10,
-    paddingTop: 3,
-    paddingBottom: 3,
-    flex: 1,
-    fontSize: 14
   }
 });
-
-// 2do: Make ShopList button look pretty in iPhoneX
-

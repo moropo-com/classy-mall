@@ -1,57 +1,56 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Animated, StyleSheet, Easing } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import { colors } from "./theme";
+import { colors } from "../constants/colors";
 
-type Props = {
-    shouldPulse: boolean;
-    position: string;
-    onPress: () => void;
-};
+interface IPulseButtonProps {
+  shouldPulse: boolean;
+  position: string;
+  onPress: () => void;
+}
 
-const PulseButton = ({shouldPulse, position, onPress}: Props) => {
-    const [pulse, setPulse] = useState(new Animated.Value(1));
+const PulseButton = ({ shouldPulse, position, onPress }: IPulseButtonProps) => {
+  const [pulse, setPulse] = useState(new Animated.Value(1));
 
-    const PulseAnimation = Animated.loop(
-        Animated.sequence([
-          Animated.timing(pulse, {
-            toValue: 1.2,
-            duration: 200,
-            easing: Easing.linear,
-            useNativeDriver: true
-          }),
-          Animated.timing(pulse, {
-            toValue: 1,
-            duration: 200,
-            easing: Easing.linear,
-            useNativeDriver: true
-          }),
-          Animated.timing(pulse, {
-            toValue: 0.8,
-            duration: 200,
-            easing: Easing.linear,
-            useNativeDriver: true
-          }),
-          Animated.timing(pulse, {
-            toValue: 1,
-            duration: 200,
-            easing: Easing.linear,
-            useNativeDriver: true
-          })
-        ])
-      );
-    
+  const PulseAnimation = Animated.loop(
+    Animated.sequence([
+      Animated.timing(pulse, {
+        toValue: 1.2,
+        duration: 200,
+        easing: Easing.linear,
+        useNativeDriver: true
+      }),
+      Animated.timing(pulse, {
+        toValue: 1,
+        duration: 200,
+        easing: Easing.linear,
+        useNativeDriver: true
+      }),
+      Animated.timing(pulse, {
+        toValue: 0.8,
+        duration: 200,
+        easing: Easing.linear,
+        useNativeDriver: true
+      }),
+      Animated.timing(pulse, {
+        toValue: 1,
+        duration: 200,
+        easing: Easing.linear,
+        useNativeDriver: true
+      })
+    ])
+  );
 
-    useEffect(() => {
-        if (shouldPulse) {
-          PulseAnimation.start();
-        } else {
-          PulseAnimation.stop();
-          setPulse(new Animated.Value(1));
-        }
-      }, [shouldPulse]);
-    
+  useEffect(() => {
+    if (shouldPulse) {
+      PulseAnimation.start();
+    } else {
+      PulseAnimation.stop();
+      setPulse(new Animated.Value(1));
+    }
+  }, [shouldPulse]);
+
   return (
     <Animated.View
       style={[
@@ -74,24 +73,24 @@ const PulseButton = ({shouldPulse, position, onPress}: Props) => {
 };
 
 const styles = StyleSheet.create({
-    upButton: {
-        backgroundColor: colors.primary,
-        height: 50,
-        width: 50,
-        borderRadius: 50,
-        alignItems: "center",
-        justifyContent: "center",
-        position: "absolute",
-        top: 300,
-        right: 5,
-        shadowColor: "#000000",
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        shadowOffset: {
-          height: 1,
-          width: 0
-        }
-    
-}});
+  upButton: {
+    backgroundColor: colors.primary,
+    height: 50,
+    width: 50,
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    top: 300,
+    right: 5,
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    }
+  }
+});
 
 export default PulseButton;

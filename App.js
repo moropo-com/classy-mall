@@ -41,6 +41,6 @@ const AppNavigator = createStackNavigator(
 );
 export default createAppContainer(AppNavigator);
 
-// 2do: Add Eslint (TS) and prettier
+// TODO Add Eslint (TS) and prettier
 
-// 2do: map not scrollable or does not fit screen (Lenovo C3)
+// TODO map not scrollable or does not fit screen (Lenovo C3)
