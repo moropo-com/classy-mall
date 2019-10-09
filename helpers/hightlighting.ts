@@ -1,18 +1,19 @@
-import { colors } from '../constants/colors';
+import { colors } from "../constants/colors";
 
 const notHighlightedColors = {
   fill: "transparent",
   stroke: "#000",
-  strokeWidth: 0.26432500000000003
+  strokeWidthScale: 1
 };
 
 const highLightedColors = {
   fill: colors.green,
   stroke: colors.darkGreen,
-  strokeWidth: 0.26432500000000003 * 5
+  strokeWidthScale: 5
 };
 
-export const getHightLightColorForShop = (shopKey: string, highlightedShops: string[] = []) =>
+export const getHighlightSvgPropsForShop = (
+  shopKey: string,
+  highlightedShops: string[] = []
+) =>
   highlightedShops.includes(shopKey) ? highLightedColors : notHighlightedColors;
-
-// TODO Allow overriding of storke-width;

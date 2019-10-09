@@ -194,6 +194,7 @@ export const SVGWebView = ({ navigation }) => {
           style={[theme.groupButton, styles.footer]}
           onPress={navigateToShopList}
           color={colors.secondary}
+          mode="contained"
         >
           Shop List
         </Button>
