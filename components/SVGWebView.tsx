@@ -192,12 +192,7 @@ export const SVGWebView = ({ navigation }) => {
       </ScrollView>
 
       <View style={{ backgroundColor: colors.secondary }}>
-        <Button
-          style={[theme.groupButton, styles.footer]}
-          onPress={navigateToShopList}
-          color="white"
-          mode="text"
-        >
+        <Button onPress={navigateToShopList} color="white">
           Shop List
         </Button>
       </View>
@@ -206,28 +201,3 @@ export const SVGWebView = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-
-var styles = StyleSheet.create({
-  upButton: {
-    backgroundColor: colors.primary,
-    height: 50,
-    width: 50,
-    borderRadius: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    position: "absolute",
-    top: 300,
-    right: 5,
-    shadowColor: "#000000",
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    shadowOffset: {
-      height: 1,
-      width: 0
-    }
-  },
-  footer: {
-    width: "100%",
-    borderRadius: 0
-  }
-});
