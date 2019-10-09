@@ -20,8 +20,6 @@ import { LEVELS } from "../constants/shopList";
 import { IShopSearchResult, NavToShopIdFunc } from "../types";
 import PulseButton from "./PulseButton";
 
-// var BGWASH = "rgba(255,255,255,0.8)";
-
 const { width, height } = Dimensions.get("window");
 
 const blankShopsHighlight: IShopSearchResult = {
