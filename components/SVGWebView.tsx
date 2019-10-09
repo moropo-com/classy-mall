@@ -19,6 +19,8 @@ import { searchShopsTitles } from "../helpers/filtering";
 import { LEVELS } from "../constants/shopList";
 import { IShopSearchResult, NavToShopIdFunc } from "../types";
 import PulseButton from "./PulseButton";
+import { isIos } from "../helpers/common";
+import SafeAreaViewBottomPadding from "./SafeAreaViewBottomPadding";
 
 const { width, height } = Dimensions.get("window");
 
@@ -189,16 +191,18 @@ export const SVGWebView = ({ navigation }) => {
         </View>
       </ScrollView>
 
-      <View>
+      <View style={{ backgroundColor: colors.secondary }}>
         <Button
           style={[theme.groupButton, styles.footer]}
           onPress={navigateToShopList}
-          color={colors.secondary}
-          mode="contained"
+          color="white"
+          mode="text"
         >
           Shop List
         </Button>
       </View>
+
+      {isIos && <SafeAreaViewBottomPadding fillColor={colors.secondary} />}
     </SafeAreaView>
   );
 };
