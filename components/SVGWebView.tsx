@@ -1,90 +1,79 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   TextInput,
   View,
   Dimensions,
   Animated,
-  Easing
+  ScrollView
 } from "react-native";
-
 import { Button } from "react-native-paper";
+import { SafeAreaView } from "react-navigation";
+
 import SVGMapLL from "./SVGMapLL";
 import SVGMapUL from "./SVGMapUL";
 import { MaterialIcons } from "@expo/vector-icons";
-import { colors } from "./theme";
+import { colors } from "../constants/colors";
 import theme from "./theme";
-var BGWASH = "rgba(255,255,255,0.8)";
+import { searchShopsTitles } from "../helpers/filtering";
+import { LEVELS } from "../constants/shopList";
+import { IShopSearchResult, NavToShopIdFunc } from "../types";
+import PulseButton from "./PulseButton";
+import { isIos } from "../helpers/common";
+import SafeAreaViewBottomPadding from "./SafeAreaViewBottomPadding";
 
 const { width, height } = Dimensions.get("window");
 
+const blankShopsHighlight: IShopSearchResult = {
+  [LEVELS.LL]: [],
+  [LEVELS.UL]: []
+};
+
 export const SVGWebView = ({ navigation }) => {
-  let textInput = React.useRef();
-  const [left, setLeft] = React.useState(new Animated.Value(0));
+  const [textInput, setTextInput] = React.useState("");
+  const [left] = React.useState(new Animated.Value(0));
   const [position, setPosition] = React.useState("right");
-  const [shouldPulseLeft, setShouldPulseLeft] = React.useState(false);
   const [shouldPulse, setShouldPulse] = React.useState(false);
-  const [pulse] = React.useState(new Animated.Value(1));
+  const [highlightedShops, setHighlightedShops] = React.useState(
+    blankShopsHighlight
+  );
 
   const navigateToShopList = () => {
     navigation.navigate("ShopList");
   };
 
   const search = text => {
-    text.replace(/ /g, "").toLowerCase();
+    setTextInput(text);
+    const searchTerm = text.replace(/ /g, "").toLowerCase();
+    const foundShops = searchTerm
+      ? searchShopsTitles(searchTerm)
+      : blankShopsHighlight;
+    setHighlightedShops(foundShops);
+    handleSearchResults(
+      foundShops,
+      position === "right" ? LEVELS.LL : LEVELS.UL
+    );
   };
 
-  const handleSearchResults = (result, floor) => {
-    if (floor == "UL" && result[0] != "" && !shouldPulse) {
-      setShouldPulse(true);
-      pulseAnimation();
-    } else if (floor == "UL" && result[0] == "" && shouldPulse) {
-      setShouldPulse(false);
+  const handleSearchResults = (result: IShopSearchResult, floor: string) => {
+    if (floor == LEVELS.LL) {
+      setShouldPulse(result[LEVELS.UL].length > 0);
+    } else if (floor === LEVELS.UL) {
+      setShouldPulse(result[LEVELS.LL].length > 0);
     }
-
-    if (floor == "LL" && result[0] != "" && !shouldPulseLeft) {
-      setShouldPulseLeft(true);
-      pulseAnimation();
-    } else if (floor == "LL" && result[0] == "" && shouldPulseLeft) {
-      setShouldPulseLeft(false);
-    }
   };
 
-  const pulseAnimation = () => {
-    Animated.sequence([
-      Animated.timing(pulse, {
-        toValue: 1.2,
-        duration: 200,
-        easing: Easing.linear
-      }),
-      Animated.timing(pulse, {
-        toValue: 1,
-        duration: 200,
-        easing: Easing.linear
-      }),
-      Animated.timing(pulse, {
-        toValue: 0.8,
-        duration: 200,
-        easing: Easing.linear
-      }),
-      Animated.timing(pulse, {
-        toValue: 1,
-        duration: 200,
-        easing: Easing.linear
-      })
-    ]).start(event => {
-      if (event.finished && shouldPulse) {
-        pulseAnimation();
-      }
-    });
-  };
-
-  const navigateToShopId = shopkey => {
+  const navigateToShopId: NavToShopIdFunc = shopkey => {
     navigation.navigate("ShopDetails", { shopkey });
   };
 
   const clearText = () => {
-    textInput.setNativeProps({ text: "" });
+    setTextInput("");
+    setHighlightedShops(blankShopsHighlight);
+    handleSearchResults(
+      blankShopsHighlight,
+      position === "right" ? LEVELS.LL : LEVELS.UL
+    );
   };
 
   const scroll = () => {
@@ -98,8 +87,10 @@ export const SVGWebView = ({ navigation }) => {
     setPosition(position === "left" ? "right" : "left");
   };
 
+  useEffect(() => search(textInput), [position]); // make sure that button stops pulsating if needed, when changing level
+
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <View
         style={{
           marginTop: 5,
@@ -114,7 +105,7 @@ export const SVGWebView = ({ navigation }) => {
       >
         <TextInput
           underlineColorAndroid="rgba(0,0,0,0)"
-          ref={component => (textInput = component)}
+          value={textInput}
           style={{ fontSize: 20 }}
           onChangeText={search}
           placeholder="Search"
@@ -131,7 +122,7 @@ export const SVGWebView = ({ navigation }) => {
           name="clear"
         />
       </View>
-      <View>
+      <ScrollView style={{ flex: 1 }}>
         <View
           style={{ flexDirection: "row", width: width, height: height - 170 }}
         >
@@ -145,6 +136,7 @@ export const SVGWebView = ({ navigation }) => {
                 outputRange: [0, 1]
               }),
               transform: [
+                { perspective: 1000 },
                 {
                   scale: left.interpolate({
                     inputRange: [-width, 0],
@@ -158,7 +150,10 @@ export const SVGWebView = ({ navigation }) => {
               })
             }}
           >
-            <SVGMapLL navigateToShopId={navigateToShopId} />
+            <SVGMapLL
+              navigateToShopId={navigateToShopId}
+              highlightedShops={highlightedShops[LEVELS.LL]}
+            />
           </Animated.View>
           <Animated.View
             style={{
@@ -183,79 +178,26 @@ export const SVGWebView = ({ navigation }) => {
               })
             }}
           >
-            <SVGMapUL navigateToShopId={navigateToShopId} />
-          </Animated.View>
-          <Animated.View
-            style={[
-              styles.upButton,
-              { opacity: 0.99, zIndex: 10 },
-              { transform: [{ scale: pulse }] }
-            ]}
-          >
-            <MaterialIcons
-              name="chevron-right"
-              style={{
-                transform: [
-                  { rotate: position === "left" ? "90deg" : "270deg" }
-                ]
-              }}
-              size={40}
-              color="white"
-              onPress={scroll}
+            <SVGMapUL
+              navigateToShopId={navigateToShopId}
+              highlightedShops={highlightedShops[LEVELS.UL]}
             />
           </Animated.View>
+          <PulseButton
+            shouldPulse={shouldPulse}
+            position={position}
+            onPress={scroll}
+          />
         </View>
+      </ScrollView>
+
+      <View style={{ backgroundColor: colors.secondary }}>
+        <Button onPress={navigateToShopList} color="white">
+          Shop List
+        </Button>
       </View>
-      <Button
-        style={[theme.groupButton, styles.footer]}
-        onPress={() => {
-          navigateToShopList();
-        }}
-        color={colors.secondary}
-        mode="contained"
-      >
-        Shop List
-      </Button>
-    </View>
+
+      {isIos && <SafeAreaViewBottomPadding fillColor={colors.secondary} />}
+    </SafeAreaView>
   );
 };
-
-var styles = StyleSheet.create({
-  upButton: {
-    backgroundColor: colors.primary,
-    height: 50,
-    width: 50,
-    borderRadius: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    position: "absolute",
-    top: 300,
-    right: 5,
-    shadowColor: "#000000",
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    shadowOffset: {
-      height: 1,
-      width: 0
-    }
-  },
-  footer: {
-    flex: 1,
-    width: "100%",
-    borderRadius: 0,
-    position: "absolute",
-    bottom: 0
-  },
-  addressBarTextInput: {
-    backgroundColor: BGWASH,
-    borderColor: "transparent",
-    borderRadius: 3,
-    borderWidth: 1,
-    height: 24,
-    paddingLeft: 10,
-    paddingTop: 3,
-    paddingBottom: 3,
-    flex: 1,
-    fontSize: 14
-  }
-});
