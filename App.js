@@ -3,6 +3,7 @@ import { SVGWebView } from "./components/SVGWebView";
 import { ShopList } from "./components/ShopList";
 import { ShopDetails } from "./components/ShopDetails";
 
+
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import { Image, View } from "react-native";
 import { Title } from "react-native-paper";
@@ -21,22 +22,23 @@ const AppNavigator = createStackNavigator(
     }
   },
   {
-    defaultNavigationOptions: {
-      headerTitle: (
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center"
-          }}
-        >
-          <Title>classy</Title>
-          <ClassyMall />
-          <Title>mall</Title>
-        </View>
-      )
-    }
+    headerMode:'none',
+  //   defaultNavigationOptions: {
+  //     headerTitle: (
+  //       <View
+  //         style={{
+  //           flex: 1,
+  //           flexDirection: "row",
+  //           alignItems: "center",
+  //           justifyContent: "center"
+  //         }}
+  //       >
+  //         <Title>classy</Title>
+  //         <ClassyMall />
+  //         <Title>mall</Title>
+  //       </View>
+  //     )
+  //   }
   }
 );
 export default createAppContainer(AppNavigator);

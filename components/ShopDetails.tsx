@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import { View, Text, StyleSheet, Animated, Image } from "react-native";
 
@@ -7,6 +7,9 @@ import { SHOP_LIST } from "../constants/shopList";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import Carousel from "react-native-looped-carousel";
+
+import Header from './Header'
+
 
 const NAV_HEIGHT = 80;
 const HERO_HEIGHT = 440;
@@ -20,64 +23,76 @@ export const ShopDetails = ({ navigation }) => {
   for (var i = 1; i < 6; i++) {
     i <= shop.rating
       ? stars.push(
-          <MaterialIcons key={i} name="star" size={30} color="#FFD700" />
-        )
+        <MaterialIcons key={i} name="star" size={30} color="#FFD700" />
+      )
       : stars.push(
-          <MaterialIcons key={i} name="star-border" size={30} color="black" />
-        );
+        <MaterialIcons key={i} name="star-border" size={30} color="black" />
+      );
   }
 
   const renderNavigation = () => {
     const heightOffset = 90;
     return (
-      <Animated.View style={[styles.navbar, { zIndex: 5 }]}>
+      <Animated.View style={[styles.navbar,
+      { zIndex: 5, backgroundColor: '#fff' },
+      {
+        opacity: scrollY.interpolate({
+          inputRange: [
+            0,   
+            HERO_HEIGHT - NAV_HEIGHT - 11,
+            HERO_HEIGHT - NAV_HEIGHT - 10,
+            HERO_HEIGHT
+          ],
+          outputRange: [0, 0, 1, 1],
+          extrapolate: "clamp"
+        }),
+      }]}>
         <View style={[styles.container, styles.navigationDetails]}>
           <Animated.View
             style={[
               styles.container,
               {
-                opacity: scrollY.interpolate({
-                  inputRange: [
-                    -5,
-                    -5,
-                    HERO_HEIGHT - NAV_HEIGHT,
-                    HERO_HEIGHT + heightOffset
-                  ],
-                  outputRange: [0, 0, 0, 1]
-                }),
+                // opacity: scrollY.interpolate({
+                //   inputRange: [
+                //     0,
+                //     HERO_HEIGHT - NAV_HEIGHT,
+                //     HERO_HEIGHT + heightOffset
+                //   ],
+                //   outputRange: [0, 0, 1],
+                //   extrapolate: "clamp"
+                // }),
                 transform: [
                   {
-                    translateY: scrollY.interpolate({
-                      inputRange: [
-                        0,
-                        HERO_HEIGHT / 2,
-                        HERO_HEIGHT,
-                        HERO_HEIGHT + 1
-                      ],
-                      outputRange: [
-                        NAV_HEIGHT + heightOffset,
-                        NAV_HEIGHT + heightOffset,
-                        0,
-                        0
-                      ]
-                    })
+                    translateY: scrollY
+                      .interpolate({
+                        inputRange: [
+                          0,
+                          HERO_HEIGHT - 90,
+                        ],
+                        outputRange: [
+                          HERO_HEIGHT - 90,
+                          0
+                        ],
+                        extrapolate: "clamp"
+                      })
                   }
                 ]
-              }
+              },
             ]}
           >
-            <Text style={theme.title} numberOfLines={1}>
+            <Text style={[theme.title]} numberOfLines={1}>
               {shop.title}
             </Text>
           </Animated.View>
         </View>
       </Animated.View>
+
     );
   };
 
   const renderHero = () => {
     return (
-      <View style={styles.hero}>
+      <View style={[styles.hero]}>
         <View style={styles.heroImageContainer}>
           <Animated.Image
             source={
@@ -108,49 +123,52 @@ export const ShopDetails = ({ navigation }) => {
   // }
 
   return (
-    <View style={styles.container}>
-      <View
-        style={{ flex: 1, width: sizes.screenWidth, marginTop: NAV_HEIGHT }}
-      >
-        <Animated.ScrollView
-          contentContainerStyle={[styles.contentContainer]}
-          scrollEventThrottle={16}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-            { useNativeDriver: true }
-          )}
+    <Fragment>
+      <Header navigation={navigation} />
+      <View style={styles.container}>
+        <View
+          style={{ flex: 1, width: sizes.screenWidth }}
         >
-          {renderHero()}
-          {shop.promos ? <PromoCarousel promos={shop.promos} /> : null}
-          <View style={{ alignItems: "center" }}>
-            <Text style={[theme.title, { margin: sizes.defaultSpacing }]}>
-              Rating
+          <Animated.ScrollView
+            contentContainerStyle={[styles.contentContainer]}
+            scrollEventThrottle={16}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+              { useNativeDriver: true }
+            )}
+          >
+            {renderHero()}
+            {shop.promos ? <PromoCarousel promos={shop.promos} /> : null}
+            <View style={{ alignItems: "center" }}>
+              <Text style={[theme.title, { margin: sizes.defaultSpacing }]}>
+                Rating
             </Text>
-            <View style={{ flexDirection: "row" }}>{stars}</View>
+              <View style={{ flexDirection: "row" }}>{stars}</View>
 
-            <Text style={[theme.title, { margin: sizes.defaultSpacing }]}>
-              Description
+              <Text style={[theme.title, { margin: sizes.defaultSpacing }]}>
+                Description
             </Text>
-            <Text style={{ margin: sizes.defaultSpacing }}>
-              {shop.description}
-            </Text>
-
-            <Text style={[theme.title, { margin: sizes.defaultSpacing }]}>
-              Opening Hours
-            </Text>
-            {Object.keys(shop.openingHours).map((key, index) => (
-              <Text
-                key={index}
-                style={{ margin: sizes.defaultSpacing, marginTop: 0 }}
-              >
-                {key} : {shop.openingHours[key]}
+              <Text style={{ margin: sizes.defaultSpacing }}>
+                {shop.description}
               </Text>
-            ))}
-          </View>
-        </Animated.ScrollView>
+
+              <Text style={[theme.title, { margin: sizes.defaultSpacing }]}>
+                Opening Hours
+            </Text>
+              {Object.keys(shop.openingHours).map((key, index) => (
+                <Text
+                  key={index}
+                  style={{ margin: sizes.defaultSpacing, marginTop: 0 }}
+                >
+                  {key} : {shop.openingHours[key]}
+                </Text>
+              ))}
+            </View>
+          </Animated.ScrollView>
+        </View>
+        {renderNavigation()}
       </View>
-      {renderNavigation()}
-    </View>
+    </Fragment>
   );
 };
 
@@ -204,7 +222,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: NAV_HEIGHT,
-    // paddingTop: 60,
     alignItems: "center",
     justifyContent: "center",
     borderBottomColor: "#ddd"
@@ -221,7 +238,7 @@ const styles = StyleSheet.create({
     height: HERO_HEIGHT,
     position: "relative",
     borderBottomWidth: 1,
-    borderBottomColor: "#ddd"
+    borderBottomColor: "#eee"
   },
   colorPicker: {
     padding: sizes.defaultSpacing / 2,
