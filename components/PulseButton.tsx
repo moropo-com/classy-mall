@@ -75,10 +75,11 @@ const PulseButton = ({ shouldPulse, position, onPress }: IPulseButtonProps) => {
   );
 };
 
+
 const styles = StyleSheet.create({
   iconContainer: {
     position: "absolute",
-    backgroundColor: "green",
+    backgroundColor: "white",
     zIndex: -1,
     borderRadius: 50,
     height: 50,
