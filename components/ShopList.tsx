@@ -54,10 +54,10 @@ export const ShopList = ({ navigation }) => {
     ];
 
     return (
-      <View style={[theme.container, ss.shopItem]} key={i}>
+      <View style={[theme.container, styles.shopItem]} key={i}>
         <Animated.View
           style={[
-            ss.innerContainer,
+            styles.innerContainer,
             { paddingTop: 130 },
             {
               transform: [
@@ -96,7 +96,7 @@ export const ShopList = ({ navigation }) => {
 
   const renderRow = (shop, i) => {
     return (
-      <TouchableHighlight key={i} onPress={() => onShopSelect(shop.key)}>
+      <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' key={i} onPress={() => onShopSelect(shop.key)}>
         <View
           style={{
             flexDirection: "row",
@@ -113,7 +113,7 @@ export const ShopList = ({ navigation }) => {
             source={
               typeof shop.image == "string" ? { uri: shop.image } : shop.image
             }
-            style={{ height: 40, width: 40, borderRadius: 20, marginLeft: 20 }}
+            style={styles.itemImage}
           />
           <Text
             style={[
@@ -131,7 +131,7 @@ export const ShopList = ({ navigation }) => {
 
   const renderShopFooter = (shopkey, i) => {
     return (
-      <View key={i} style={[theme.groupButton, ss.footer]}>
+      <View key={i} style={[theme.groupButton, styles.footer]}>
         <Button
           onPress={() => onShopSelect(shopkey)}
           color="black"
@@ -150,7 +150,7 @@ export const ShopList = ({ navigation }) => {
           <Animated.ScrollView
             pagingEnabled
             scrollEventThrottle={16}
-            contentContainerStyle={[ss.contentContainer]}
+            contentContainerStyle={styles.contentContainer}
             horizontal={true}
             showsHorizontalScrollIndicator={true}
             onScroll={Animated.event(
@@ -164,19 +164,7 @@ export const ShopList = ({ navigation }) => {
           </Animated.ScrollView>
         ) : (
           <View>
-            <View
-              style={{
-                marginTop: 8,
-                marginBottom: 8,
-                marginLeft: 16,
-                marginRight: 16,
-                padding: 5,
-                paddingLeft: 15,
-                borderColor: "grey",
-                borderRadius: 50,
-                borderWidth: 1
-              }}
-            >
+            <View style={styles.inputContainer}>
               {/* TODO refactor TextInput to a controlled component */}
               <TextInput
                 underlineColorAndroid="rgba(0,0,0,0)"
@@ -189,17 +177,12 @@ export const ShopList = ({ navigation }) => {
               />
               <IconButton
                 color="grey"
-                style={{
-                  position: "absolute",
-                  right: 0,
-                  top: -5,
-                  marginBottom: 30
-                }}
+                style={styles.clearButton}
                 onPress={clearText}
                 icon="clear"
               />
             </View>
-            <ScrollView style={{ width: width }}>
+            <ScrollView style={styles.scrollView}>
               {Object.keys(SHOP_LIST)
                 .filter(name => {
                   return name.includes(searchQuery);
@@ -213,7 +196,7 @@ export const ShopList = ({ navigation }) => {
   );
 };
 
-const ss = StyleSheet.create({
+const styles = StyleSheet.create({
   addButton: {
     backgroundColor: "#3cbc8d",
     height: 50,
@@ -279,5 +262,29 @@ const ss = StyleSheet.create({
     position: "relative",
     width: INDICATOR_CONTAINER_WIDTH,
     paddingHorizontal: PADDING
+  },
+  inputContainer: {
+    marginTop: 8,
+    marginBottom: 8,
+    marginLeft: 16,
+    marginRight: 16,
+    padding: 5,
+    paddingLeft: 15,
+    borderColor: "grey",
+    borderRadius: 50,
+    borderWidth: 1
+  },
+  clearButton: {
+    position: "absolute",
+    right: 0,
+    top: -5,
+    marginBottom: 30
+  },
+  scrollView: { width },
+  itemImage: {
+    height: 40,
+    width: 40,
+    borderRadius: 20,
+    marginLeft: 20
   }
 });

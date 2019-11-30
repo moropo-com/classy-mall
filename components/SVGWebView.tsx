@@ -5,7 +5,8 @@ import {
   Dimensions,
   Animated,
   ScrollView,
-  StatusBar
+  StatusBar,
+  StyleSheet
 } from "react-native";
 import { Button } from "react-native-paper";
 import { SafeAreaView } from "react-navigation";
@@ -97,45 +98,26 @@ export const SVGWebView = ({ navigation }) => {
   return (
     <Fragment>
       <SafeAreaView style={{ flex: 1 }}>
-        <View
-          style={{
-            marginTop: 5,
-            marginLeft: 10,
-            marginRight: 10,
-            padding: 5,
-            paddingLeft: 15,
-            borderColor: "grey",
-            borderRadius: 50,
-            borderWidth: 1
-          }}
-        >
+        <View style={styles.clearButton}>
           <TextInput
             underlineColorAndroid="rgba(0,0,0,0)"
             value={textInput}
-            style={{ fontSize: 20 }}
+            style={styles.searchInput}
             onChangeText={search}
             placeholder="Search"
           />
           <MaterialIcons
-            style={{
-              position: "absolute",
-              color: "grey",
-              right: 5,
-              top: 4,
-              fontSize: 30
-            }}
+            style={styles.clearIcon}
             onPress={clearText}
             name="clear"
           />
         </View>
         <ScrollView style={{ flex: 1 }}>
-          <View
-            style={{ flexDirection: "row", width: width, height: height - 170 }}
-          >
+          <View style={styles.mapContainer}>
             <Animated.View
               style={{
-                height: height,
-                width: width,
+                height,
+                width,
                 position: "absolute",
                 opacity: left.interpolate({
                   inputRange: [-width, 0],
@@ -163,8 +145,8 @@ export const SVGWebView = ({ navigation }) => {
             </Animated.View>
             <Animated.View
               style={{
-                height: height,
-                width: width,
+                height,
+                width,
                 position: "absolute",
                 opacity: left.interpolate({
                   inputRange: [-width, 0],
@@ -208,3 +190,31 @@ export const SVGWebView = ({ navigation }) => {
     </Fragment>
   );
 };
+
+const styles = StyleSheet.create({
+  clearButton: {
+    marginTop: 5,
+    marginLeft: 10,
+    marginRight: 10,
+    padding: 5,
+    paddingLeft: 15,
+    borderColor: "grey",
+    borderRadius: 50,
+    borderWidth: 1
+  },
+  clearIcon: {
+    position: "absolute",
+    color: "grey",
+    right: 5,
+    top: 4,
+    fontSize: 30
+  },
+  mapContainer: {
+    flexDirection: "row",
+    width,
+    height: height - 170
+  },
+  searchInput: {
+    fontSize: 20
+  }
+});

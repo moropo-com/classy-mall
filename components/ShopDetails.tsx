@@ -8,7 +8,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 import Carousel from "react-native-looped-carousel";
 
-
 const NAV_HEIGHT = 80;
 const HERO_HEIGHT = 440;
 const HERO_IMAGE_CONTAINER_HEIGHT = HERO_HEIGHT - 100;
@@ -94,14 +93,11 @@ export const ShopDetails = ({ navigation }) => {
     );
   };
 
-
-
   return (
     <Fragment>
       <View style={styles.container}>
-        <View style={{ flex: 1, width: sizes.screenWidth }}>
+        <View style={styles.scrollContainer}>
           <Animated.ScrollView
-            contentContainerStyle={[styles.contentContainer]}
             scrollEventThrottle={16}
             onScroll={Animated.event(
               [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -168,6 +164,10 @@ const PromoCarousel = ({ promos }) => {
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flex: 1,
+    width: sizes.screenWidth
+  },
   container: {
     flex: 1,
     alignItems: "center",
