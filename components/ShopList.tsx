@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
@@ -24,22 +24,27 @@ const INDICATOR_WIDTH =
   INDICATOR_CONTAINER_WIDTH / Object.keys(SHOP_LIST).length;
 
 export const ShopList = ({ navigation }) => {
-  let textInput = React.useRef();
-  const [viewType, setViewType] = React.useState("cards");
-  const [searchQuery, setSearchQuery] = React.useState("");
-  const [scrollX] = React.useState(new Animated.Value(0));
+  const [viewType, setViewType] = useState("cards");
+  const [searchQuery, setSearchQuery] = useState("");
+  const filteredQuery = useRef("");
+
+  const [scrollX] = useState(new Animated.Value(0));
 
   const headerButton = () =>
     setViewType(viewType == "cards" ? "list" : "cards");
 
   const clearText = () => {
-    textInput.setNativeProps({ text: "" });
     setSearchQuery("");
+    filteredQuery.current = "";
   };
 
   useEffect(() => {
     navigation.setParams({ headerButton, viewType });
   }, [viewType]);
+
+  useEffect(() => {
+    filteredQuery.current = searchQuery.replace(/ /g, "").toLowerCase();
+  }, [searchQuery]);
 
   const onShopSelect = shopkey => {
     navigation.navigate("ShopDetails", { shopkey, ShopDetails: true });
@@ -96,7 +101,11 @@ export const ShopList = ({ navigation }) => {
 
   const renderRow = (shop, i) => {
     return (
-      <TouchableHighlight underlayColor='rgba(0,0,0,0.1)' key={i} onPress={() => onShopSelect(shop.key)}>
+      <TouchableHighlight
+        underlayColor="rgba(0,0,0,0.1)"
+        key={i}
+        onPress={() => onShopSelect(shop.key)}
+      >
         <View
           style={{
             flexDirection: "row",
@@ -165,14 +174,11 @@ export const ShopList = ({ navigation }) => {
         ) : (
           <View>
             <View style={styles.inputContainer}>
-              {/* TODO refactor TextInput to a controlled component */}
               <TextInput
-                underlineColorAndroid="rgba(0,0,0,0)"
-                ref={component => (textInput = component)}
-                style={{ fontSize: 20 }}
-                onChangeText={e =>
-                  setSearchQuery(e.replace(/ /g, "").toLowerCase())
-                }
+                underlineColorAndroid="transparent"
+                value={searchQuery}
+                style={styles.searchInput}
+                onChangeText={setSearchQuery}
                 placeholder="Search"
               />
               <IconButton
@@ -185,7 +191,7 @@ export const ShopList = ({ navigation }) => {
             <ScrollView style={styles.scrollView}>
               {Object.keys(SHOP_LIST)
                 .filter(name => {
-                  return name.includes(searchQuery);
+                  return name.includes(filteredQuery.current);
                 })
                 .map((shop, index) => renderRow(SHOP_LIST[shop], index))}
             </ScrollView>
@@ -286,5 +292,8 @@ const styles = StyleSheet.create({
     width: 40,
     borderRadius: 20,
     marginLeft: 20
+  },
+  searchInput: {
+    fontSize: 20
   }
 });
