@@ -15,7 +15,8 @@
     "react-native-iphone-x-helper": "^1.2.1",
     "react-native-looped-carousel": "^0.1.5",
     "react-native-paper": "^2.16.0",
-    "react-navigation": "^3.11.1"
+    "react-navigation": "^3.11.1",
+    "react-navigation-header-buttons": "^3.0.4"
   },
   "devDependencies": {
     "@types/node": "^12.6.6",

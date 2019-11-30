@@ -8,8 +8,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 import Carousel from "react-native-looped-carousel";
 
-import Header from './Header'
-
 
 const NAV_HEIGHT = 80;
 const HERO_HEIGHT = 440;
@@ -23,61 +21,48 @@ export const ShopDetails = ({ navigation }) => {
   for (var i = 1; i < 6; i++) {
     i <= shop.rating
       ? stars.push(
-        <MaterialIcons key={i} name="star" size={30} color="#FFD700" />
-      )
+          <MaterialIcons key={i} name="star" size={30} color="#FFD700" />
+        )
       : stars.push(
-        <MaterialIcons key={i} name="star-border" size={30} color="black" />
-      );
+          <MaterialIcons key={i} name="star-border" size={30} color="black" />
+        );
   }
 
   const renderNavigation = () => {
-    const heightOffset = 90;
     return (
-      <Animated.View style={[styles.navbar,
-      { zIndex: 5, backgroundColor: '#fff' },
-      {
-        opacity: scrollY.interpolate({
-          inputRange: [
-            0,   
-            HERO_HEIGHT - NAV_HEIGHT - 11,
-            HERO_HEIGHT - NAV_HEIGHT - 10,
-            HERO_HEIGHT
-          ],
-          outputRange: [0, 0, 1, 1],
-          extrapolate: "clamp"
-        }),
-      }]}>
+      <Animated.View
+        style={[
+          styles.navbar,
+          { zIndex: 5, backgroundColor: "#fff" },
+          {
+            opacity: scrollY.interpolate({
+              inputRange: [
+                0,
+                HERO_HEIGHT - NAV_HEIGHT - 11,
+                HERO_HEIGHT - NAV_HEIGHT - 10,
+                HERO_HEIGHT
+              ],
+              outputRange: [0, 0, 1, 1],
+              extrapolate: "clamp"
+            })
+          }
+        ]}
+      >
         <View style={[styles.container, styles.navigationDetails]}>
           <Animated.View
             style={[
               styles.container,
               {
-                // opacity: scrollY.interpolate({
-                //   inputRange: [
-                //     0,
-                //     HERO_HEIGHT - NAV_HEIGHT,
-                //     HERO_HEIGHT + heightOffset
-                //   ],
-                //   outputRange: [0, 0, 1],
-                //   extrapolate: "clamp"
-                // }),
                 transform: [
                   {
-                    translateY: scrollY
-                      .interpolate({
-                        inputRange: [
-                          0,
-                          HERO_HEIGHT - 90,
-                        ],
-                        outputRange: [
-                          HERO_HEIGHT - 90,
-                          0
-                        ],
-                        extrapolate: "clamp"
-                      })
+                    translateY: scrollY.interpolate({
+                      inputRange: [0, HERO_HEIGHT - 90],
+                      outputRange: [HERO_HEIGHT - 90, 0],
+                      extrapolate: "clamp"
+                    })
                   }
                 ]
-              },
+              }
             ]}
           >
             <Text style={[theme.title]} numberOfLines={1}>
@@ -86,7 +71,6 @@ export const ShopDetails = ({ navigation }) => {
           </Animated.View>
         </View>
       </Animated.View>
-
     );
   };
 
@@ -110,25 +94,12 @@ export const ShopDetails = ({ navigation }) => {
     );
   };
 
-  // componentDidMount() {
-  //   this.state.scrollY.addListener(this.updateView.bind(this));
-  // }
 
-  // componentWillUnmount() {
-  //   this.state.scrollY.removeListener()
-  // }
-
-  // updateView(offset) {
-  //   // this.state.scrollY.setValue(offset.value)
-  // }
 
   return (
     <Fragment>
-      <Header navigation={navigation} />
       <View style={styles.container}>
-        <View
-          style={{ flex: 1, width: sizes.screenWidth }}
-        >
+        <View style={{ flex: 1, width: sizes.screenWidth }}>
           <Animated.ScrollView
             contentContainerStyle={[styles.contentContainer]}
             scrollEventThrottle={16}
@@ -142,19 +113,19 @@ export const ShopDetails = ({ navigation }) => {
             <View style={{ alignItems: "center" }}>
               <Text style={[theme.title, { margin: sizes.defaultSpacing }]}>
                 Rating
-            </Text>
+              </Text>
               <View style={{ flexDirection: "row" }}>{stars}</View>
 
               <Text style={[theme.title, { margin: sizes.defaultSpacing }]}>
                 Description
-            </Text>
+              </Text>
               <Text style={{ margin: sizes.defaultSpacing }}>
                 {shop.description}
               </Text>
 
               <Text style={[theme.title, { margin: sizes.defaultSpacing }]}>
                 Opening Hours
-            </Text>
+              </Text>
               {Object.keys(shop.openingHours).map((key, index) => (
                 <Text
                   key={index}

@@ -1,6 +1,5 @@
 import React, { useEffect, Fragment } from "react";
 import {
-  StyleSheet,
   TextInput,
   View,
   Dimensions,
@@ -14,14 +13,12 @@ import SVGMapLL from "./SVGMapLL";
 import SVGMapUL from "./SVGMapUL";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "../constants/colors";
-import theme from "./theme";
 import { searchShopsTitles } from "../helpers/filtering";
 import { LEVELS } from "../constants/shopList";
 import { IShopSearchResult, NavToShopIdFunc } from "../types";
 import PulseButton from "./PulseButton";
 import { isIos } from "../helpers/common";
 import SafeAreaViewBottomPadding from "./SafeAreaViewBottomPadding";
-import Header from './Header'
 
 const { width, height } = Dimensions.get("window");
 
@@ -40,7 +37,7 @@ export const SVGWebView = ({ navigation }) => {
   );
 
   const navigateToShopList = () => {
-    navigation.navigate("ShopList");
+    navigation.navigate("ShopList", { ShopList: true });
   };
 
   const search = text => {
@@ -65,7 +62,7 @@ export const SVGWebView = ({ navigation }) => {
   };
 
   const navigateToShopId: NavToShopIdFunc = shopkey => {
-    navigation.navigate("ShopDetails", { shopkey });
+    navigation.navigate("ShopDetails", { shopkey, ShopDetails: true });
   };
 
   const clearText = () => {
@@ -80,36 +77,26 @@ export const SVGWebView = ({ navigation }) => {
   const scroll = () => {
     position === "left"
       ? Animated.timing(left, {
-        toValue: 0
-      }).start()
+          toValue: 0
+        }).start()
       : Animated.timing(left, {
-        toValue: -width
-      }).start();
+          toValue: -width
+        }).start();
     setPosition(position === "left" ? "right" : "left");
   };
-  
+
   const makeStatusBarTextBlack = (animated = true) => {
-   StatusBar.setBarStyle('dark-content', animated);
-};
+    StatusBar.setBarStyle("dark-content", animated);
+  };
 
-//  const makeStatusBarTextWhite = (animated = true) => {
-//    StatusBar.setBarStyle('light-content', animated);
-// };
   useEffect(() => {
-    search(textInput)
-    makeStatusBarTextBlack()
+    search(textInput);
+    makeStatusBarTextBlack();
   }, [position]); // make sure that button stops pulsating if needed, when changing level
-
-  // StatusBar.setBarStyle('dark-content', false);
-
 
   return (
     <Fragment>
-
-      <Header navigation={navigation} mainScreen={true} />
-
       <SafeAreaView style={{ flex: 1 }}>
-
         <View
           style={{
             marginTop: 5,
@@ -213,7 +200,7 @@ export const SVGWebView = ({ navigation }) => {
         <View style={{ backgroundColor: colors.secondary }}>
           <Button onPress={navigateToShopList} color="white">
             Shop List
-        </Button>
+          </Button>
         </View>
 
         {isIos && <SafeAreaViewBottomPadding fillColor={colors.secondary} />}

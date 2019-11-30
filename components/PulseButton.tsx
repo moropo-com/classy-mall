@@ -11,7 +11,6 @@ interface IPulseButtonProps {
 }
 
 const PulseButton = ({ shouldPulse, position, onPress }: IPulseButtonProps) => {
-  // const [pulse, setPulse] = useState(new Animated.Value(1));
   const [circle, setCircle] = useState(new Animated.Value(0.01));
   const [opacity, setOpacity] = useState(new Animated.Value(0));
 
@@ -40,35 +39,26 @@ const PulseButton = ({ shouldPulse, position, onPress }: IPulseButtonProps) => {
         duration: 0,
         easing: Easing.linear,
         useNativeDriver: true
-      }),
+      })
     ])
   );
-
-
 
   useEffect(() => {
     if (shouldPulse) {
       PulseAnimation.start();
     } else {
       PulseAnimation.stop();
-      // setPulse(new Animated.Value(1));
-      setCircle(new Animated.Value(0.01))
-      setOpacity(new Animated.Value(0.2))
+      setCircle(new Animated.Value(0.01));
+      setOpacity(new Animated.Value(0.2));
     }
   }, [shouldPulse]);
 
   return (
-    <Animated.View
-      style={[
-        styles.upButton,
-        { opacity: 0.99, zIndex: 10 },
-        // { transform: [{ scale: pulse }]}
-      ]}
-    >
+    <Animated.View style={[styles.upButton, { opacity: 0.99, zIndex: 10 }]}>
       <Animated.View
         style={{
-          position: 'absolute',
-          backgroundColor: 'green',
+          position: "absolute",
+          backgroundColor: "green",
           zIndex: -1,
           borderRadius: 50,
           height: 50,
@@ -80,13 +70,12 @@ const PulseButton = ({ shouldPulse, position, onPress }: IPulseButtonProps) => {
       <MaterialIcons
         name="chevron-right"
         style={{
-          zIndex:10,
+          zIndex: 10,
           transform: [{ rotate: position === "left" ? "90deg" : "270deg" }]
         }}
         size={40}
         color="white"
         onPress={onPress}
-
       />
     </Animated.View>
   );
