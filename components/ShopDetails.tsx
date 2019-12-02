@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import { View, Text, StyleSheet, Animated, Image } from "react-native";
 
@@ -28,45 +28,43 @@ export const ShopDetails = ({ navigation }) => {
   }
 
   const renderNavigation = () => {
-    const heightOffset = 90;
     return (
-      <Animated.View style={[styles.navbar, { zIndex: 5 }]}>
+      <Animated.View
+        style={[
+          styles.navbar,
+          { zIndex: 5, backgroundColor: "#fff" },
+          {
+            opacity: scrollY.interpolate({
+              inputRange: [
+                0,
+                HERO_HEIGHT - NAV_HEIGHT - 11,
+                HERO_HEIGHT - NAV_HEIGHT - 10,
+                HERO_HEIGHT
+              ],
+              outputRange: [0, 0, 1, 1],
+              extrapolate: "clamp"
+            })
+          }
+        ]}
+      >
         <View style={[styles.container, styles.navigationDetails]}>
           <Animated.View
             style={[
               styles.container,
               {
-                opacity: scrollY.interpolate({
-                  inputRange: [
-                    -5,
-                    -5,
-                    HERO_HEIGHT - NAV_HEIGHT,
-                    HERO_HEIGHT + heightOffset
-                  ],
-                  outputRange: [0, 0, 0, 1]
-                }),
                 transform: [
                   {
                     translateY: scrollY.interpolate({
-                      inputRange: [
-                        0,
-                        HERO_HEIGHT / 2,
-                        HERO_HEIGHT,
-                        HERO_HEIGHT + 1
-                      ],
-                      outputRange: [
-                        NAV_HEIGHT + heightOffset,
-                        NAV_HEIGHT + heightOffset,
-                        0,
-                        0
-                      ]
+                      inputRange: [0, HERO_HEIGHT - 90],
+                      outputRange: [HERO_HEIGHT - 90, 0],
+                      extrapolate: "clamp"
                     })
                   }
                 ]
               }
             ]}
           >
-            <Text style={theme.title} numberOfLines={1}>
+            <Text style={[theme.title]} numberOfLines={1}>
               {shop.title}
             </Text>
           </Animated.View>
@@ -77,7 +75,7 @@ export const ShopDetails = ({ navigation }) => {
 
   const renderHero = () => {
     return (
-      <View style={styles.hero}>
+      <View style={[styles.hero]}>
         <View style={styles.heroImageContainer}>
           <Animated.Image
             source={
@@ -95,62 +93,49 @@ export const ShopDetails = ({ navigation }) => {
     );
   };
 
-  // componentDidMount() {
-  //   this.state.scrollY.addListener(this.updateView.bind(this));
-  // }
-
-  // componentWillUnmount() {
-  //   this.state.scrollY.removeListener()
-  // }
-
-  // updateView(offset) {
-  //   // this.state.scrollY.setValue(offset.value)
-  // }
-
   return (
-    <View style={styles.container}>
-      <View
-        style={{ flex: 1, width: sizes.screenWidth, marginTop: NAV_HEIGHT }}
-      >
-        <Animated.ScrollView
-          contentContainerStyle={[styles.contentContainer]}
-          scrollEventThrottle={16}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-            { useNativeDriver: true }
-          )}
-        >
-          {renderHero()}
-          {shop.promos ? <PromoCarousel promos={shop.promos} /> : null}
-          <View style={{ alignItems: "center" }}>
-            <Text style={[theme.title, { margin: sizes.defaultSpacing }]}>
-              Rating
-            </Text>
-            <View style={{ flexDirection: "row" }}>{stars}</View>
-
-            <Text style={[theme.title, { margin: sizes.defaultSpacing }]}>
-              Description
-            </Text>
-            <Text style={{ margin: sizes.defaultSpacing }}>
-              {shop.description}
-            </Text>
-
-            <Text style={[theme.title, { margin: sizes.defaultSpacing }]}>
-              Opening Hours
-            </Text>
-            {Object.keys(shop.openingHours).map((key, index) => (
-              <Text
-                key={index}
-                style={{ margin: sizes.defaultSpacing, marginTop: 0 }}
-              >
-                {key} : {shop.openingHours[key]}
+    <Fragment>
+      <View style={styles.container}>
+        <View style={styles.scrollContainer}>
+          <Animated.ScrollView
+            scrollEventThrottle={16}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+              { useNativeDriver: true }
+            )}
+          >
+            {renderHero()}
+            {shop.promos ? <PromoCarousel promos={shop.promos} /> : null}
+            <View style={{ alignItems: "center" }}>
+              <Text style={[theme.title, { margin: sizes.defaultSpacing }]}>
+                Rating
               </Text>
-            ))}
-          </View>
-        </Animated.ScrollView>
+              <View style={{ flexDirection: "row" }}>{stars}</View>
+
+              <Text style={[theme.title, { margin: sizes.defaultSpacing }]}>
+                Description
+              </Text>
+              <Text style={{ margin: sizes.defaultSpacing }}>
+                {shop.description}
+              </Text>
+
+              <Text style={[theme.title, { margin: sizes.defaultSpacing }]}>
+                Opening Hours
+              </Text>
+              {Object.keys(shop.openingHours).map((key, index) => (
+                <Text
+                  key={index}
+                  style={{ margin: sizes.defaultSpacing, marginTop: 0 }}
+                >
+                  {key} : {shop.openingHours[key]}
+                </Text>
+              ))}
+            </View>
+          </Animated.ScrollView>
+        </View>
+        {renderNavigation()}
       </View>
-      {renderNavigation()}
-    </View>
+    </Fragment>
   );
 };
 
@@ -179,6 +164,10 @@ const PromoCarousel = ({ promos }) => {
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flex: 1,
+    width: sizes.screenWidth
+  },
   container: {
     flex: 1,
     alignItems: "center",
@@ -204,7 +193,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: NAV_HEIGHT,
-    // paddingTop: 60,
     alignItems: "center",
     justifyContent: "center",
     borderBottomColor: "#ddd"
@@ -221,7 +209,7 @@ const styles = StyleSheet.create({
     height: HERO_HEIGHT,
     position: "relative",
     borderBottomWidth: 1,
-    borderBottomColor: "#ddd"
+    borderBottomColor: "#eee"
   },
   colorPicker: {
     padding: sizes.defaultSpacing / 2,

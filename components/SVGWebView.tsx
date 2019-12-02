@@ -1,20 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import {
-  StyleSheet,
   TextInput,
   View,
   Dimensions,
   Animated,
-  ScrollView
+  ScrollView,
+  StatusBar,
+  StyleSheet
 } from "react-native";
 import { Button } from "react-native-paper";
 import { SafeAreaView } from "react-navigation";
-
 import SVGMapLL from "./SVGMapLL";
 import SVGMapUL from "./SVGMapUL";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "../constants/colors";
-import theme from "./theme";
 import { searchShopsTitles } from "../helpers/filtering";
 import { LEVELS } from "../constants/shopList";
 import { IShopSearchResult, NavToShopIdFunc } from "../types";
@@ -39,7 +38,7 @@ export const SVGWebView = ({ navigation }) => {
   );
 
   const navigateToShopList = () => {
-    navigation.navigate("ShopList");
+    navigation.navigate("ShopList", { ShopList: true });
   };
 
   const search = text => {
@@ -64,7 +63,7 @@ export const SVGWebView = ({ navigation }) => {
   };
 
   const navigateToShopId: NavToShopIdFunc = shopkey => {
-    navigation.navigate("ShopDetails", { shopkey });
+    navigation.navigate("ShopDetails", { shopkey, ShopDetails: true });
   };
 
   const clearText = () => {
@@ -87,117 +86,135 @@ export const SVGWebView = ({ navigation }) => {
     setPosition(position === "left" ? "right" : "left");
   };
 
-  useEffect(() => search(textInput), [position]); // make sure that button stops pulsating if needed, when changing level
+  const makeStatusBarTextBlack = (animated = true) => {
+    StatusBar.setBarStyle("dark-content", animated);
+  };
+
+  useEffect(() => {
+    search(textInput);
+    makeStatusBarTextBlack();
+  }, [position]); // make sure that button stops pulsating if needed, when changing level
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View
-        style={{
-          marginTop: 5,
-          marginLeft: 10,
-          marginRight: 10,
-          padding: 5,
-          paddingLeft: 15,
-          borderColor: "grey",
-          borderRadius: 50,
-          borderWidth: 1
-        }}
-      >
-        <TextInput
-          underlineColorAndroid="rgba(0,0,0,0)"
-          value={textInput}
-          style={{ fontSize: 20 }}
-          onChangeText={search}
-          placeholder="Search"
-        />
-        <MaterialIcons
-          style={{
-            position: "absolute",
-            color: "grey",
-            right: 5,
-            top: 4,
-            fontSize: 30
-          }}
-          onPress={clearText}
-          name="clear"
-        />
-      </View>
-      <ScrollView style={{ flex: 1 }}>
-        <View
-          style={{ flexDirection: "row", width: width, height: height - 170 }}
-        >
-          <Animated.View
-            style={{
-              height: height,
-              width: width,
-              position: "absolute",
-              opacity: left.interpolate({
-                inputRange: [-width, 0],
-                outputRange: [0, 1]
-              }),
-              transform: [
-                { perspective: 1000 },
-                {
-                  scale: left.interpolate({
-                    inputRange: [-width, 0],
-                    outputRange: [0, 1]
-                  })
-                }
-              ],
-              left: left.interpolate({
-                inputRange: [-width, -width + 1, 0],
-                outputRange: [1000, 0, 0]
-              })
-            }}
-          >
-            <SVGMapLL
-              navigateToShopId={navigateToShopId}
-              highlightedShops={highlightedShops[LEVELS.LL]}
-            />
-          </Animated.View>
-          <Animated.View
-            style={{
-              height: height,
-              width: width,
-              position: "absolute",
-              opacity: left.interpolate({
-                inputRange: [-width, 0],
-                outputRange: [1, 0]
-              }),
-              transform: [
-                {
-                  scale: left.interpolate({
-                    inputRange: [-width, 0],
-                    outputRange: [1, 2]
-                  })
-                }
-              ],
-              left: left.interpolate({
-                inputRange: [-width, -1, 0],
-                outputRange: [0, 0, 1000]
-              })
-            }}
-          >
-            <SVGMapUL
-              navigateToShopId={navigateToShopId}
-              highlightedShops={highlightedShops[LEVELS.UL]}
-            />
-          </Animated.View>
-          <PulseButton
-            shouldPulse={shouldPulse}
-            position={position}
-            onPress={scroll}
+    <Fragment>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.clearButton}>
+          <TextInput
+            underlineColorAndroid="rgba(0,0,0,0)"
+            value={textInput}
+            style={styles.searchInput}
+            onChangeText={search}
+            placeholder="Search"
+          />
+          <MaterialIcons
+            style={styles.clearIcon}
+            onPress={clearText}
+            name="clear"
           />
         </View>
-      </ScrollView>
+        <ScrollView style={{ flex: 1 }}>
+          <View style={styles.mapContainer}>
+            <Animated.View
+              style={{
+                height,
+                width,
+                position: "absolute",
+                opacity: left.interpolate({
+                  inputRange: [-width, 0],
+                  outputRange: [0, 1]
+                }),
+                transform: [
+                  { perspective: 1000 },
+                  {
+                    scale: left.interpolate({
+                      inputRange: [-width, 0],
+                      outputRange: [0, 1]
+                    })
+                  }
+                ],
+                left: left.interpolate({
+                  inputRange: [-width, -width + 1, 0],
+                  outputRange: [1000, 0, 0]
+                })
+              }}
+            >
+              <SVGMapLL
+                navigateToShopId={navigateToShopId}
+                highlightedShops={highlightedShops[LEVELS.LL]}
+              />
+            </Animated.View>
+            <Animated.View
+              style={{
+                height,
+                width,
+                position: "absolute",
+                opacity: left.interpolate({
+                  inputRange: [-width, 0],
+                  outputRange: [1, 0]
+                }),
+                transform: [
+                  {
+                    scale: left.interpolate({
+                      inputRange: [-width, 0],
+                      outputRange: [1, 2]
+                    })
+                  }
+                ],
+                left: left.interpolate({
+                  inputRange: [-width, -1, 0],
+                  outputRange: [0, 0, 1000]
+                })
+              }}
+            >
+              <SVGMapUL
+                navigateToShopId={navigateToShopId}
+                highlightedShops={highlightedShops[LEVELS.UL]}
+              />
+            </Animated.View>
+            <PulseButton
+              shouldPulse={shouldPulse}
+              position={position}
+              onPress={scroll}
+            />
+          </View>
+        </ScrollView>
 
-      <View style={{ backgroundColor: colors.secondary }}>
-        <Button onPress={navigateToShopList} color="white">
-          Shop List
-        </Button>
-      </View>
+        <View style={{ backgroundColor: colors.secondary }}>
+          <Button onPress={navigateToShopList} color="white">
+            Shop List
+          </Button>
+        </View>
 
-      {isIos && <SafeAreaViewBottomPadding fillColor={colors.secondary} />}
-    </SafeAreaView>
+        {isIos && <SafeAreaViewBottomPadding fillColor={colors.secondary} />}
+      </SafeAreaView>
+    </Fragment>
   );
 };
+
+const styles = StyleSheet.create({
+  clearButton: {
+    marginTop: 5,
+    marginLeft: 10,
+    marginRight: 10,
+    padding: 5,
+    paddingLeft: 15,
+    borderColor: "grey",
+    borderRadius: 50,
+    borderWidth: 1
+  },
+  clearIcon: {
+    position: "absolute",
+    color: "grey",
+    right: 5,
+    top: 4,
+    fontSize: 30
+  },
+  mapContainer: {
+    flexDirection: "row",
+    width,
+    height: height - 170
+  },
+  searchInput: {
+    fontSize: 20
+  }
+});

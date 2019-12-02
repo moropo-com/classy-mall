@@ -137,7 +137,7 @@ export default StyleSheet.create({
   image: {
     width: 300,
     height: 340,
-    resizeMode: "contain"
+    resizeMode: "stretch"
   },
   imageHero: {
     width: 400,
