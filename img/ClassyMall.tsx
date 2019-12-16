@@ -1,16 +1,15 @@
 import React from "react";
-import Svg, { Defs, G, Path } from "react-native-svg";
+import Svg, { G, Path } from "react-native-svg";
 /* SVGR has dropped some elements not supported by react-native-svg: metadata, style */
 
 const SvgComponent = () => (
   <Svg
     id="svg10"
     viewBox="0 0 50 63"
-    height={63}
+    height={"100%"}
     width={40}
     preserveAspectRatio="xMidYMid"
   >
-    <Defs id="defs4"></Defs>
     <G
       style={{
         display: "inline"

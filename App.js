@@ -12,6 +12,7 @@ import {
   Item
 } from "react-navigation-header-buttons";
 import { MaterialIcons } from "@expo/vector-icons";
+import { colors } from "./constants/colors";
 
 const IoniconsHeaderButton = passMeFurther => (
   <HeaderButton
@@ -37,6 +38,7 @@ const AppNavigator = createStackNavigator(
   {
     defaultNavigationOptions: ({ navigation }) => {
       return {
+        headerTintColor: colors.secondary,
         headerTitle: (
           <View
             style={{
@@ -88,7 +90,7 @@ const AppNavigator = createStackNavigator(
 
 const ss = StyleSheet.create({
   addButton: {
-    backgroundColor: "#3cbc8d",
+    backgroundColor: colors.secondary,
     height: 40,
     width: 40,
     borderRadius: 50,

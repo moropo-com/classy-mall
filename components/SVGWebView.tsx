@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     color: "grey",
     right: 5,
-    top: 4,
+    top: 3,
     fontSize: 30
   },
   mapContainer: {

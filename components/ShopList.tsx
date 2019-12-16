@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
   clearButton: {
     position: "absolute",
     right: 0,
-    top: -5,
+    top: -7,
     marginBottom: 30
   },
   scrollView: { width },
