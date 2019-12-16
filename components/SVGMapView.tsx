@@ -28,7 +28,7 @@ const blankShopsHighlight: IShopSearchResult = {
   [LEVELS.UL]: []
 };
 
-export const SVGWebView = ({ navigation }) => {
+export const SVGMapView = ({ navigation }) => {
   const [textInput, setTextInput] = React.useState("");
   const [left] = React.useState(new Animated.Value(0));
   const [position, setPosition] = React.useState("right");

@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Platform, View } from "react-native";
-import { SVGWebView } from "./components/SVGWebView";
+import { SVGMapView } from "./components/SVGMapView";
 import { ShopList } from "./components/ShopList";
 import { ShopDetails } from "./components/ShopDetails";
 import { Title } from "react-native-paper";
@@ -25,8 +25,8 @@ const IoniconsHeaderButton = passMeFurther => (
 
 const AppNavigator = createStackNavigator(
   {
-    SVGWebView: {
-      screen: SVGWebView
+    SVGMapView: {
+      screen: SVGMapView
     },
     ShopList: {
       screen: ShopList
