@@ -1,12 +1,9 @@
 import React, { Fragment } from "react";
-
 import { View, Text, StyleSheet, Animated, Image } from "react-native";
-
 import theme, { sizes } from "./theme";
 import { SHOP_LIST } from "../constants/shopList";
 import { MaterialIcons } from "@expo/vector-icons";
-
-import Carousel from "react-native-looped-carousel";
+import Swiper from "react-native-swiper";
 
 const NAV_HEIGHT = 80;
 const HERO_HEIGHT = 440;
@@ -139,29 +136,22 @@ export const ShopDetails = ({ navigation }) => {
   );
 };
 
-const PromoCarousel = ({ promos }) => {
-  const [size, setSize] = React.useState({
-    width: sizes.screenWidth,
-    height: sizes.screenWidth / 2
-  });
-
-  const onLayoutDidChange = e => {
-    const layout = e.nativeEvent.layout;
-    setSize({ width: layout.width, height: layout.height });
-  };
-
-  return (
-    <View style={{ flex: 1 }} onLayout={onLayoutDidChange}>
-      <Carousel delay={4000} style={size} autoplay bullets>
-        {promos.map((promo, id) => (
-          <View key={id} style={size}>
-            <Image source={promo} style={[size, { resizeMode: "contain" }]} />
-          </View>
-        ))}
-      </Carousel>
-    </View>
-  );
-};
+const PromoCarousel = ({ promos }) => (
+  <Swiper style={{ height: 200 }} autoplay>
+    {promos.map((promo, id) => (
+      <View
+        key={id}
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <Image source={promo} style={{ flex: 1, resizeMode: "contain" }} />
+      </View>
+    ))}
+  </Swiper>
+);
 
 const styles = StyleSheet.create({
   scrollContainer: {
