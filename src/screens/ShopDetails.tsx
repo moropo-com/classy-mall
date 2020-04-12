@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { View, Text, StyleSheet, Animated, Image } from "react-native";
-import theme, { sizes } from "./theme";
+import theme, { sizes } from "../constants/theme";
 import { SHOP_LIST } from "../constants/shopList";
 import { MaterialIcons } from "@expo/vector-icons";
 import Swiper from "react-native-swiper";
@@ -9,9 +9,9 @@ const NAV_HEIGHT = 80;
 const HERO_HEIGHT = 440;
 const HERO_IMAGE_CONTAINER_HEIGHT = HERO_HEIGHT - 100;
 
-export const ShopDetails = ({ navigation }) => {
+export const ShopDetails = ({ route }) => {
   const [scrollY] = React.useState(new Animated.Value(0));
-  const shopkey = navigation.getParam("shopkey", "orangecafe");
+  const { shopkey = "orangecafe" } = route.params;
   const shop = SHOP_LIST[shopkey];
   const stars = [];
   for (var i = 1; i < 6; i++) {
@@ -36,12 +36,12 @@ export const ShopDetails = ({ navigation }) => {
                 0,
                 HERO_HEIGHT - NAV_HEIGHT - 11,
                 HERO_HEIGHT - NAV_HEIGHT - 10,
-                HERO_HEIGHT
+                HERO_HEIGHT,
               ],
               outputRange: [0, 0, 1, 1],
-              extrapolate: "clamp"
-            })
-          }
+              extrapolate: "clamp",
+            }),
+          },
         ]}
       >
         <View style={[styles.container, styles.navigationDetails]}>
@@ -54,11 +54,11 @@ export const ShopDetails = ({ navigation }) => {
                     translateY: scrollY.interpolate({
                       inputRange: [0, HERO_HEIGHT - 90],
                       outputRange: [HERO_HEIGHT - 90, 0],
-                      extrapolate: "clamp"
-                    })
-                  }
-                ]
-              }
+                      extrapolate: "clamp",
+                    }),
+                  },
+                ],
+              },
             ]}
           >
             <Text style={[theme.title]} numberOfLines={1}>
@@ -144,7 +144,7 @@ const PromoCarousel = ({ promos }) => (
         style={{
           flex: 1,
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
         <Image source={promo} style={{ flex: 1, resizeMode: "contain" }} />
@@ -156,24 +156,24 @@ const PromoCarousel = ({ promos }) => (
 const styles = StyleSheet.create({
   scrollContainer: {
     flex: 1,
-    width: sizes.screenWidth
+    width: sizes.screenWidth,
   },
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   navigationBarAction: {
     width: sizes.placeholderSize,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   placeholder: {
-    width: sizes.placeholderSize
+    width: sizes.placeholderSize,
   },
 
   shopDetailsContainer: {
-    paddingTop: NAV_HEIGHT
+    paddingTop: NAV_HEIGHT,
   },
 
   navbar: {
@@ -185,11 +185,11 @@ const styles = StyleSheet.create({
     height: NAV_HEIGHT,
     alignItems: "center",
     justifyContent: "center",
-    borderBottomColor: "#ddd"
+    borderBottomColor: "#ddd",
   },
   navigationDetails: {
     height: NAV_HEIGHT,
-    position: "relative"
+    position: "relative",
   },
 
   // Hero
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     height: HERO_HEIGHT,
     position: "relative",
     borderBottomWidth: 1,
-    borderBottomColor: "#eee"
+    borderBottomColor: "#eee",
   },
   colorPicker: {
     padding: sizes.defaultSpacing / 2,
@@ -207,10 +207,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderBottomRightRadius: 8,
     borderLeftWidth: 0,
-    borderColor: "#eee"
+    borderColor: "#eee",
   },
   heroImageContainer: {
-    height: HERO_IMAGE_CONTAINER_HEIGHT
+    height: HERO_IMAGE_CONTAINER_HEIGHT,
   },
   colorPickerContainer: {
     position: "absolute",
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     height: HERO_IMAGE_CONTAINER_HEIGHT,
     justifyContent: "center",
     alignItems: "center",
-    zIndex: 2
+    zIndex: 2,
   },
 
   footer: {
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOffset: {
       height: 0,
-      width: 0
-    }
-  }
+      width: 0,
+    },
+  },
 });

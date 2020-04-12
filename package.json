@@ -1,27 +1,36 @@
 {
-  "name": "shoppermap",
-  "version": "0.0.0",
-  "description": "ShopperMap",
-  "author": "ckiller",
   "main": "node_modules/expo/AppEntry.js",
-  "private": true,
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject"
+  },
   "dependencies": {
-    "@babel/plugin-proposal-export-namespace-from": "^7.5.2",
-    "@expo/vector-icons": "^10.0.0",
-    "expo": "^36.0.0",
+    "@react-native-community/masked-view": "0.1.6",
+    "@react-navigation/native": "^5.1.5",
+    "@react-navigation/stack": "^5.2.10",
+    "expo": "^37.0.0",
     "react": "16.9.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
-    "react-native-gesture-handler": "~1.5.0",
-    "react-native-iphone-x-helper": "^1.2.1",
-    "react-native-paper": "^2.16.0",
-    "react-native-svg": "9.13.3",
-    "react-native-swiper": "^1.6.0-nightly.5",
-    "react-navigation": "^3.11.1",
-    "react-navigation-header-buttons": "^3.0.4"
+    "react-dom": "16.9.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.0.tar.gz",
+    "react-native-gesture-handler": "~1.6.0",
+    "react-native-paper": "^3.8.0",
+    "react-native-reanimated": "~1.7.0",
+    "react-native-safe-area-context": "0.7.3",
+    "react-native-screens": "~2.2.0",
+    "react-native-svg": "11.0.1",
+    "react-native-swiper": "^1.6.0",
+    "react-native-web": "^0.11.7",
+    "react-navigation-header-buttons": "^3.0.5"
   },
   "devDependencies": {
-    "@types/node": "^12.6.6",
-    "@types/react": "^16.9.5",
-    "@types/react-native": "^0.60.19"
-  }
+    "@babel/core": "^7.8.6",
+    "@types/react": "^16.9.11",
+    "@types/react-native": "^0.60.22",
+    "babel-preset-expo": "^8.1.0",
+    "typescript": "^3.8.3"
+  },
+  "private": true
 }

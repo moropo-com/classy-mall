@@ -13,7 +13,7 @@ const WALL_STROKE_WIDTH = 1.0007899999999998;
 
 const SvgComponent = ({
   navigateToShopId,
-  highlightedShops
+  highlightedShops,
 }: ISvgComponentProps) => (
   <Svg width={400} height={558} viewBox="10 -25 250 1000">
     <G fill="none" stroke="#000" strokeWidth={0.493}>
@@ -351,7 +351,7 @@ const SvgComponent = ({
         fontSize={15.933}
         strokeWidth={1.195}
         style={{
-          lineHeight: "29.876px"
+          lineHeight: "29.876px",
         }}
       >
         <TSpan x={175} y={768}>
@@ -384,7 +384,7 @@ const SvgComponent = ({
         fontFamily="'Times New Roman'"
         fontSize={16}
         style={{
-          lineHeight: 25
+          lineHeight: 25,
         }}
       >
         <TSpan x={185} y={501}>
@@ -419,7 +419,7 @@ const SvgComponent = ({
         fontSize={24.201}
         strokeWidth={1.815}
         style={{
-          lineHeight: "45.378px"
+          lineHeight: "45.378px",
         }}
       >
         <TSpan x={172} y={240}>

@@ -1,42 +1,25 @@
 {
   "expo": {
-    "name": "Shopper Map",
-    "description": "Shopping centre navigation",
-    "slug": "shoppermap",
-    "privacy": "public",
-    "sdkVersion": "36.0.0",
-    "primaryColor": "#fff",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "name": "classy-mall",
+    "slug": "classy-mall",
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./img/square.png",
+    "icon": "./assets/img/square.png",
     "splash": {
-      "image": "./img/launch.png",
+      "image": "./assets/img/launch.png",
       "resizeMode": "contain",
-      "backgroundColor": "#fff"
+      "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "android": {
-      "package": "org.shoppermap.exp",
-      "versionCode": 1,
-      "permissions": [],
-      "icon": "./img/square.png"
-    },
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "bundleIdentifier": "org.shoppermap.exp",
+      "supportsTablet": true,
       "config": {
         "usesNonExemptEncryption": false
-      },
-      "supportsTablet": true
+      }
     }
   }
 }

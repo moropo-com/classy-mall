@@ -8,12 +8,12 @@ import {
   Dimensions,
   Animated,
   TouchableHighlight,
-  TextInput
+  TextInput,
 } from "react-native";
 import { SHOP_LIST } from "../constants/shopList";
 
 const { width } = Dimensions.get("window");
-import theme from "./theme";
+import theme from "../constants/theme";
 
 import { Button, IconButton } from "react-native-paper";
 
@@ -46,7 +46,7 @@ export const ShopList = ({ navigation }) => {
     filteredQuery.current = searchQuery.replace(/ /g, "").toLowerCase();
   }, [searchQuery]);
 
-  const onShopSelect = shopkey => {
+  const onShopSelect = (shopkey) => {
     navigation.navigate("ShopDetails", { shopkey, ShopDetails: true });
   };
 
@@ -55,7 +55,7 @@ export const ShopList = ({ navigation }) => {
       (i - 1) * width,
       i * width,
       (i + 1) * width,
-      (i + 2) * width
+      (i + 2) * width,
     ];
 
     return (
@@ -69,11 +69,11 @@ export const ShopList = ({ navigation }) => {
                 {
                   scale: scrollX.interpolate({
                     inputRange,
-                    outputRange: [0.3, 1, 0.3, 0.3]
-                  })
-                }
-              ]
-            }
+                    outputRange: [0.3, 1, 0.3, 0.3],
+                  }),
+                },
+              ],
+            },
           ]}
         >
           <View style={{ width: width - 80, height: "100%" }}>
@@ -86,8 +86,8 @@ export const ShopList = ({ navigation }) => {
                   width: "100%",
                   height: "100%",
                   borderTopLeftRadius: 4,
-                  borderTopRightRadius: 4
-                }
+                  borderTopRightRadius: 4,
+                },
               ]}
             />
           </View>
@@ -115,7 +115,7 @@ export const ShopList = ({ navigation }) => {
             borderColor: "lightgrey",
             width: width - 6,
             marginHorizontal: 3,
-            marginVertical: 1
+            marginVertical: 1,
           }}
         >
           <Image
@@ -128,7 +128,7 @@ export const ShopList = ({ navigation }) => {
             style={[
               // theme.customFont,
               theme.title,
-              { margin: 20 }
+              { margin: 20 },
             ]}
           >
             {shop.title}
@@ -190,7 +190,7 @@ export const ShopList = ({ navigation }) => {
             </View>
             <ScrollView style={styles.scrollView}>
               {Object.keys(SHOP_LIST)
-                .filter(name => {
+                .filter((name) => {
                   return name.includes(filteredQuery.current);
                 })
                 .map((shop, index) => renderRow(SHOP_LIST[shop], index))}
@@ -219,12 +219,12 @@ const styles = StyleSheet.create({
     elevation: 6,
     shadowOffset: {
       height: 1,
-      width: 0
-    }
+      width: 0,
+    },
   },
   contentContainer: {
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   innerContainer: {
     shadowColor: "#000000",
@@ -232,18 +232,18 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     shadowOffset: {
       height: 0,
-      width: 0
+      width: 0,
     },
     borderRadius: 4,
     alignItems: "center",
     justifyContent: "flex-end",
     width: "100%",
     height: "100%",
-    backgroundColor: "#ffffff"
+    backgroundColor: "#ffffff",
   },
   shopItem: {
     width: width,
-    padding: 40
+    padding: 40,
   },
   footer: {
     borderBottomLeftRadius: 4,
@@ -251,14 +251,14 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderTopWidth: 1,
     borderTopColor: "#f0f0f0",
-    marginBottom: 30
+    marginBottom: 30,
   },
   indicator: {
     width: INDICATOR_WIDTH,
     height: INDICATOR_CONTAINER_HEIGHT,
     position: "absolute",
     top: 0,
-    backgroundColor: "#c0c0c0"
+    backgroundColor: "#c0c0c0",
   },
   indicatorContainer: {
     height: INDICATOR_CONTAINER_HEIGHT,
@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "#ededed",
     position: "relative",
     width: INDICATOR_CONTAINER_WIDTH,
-    paddingHorizontal: PADDING
+    paddingHorizontal: PADDING,
   },
   inputContainer: {
     marginTop: 8,
@@ -278,22 +278,22 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     borderColor: "grey",
     borderRadius: 50,
-    borderWidth: 1
+    borderWidth: 1,
   },
   clearButton: {
     position: "absolute",
     right: 0,
     top: -7,
-    marginBottom: 30
+    marginBottom: 30,
   },
   scrollView: { width },
   itemImage: {
     height: 40,
     width: 40,
     borderRadius: 20,
-    marginLeft: 20
+    marginLeft: 20,
   },
   searchInput: {
-    fontSize: 20
-  }
+    fontSize: 20,
+  },
 });

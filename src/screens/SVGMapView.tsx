@@ -6,26 +6,26 @@ import {
   Animated,
   ScrollView,
   StatusBar,
-  StyleSheet
+  StyleSheet,
+  SafeAreaView,
 } from "react-native";
 import { Button } from "react-native-paper";
-import { SafeAreaView } from "react-navigation";
-import SVGMapLL from "./SVGMapLL";
-import SVGMapUL from "./SVGMapUL";
+import SVGMapLL from "../components/SVGMapLL";
+import SVGMapUL from "../components/SVGMapUL";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "../constants/colors";
 import { searchShopsTitles } from "../helpers/filtering";
 import { LEVELS } from "../constants/shopList";
 import { IShopSearchResult, NavToShopIdFunc } from "../types";
-import PulseButton from "./PulseButton";
+import PulseButton from "../components/PulseButton";
 import { isIos } from "../helpers/common";
-import SafeAreaViewBottomPadding from "./SafeAreaViewBottomPadding";
+import SafeAreaViewBottomPadding from "../components/SafeAreaViewBottomPadding";
 
 const { width, height } = Dimensions.get("window");
 
 const blankShopsHighlight: IShopSearchResult = {
   [LEVELS.LL]: [],
-  [LEVELS.UL]: []
+  [LEVELS.UL]: [],
 };
 
 export const SVGMapView = ({ navigation }) => {
@@ -41,7 +41,7 @@ export const SVGMapView = ({ navigation }) => {
     navigation.navigate("ShopList", { ShopList: true });
   };
 
-  const search = text => {
+  const search = (text) => {
     setTextInput(text);
     const searchTerm = text.replace(/ /g, "").toLowerCase();
     const foundShops = searchTerm
@@ -62,7 +62,7 @@ export const SVGMapView = ({ navigation }) => {
     }
   };
 
-  const navigateToShopId: NavToShopIdFunc = shopkey => {
+  const navigateToShopId: NavToShopIdFunc = (shopkey) => {
     navigation.navigate("ShopDetails", { shopkey, ShopDetails: true });
   };
 
@@ -78,10 +78,10 @@ export const SVGMapView = ({ navigation }) => {
   const scroll = () => {
     position === "left"
       ? Animated.timing(left, {
-          toValue: 0
+          toValue: 0,
         }).start()
       : Animated.timing(left, {
-          toValue: -width
+          toValue: -width,
         }).start();
     setPosition(position === "left" ? "right" : "left");
   };
@@ -121,21 +121,21 @@ export const SVGMapView = ({ navigation }) => {
                 position: "absolute",
                 opacity: left.interpolate({
                   inputRange: [-width, 0],
-                  outputRange: [0, 1]
+                  outputRange: [0, 1],
                 }),
                 transform: [
                   { perspective: 1000 },
                   {
                     scale: left.interpolate({
                       inputRange: [-width, 0],
-                      outputRange: [0, 1]
-                    })
-                  }
+                      outputRange: [0, 1],
+                    }),
+                  },
                 ],
                 left: left.interpolate({
                   inputRange: [-width, -width + 1, 0],
-                  outputRange: [1000, 0, 0]
-                })
+                  outputRange: [1000, 0, 0],
+                }),
               }}
             >
               <SVGMapLL
@@ -150,20 +150,20 @@ export const SVGMapView = ({ navigation }) => {
                 position: "absolute",
                 opacity: left.interpolate({
                   inputRange: [-width, 0],
-                  outputRange: [1, 0]
+                  outputRange: [1, 0],
                 }),
                 transform: [
                   {
                     scale: left.interpolate({
                       inputRange: [-width, 0],
-                      outputRange: [1, 2]
-                    })
-                  }
+                      outputRange: [1, 2],
+                    }),
+                  },
                 ],
                 left: left.interpolate({
                   inputRange: [-width, -1, 0],
-                  outputRange: [0, 0, 1000]
-                })
+                  outputRange: [0, 0, 1000],
+                }),
               }}
             >
               <SVGMapUL
@@ -200,21 +200,21 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     borderColor: "grey",
     borderRadius: 50,
-    borderWidth: 1
+    borderWidth: 1,
   },
   clearIcon: {
     position: "absolute",
     color: "grey",
     right: 5,
     top: 3,
-    fontSize: 30
+    fontSize: 30,
   },
   mapContainer: {
     flexDirection: "row",
     width,
-    height: height - 170
+    height: height - 170,
   },
   searchInput: {
-    fontSize: 20
-  }
+    fontSize: 20,
+  },
 });
