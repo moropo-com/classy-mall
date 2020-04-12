@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState, useRef } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -16,6 +16,7 @@ const { width } = Dimensions.get("window");
 import theme from "../constants/theme";
 
 import { Button, IconButton } from "react-native-paper";
+import { SharedElement } from "react-navigation-shared-element";
 
 const PADDING = 40;
 const INDICATOR_CONTAINER_HEIGHT = 2;
@@ -26,7 +27,6 @@ const INDICATOR_WIDTH =
 export const ShopList = ({ navigation }) => {
   const [viewType, setViewType] = useState("cards");
   const [searchQuery, setSearchQuery] = useState("");
-  const filteredQuery = useRef("");
 
   const [scrollX] = useState(new Animated.Value(0));
 
@@ -35,16 +35,11 @@ export const ShopList = ({ navigation }) => {
 
   const clearText = () => {
     setSearchQuery("");
-    filteredQuery.current = "";
   };
 
   useEffect(() => {
     navigation.setParams({ headerButton, viewType });
   }, [viewType]);
-
-  useEffect(() => {
-    filteredQuery.current = searchQuery.replace(/ /g, "").toLowerCase();
-  }, [searchQuery]);
 
   const onShopSelect = (shopkey) => {
     navigation.navigate("ShopDetails", { shopkey, ShopDetails: true });
@@ -77,19 +72,17 @@ export const ShopList = ({ navigation }) => {
           ]}
         >
           <View style={{ width: width - 80, height: "100%" }}>
-            <Image
-              source={
-                typeof shop.image == "string" ? { uri: shop.image } : shop.image
-              }
-              style={[
-                {
+            <SharedElement id={shop.key}>
+              <Image
+                source={shop.image}
+                style={{
                   width: "100%",
                   height: "100%",
                   borderTopLeftRadius: 4,
                   borderTopRightRadius: 4,
-                },
-              ]}
-            />
+                }}
+              />
+            </SharedElement>
           </View>
           <Text style={[theme.title, { margin: 20 }]}>{shop.title}</Text>
 
@@ -99,11 +92,11 @@ export const ShopList = ({ navigation }) => {
     );
   };
 
-  const renderRow = (shop, i) => {
+  const renderRow = (shop) => {
     return (
       <TouchableHighlight
         underlayColor="rgba(0,0,0,0.1)"
-        key={i}
+        key={shop.key}
         onPress={() => onShopSelect(shop.key)}
       >
         <View
@@ -118,12 +111,14 @@ export const ShopList = ({ navigation }) => {
             marginVertical: 1,
           }}
         >
-          <Image
-            source={
-              typeof shop.image == "string" ? { uri: shop.image } : shop.image
-            }
-            style={styles.itemImage}
-          />
+          <SharedElement id={shop.key}>
+            <Image
+              source={
+                typeof shop.image == "string" ? { uri: shop.image } : shop.image
+              }
+              style={styles.itemImage}
+            />
+          </SharedElement>
           <Text
             style={[
               // theme.customFont,
@@ -185,15 +180,15 @@ export const ShopList = ({ navigation }) => {
                 color="grey"
                 style={styles.clearButton}
                 onPress={clearText}
-                icon="clear"
+                icon="close-circle-outline"
               />
             </View>
             <ScrollView style={styles.scrollView}>
               {Object.keys(SHOP_LIST)
-                .filter((name) => {
-                  return name.includes(filteredQuery.current);
-                })
-                .map((shop, index) => renderRow(SHOP_LIST[shop], index))}
+                .filter((name) =>
+                  name.includes(searchQuery.replace(/ /g, "").toLowerCase())
+                )
+                .map((shop) => renderRow(SHOP_LIST[shop]))}
             </ScrollView>
           </View>
         )}

@@ -4,6 +4,7 @@ import theme, { sizes } from "../constants/theme";
 import { SHOP_LIST } from "../constants/shopList";
 import { MaterialIcons } from "@expo/vector-icons";
 import Swiper from "react-native-swiper";
+import { SharedElement } from "react-navigation-shared-element";
 
 const NAV_HEIGHT = 80;
 const HERO_HEIGHT = 440;
@@ -74,12 +75,9 @@ export const ShopDetails = ({ route }) => {
     return (
       <View style={[styles.hero]}>
         <View style={styles.heroImageContainer}>
-          <Animated.Image
-            source={
-              typeof shop.image == "string" ? { uri: shop.image } : shop.image
-            }
-            style={[theme.image, theme.imageHero, { zIndex: 10 }]}
-          />
+          <SharedElement id={shopkey}>
+            <Image source={shop.image} style={[theme.imageHero]} />
+          </SharedElement>
         </View>
         <View style={[styles.container]}>
           <Text style={theme.title} numberOfLines={1}>
