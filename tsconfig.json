@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
-    "noEmit": true,
-    "lib": ["dom", "esnext"],
-    "jsx": "react-native",
-    "moduleResolution": "node",
-    "target": "es6",
     "allowSyntheticDefaultImports": true,
+    "jsx": "react-native",
+    "lib": ["dom", "esnext"],
+    "moduleResolution": "node",
+    "noEmit": true,
     "skipLibCheck": true,
+    "resolveJsonModule": true,
     "experimentalDecorators": true,
+    "strict": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true
   }

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState, useRef } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,14 +8,15 @@ import {
   Dimensions,
   Animated,
   TouchableHighlight,
-  TextInput
+  TextInput,
 } from "react-native";
 import { SHOP_LIST } from "../constants/shopList";
 
 const { width } = Dimensions.get("window");
-import theme from "./theme";
+import theme from "../constants/theme";
 
 import { Button, IconButton } from "react-native-paper";
+import { SharedElement } from "react-navigation-shared-element";
 
 const PADDING = 40;
 const INDICATOR_CONTAINER_HEIGHT = 2;
@@ -26,7 +27,6 @@ const INDICATOR_WIDTH =
 export const ShopList = ({ navigation }) => {
   const [viewType, setViewType] = useState("cards");
   const [searchQuery, setSearchQuery] = useState("");
-  const filteredQuery = useRef("");
 
   const [scrollX] = useState(new Animated.Value(0));
 
@@ -35,18 +35,13 @@ export const ShopList = ({ navigation }) => {
 
   const clearText = () => {
     setSearchQuery("");
-    filteredQuery.current = "";
   };
 
   useEffect(() => {
     navigation.setParams({ headerButton, viewType });
   }, [viewType]);
 
-  useEffect(() => {
-    filteredQuery.current = searchQuery.replace(/ /g, "").toLowerCase();
-  }, [searchQuery]);
-
-  const onShopSelect = shopkey => {
+  const onShopSelect = (shopkey) => {
     navigation.navigate("ShopDetails", { shopkey, ShopDetails: true });
   };
 
@@ -55,7 +50,7 @@ export const ShopList = ({ navigation }) => {
       (i - 1) * width,
       i * width,
       (i + 1) * width,
-      (i + 2) * width
+      (i + 2) * width,
     ];
 
     return (
@@ -69,27 +64,25 @@ export const ShopList = ({ navigation }) => {
                 {
                   scale: scrollX.interpolate({
                     inputRange,
-                    outputRange: [0.3, 1, 0.3, 0.3]
-                  })
-                }
-              ]
-            }
+                    outputRange: [0.3, 1, 0.3, 0.3],
+                  }),
+                },
+              ],
+            },
           ]}
         >
           <View style={{ width: width - 80, height: "100%" }}>
-            <Image
-              source={
-                typeof shop.image == "string" ? { uri: shop.image } : shop.image
-              }
-              style={[
-                {
+            <SharedElement id={shop.key}>
+              <Image
+                source={shop.image}
+                style={{
                   width: "100%",
                   height: "100%",
                   borderTopLeftRadius: 4,
-                  borderTopRightRadius: 4
-                }
-              ]}
-            />
+                  borderTopRightRadius: 4,
+                }}
+              />
+            </SharedElement>
           </View>
           <Text style={[theme.title, { margin: 20 }]}>{shop.title}</Text>
 
@@ -99,11 +92,11 @@ export const ShopList = ({ navigation }) => {
     );
   };
 
-  const renderRow = (shop, i) => {
+  const renderRow = (shop) => {
     return (
       <TouchableHighlight
         underlayColor="rgba(0,0,0,0.1)"
-        key={i}
+        key={shop.key}
         onPress={() => onShopSelect(shop.key)}
       >
         <View
@@ -115,20 +108,22 @@ export const ShopList = ({ navigation }) => {
             borderColor: "lightgrey",
             width: width - 6,
             marginHorizontal: 3,
-            marginVertical: 1
+            marginVertical: 1,
           }}
         >
-          <Image
-            source={
-              typeof shop.image == "string" ? { uri: shop.image } : shop.image
-            }
-            style={styles.itemImage}
-          />
+          <SharedElement id={shop.key}>
+            <Image
+              source={
+                typeof shop.image == "string" ? { uri: shop.image } : shop.image
+              }
+              style={styles.itemImage}
+            />
+          </SharedElement>
           <Text
             style={[
               // theme.customFont,
               theme.title,
-              { margin: 20 }
+              { margin: 20 },
             ]}
           >
             {shop.title}
@@ -185,15 +180,15 @@ export const ShopList = ({ navigation }) => {
                 color="grey"
                 style={styles.clearButton}
                 onPress={clearText}
-                icon="clear"
+                icon="close-circle-outline"
               />
             </View>
             <ScrollView style={styles.scrollView}>
               {Object.keys(SHOP_LIST)
-                .filter(name => {
-                  return name.includes(filteredQuery.current);
-                })
-                .map((shop, index) => renderRow(SHOP_LIST[shop], index))}
+                .filter((name) =>
+                  name.includes(searchQuery.replace(/ /g, "").toLowerCase())
+                )
+                .map((shop) => renderRow(SHOP_LIST[shop]))}
             </ScrollView>
           </View>
         )}
@@ -219,12 +214,12 @@ const styles = StyleSheet.create({
     elevation: 6,
     shadowOffset: {
       height: 1,
-      width: 0
-    }
+      width: 0,
+    },
   },
   contentContainer: {
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   innerContainer: {
     shadowColor: "#000000",
@@ -232,18 +227,18 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     shadowOffset: {
       height: 0,
-      width: 0
+      width: 0,
     },
     borderRadius: 4,
     alignItems: "center",
     justifyContent: "flex-end",
     width: "100%",
     height: "100%",
-    backgroundColor: "#ffffff"
+    backgroundColor: "#ffffff",
   },
   shopItem: {
     width: width,
-    padding: 40
+    padding: 40,
   },
   footer: {
     borderBottomLeftRadius: 4,
@@ -251,14 +246,14 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderTopWidth: 1,
     borderTopColor: "#f0f0f0",
-    marginBottom: 30
+    marginBottom: 30,
   },
   indicator: {
     width: INDICATOR_WIDTH,
     height: INDICATOR_CONTAINER_HEIGHT,
     position: "absolute",
     top: 0,
-    backgroundColor: "#c0c0c0"
+    backgroundColor: "#c0c0c0",
   },
   indicatorContainer: {
     height: INDICATOR_CONTAINER_HEIGHT,
@@ -267,7 +262,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "#ededed",
     position: "relative",
     width: INDICATOR_CONTAINER_WIDTH,
-    paddingHorizontal: PADDING
+    paddingHorizontal: PADDING,
   },
   inputContainer: {
     marginTop: 8,
@@ -278,22 +273,22 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     borderColor: "grey",
     borderRadius: 50,
-    borderWidth: 1
+    borderWidth: 1,
   },
   clearButton: {
     position: "absolute",
     right: 0,
-    top: -5,
-    marginBottom: 30
+    top: -7,
+    marginBottom: 30,
   },
   scrollView: { width },
   itemImage: {
     height: 40,
     width: 40,
     borderRadius: 20,
-    marginLeft: 20
+    marginLeft: 20,
   },
   searchInput: {
-    fontSize: 20
-  }
+    fontSize: 20,
+  },
 });
