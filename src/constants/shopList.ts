@@ -29,6 +29,7 @@ export const SHOP_LIST: IShopList = {
       require("../../assets/img/promos/orange/3.jpg"),
     ],
     atLevels: [LEVELS.LL, LEVELS.UL],
+    shopCodes: ["ll01"],
   },
   tattooparlour: {
     key: "tattooparlour",
@@ -46,6 +47,7 @@ export const SHOP_LIST: IShopList = {
     description: "Tattoo Parlour, great colours and lines ",
     rating: 3,
     atLevels: [LEVELS.LL],
+    shopCodes: ["ll02"],
   },
   gardenshops: {
     key: "gardenshops",
@@ -63,6 +65,7 @@ export const SHOP_LIST: IShopList = {
     description: "Create the yard and garden of your dreams.",
     rating: 3,
     atLevels: [LEVELS.LL],
+    shopCodes: ["ll03"],
   },
   floraver21: {
     key: "floraver21",
@@ -81,6 +84,7 @@ export const SHOP_LIST: IShopList = {
       "Floraver 21 is the authority on flowers & the go-to florist for the latest trends, must-have bouquets & the hottest deals.",
     rating: 3,
     atLevels: [LEVELS.LL],
+    shopCodes: ["ll04"],
   },
   foodcourt: {
     key: "foodcourt",
@@ -98,6 +102,7 @@ export const SHOP_LIST: IShopList = {
     description: "",
     rating: 3,
     atLevels: [LEVELS.LL],
+    shopCodes: ["ll05"],
   },
   wonderland: {
     key: "wonderland",
@@ -115,6 +120,7 @@ export const SHOP_LIST: IShopList = {
     description: "",
     rating: 3,
     atLevels: [LEVELS.LL],
+    shopCodes: ["ll06"],
   },
   shoes: {
     key: "shoes",
@@ -132,6 +138,7 @@ export const SHOP_LIST: IShopList = {
     description: "Shoes!",
     rating: 3,
     atLevels: [LEVELS.LL],
+    shopCodes: ["ll07"],
   },
   bikeshop: {
     key: "bikeshop",
@@ -153,6 +160,7 @@ export const SHOP_LIST: IShopList = {
       require("../../assets/img/promos/bike/2.jpg"),
     ],
     atLevels: [LEVELS.LL],
+    shopCodes: ["ll08"],
   },
   babies: {
     key: "babies",
@@ -170,6 +178,7 @@ export const SHOP_LIST: IShopList = {
     description: "Please we are not prepared for the new borns",
     rating: 3,
     atLevels: [LEVELS.LL, , LEVELS.UL],
+    shopCodes: [],
   },
   tea: {
     key: "tea",
@@ -187,6 +196,7 @@ export const SHOP_LIST: IShopList = {
     description: "Catch up and have a cup of tea",
     rating: 3,
     atLevels: [LEVELS.LL, LEVELS.UL],
+    shopCodes: [],
   },
   artsncrafts: {
     key: "artsncrafts",
@@ -205,6 +215,7 @@ export const SHOP_LIST: IShopList = {
       "Here at Arts n Craft, we have a huge range of kids' finger paints including crayons, arts & crafts, paper and more.",
     rating: 3,
     atLevels: [LEVELS.LL],
+    shopCodes: ["ll43"],
   },
 };
 

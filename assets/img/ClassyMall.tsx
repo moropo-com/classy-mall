@@ -12,7 +12,7 @@ const SvgComponent = () => (
   >
     <G
       style={{
-        display: "inline"
+        display: "inline",
       }}
       id="layer1"
     >
@@ -26,7 +26,7 @@ const SvgComponent = () => (
           strokeWidth: 1,
           strokeLinecap: "butt",
           strokeLinejoin: "miter",
-          strokeOpacity: 1
+          strokeOpacity: 1,
         }}
       />
       <Path
@@ -37,7 +37,7 @@ const SvgComponent = () => (
           strokeWidth: 1,
           strokeLinecap: "butt",
           strokeLinejoin: "miter",
-          strokeOpacity: 1
+          strokeOpacity: 1,
         }}
         d="m 8.1167469,17.414084 c 0,0 -4.6244647,26.986803 -5.2853236,39.356785 -0.066141,1.238024 0.9312725,2.992714 2.1707579,3.020185 4.8246223,0.106928 12.8357858,0.283142 12.8357858,0.283142 z"
         id="path848"
@@ -52,13 +52,13 @@ const SvgComponent = () => (
           strokeWidth: 1,
           strokeLinecap: "butt",
           strokeLinejoin: "miter",
-          strokeOpacity: 1
+          strokeOpacity: 1,
         }}
       />
     </G>
     <G
       style={{
-        display: "inline"
+        display: "inline",
       }}
       id="layer2"
     >
@@ -66,7 +66,7 @@ const SvgComponent = () => (
         <Path
           style={{
             fill: "#000000",
-            fillRule: "evenodd"
+            fillRule: "evenodd",
           }}
           className="cls-3"
           id="path-1"
@@ -75,7 +75,7 @@ const SvgComponent = () => (
         <Path
           style={{
             fill: "#000000",
-            fillRule: "evenodd"
+            fillRule: "evenodd",
           }}
           className="cls-3"
           id="path-2"
@@ -84,7 +84,7 @@ const SvgComponent = () => (
         <Path
           style={{
             fill: "#000000",
-            fillRule: "evenodd"
+            fillRule: "evenodd",
           }}
           className="cls-3"
           id="path-3"
