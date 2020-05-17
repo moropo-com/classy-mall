@@ -1,5 +1,14 @@
 import React from "react";
-import Svg, { G, Path, Text, TSpan } from "react-native-svg";
+import { View, Text as RNText } from "react-native";
+import Svg, {
+  G,
+  Path,
+  Text,
+  TSpan,
+  TextPath,
+  Rect,
+  ForeignObject,
+} from "react-native-svg";
 import { getHighlightSvgPropsForShop } from "../helpers/hightlighting";
 import { SHOP_LIST } from "../constants/shopList";
 import { ISvgComponentProps } from "../types";
@@ -32,7 +41,7 @@ const SVGMapLL = ({
   return (
     <Svg width={400} height={600} viewBox="0 0 352.217 628.529">
       <G fill="none" stroke="#000" strokeMiterlimit={10} strokeWidth={0.5}>
-        {Object.keys(shopPaths).map((shop) => {
+        {Object.keys(shopPaths.lowerLevel).map((shop) => {
           const occupiedShop = getShop(shop) as IShopRecord;
           return (
             <G key={shop}>
@@ -59,14 +68,8 @@ const SVGMapLL = ({
                       highlightedShops
                     ).strokeWidthScale
                 }
-                d={shopPaths[shop]}
+                d={shopPaths.lowerLevel[shop]}
               />
-              <Text fontFamily="'Times New Roman'">
-                M329.268 607.379
-                <TSpan x={295} y={580}>
-                  Tattoo Parlour
-                </TSpan>
-              </Text>
             </G>
           );
         })}

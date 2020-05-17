@@ -29,7 +29,7 @@ export const SHOP_LIST: IShopList = {
       require("../../assets/img/promos/orange/3.jpg"),
     ],
     atLevels: [LEVELS.LL, LEVELS.UL],
-    shopCodes: ["ll01"],
+    shopCodes: ["ll01", "ul01"],
   },
   tattooparlour: {
     key: "tattooparlour",
@@ -120,7 +120,7 @@ export const SHOP_LIST: IShopList = {
     description: "",
     rating: 3,
     atLevels: [LEVELS.LL],
-    shopCodes: ["ll06"],
+    shopCodes: ["ll06", "ul01"],
   },
   shoes: {
     key: "shoes",
@@ -160,7 +160,7 @@ export const SHOP_LIST: IShopList = {
       require("../../assets/img/promos/bike/2.jpg"),
     ],
     atLevels: [LEVELS.LL],
-    shopCodes: ["ll08"],
+    shopCodes: ["ll08", "ul08"],
   },
   babies: {
     key: "babies",
