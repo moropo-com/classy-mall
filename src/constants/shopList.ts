@@ -219,9 +219,9 @@ export const SHOP_LIST: IShopList = {
   },
 };
 
-export const SHOPS_UL = Object.values(SHOP_LIST).filter((shop) =>
-  shop.atLevels.includes(LEVELS.UL)
-);
+export const SHOPS_UL = Object.values(SHOP_LIST).filter((shop) => {
+  shop.shopCodes.find((code) => code.includes("ul"));
+});
 export const SHOPS_LL = Object.values(SHOP_LIST).filter((shop) =>
-  shop.atLevels.includes(LEVELS.LL)
+  shop.shopCodes.find((code) => code.includes("ll"))
 );

@@ -48,7 +48,7 @@ export const SVGMapView = ({ navigation }) => {
       ? searchShopsTitles(searchTerm)
       : blankShopsHighlight;
     setHighlightedShops(foundShops);
-    console.log(foundShops);
+    console.log("found shops", foundShops);
     handleSearchResults(
       foundShops,
       position === "right" ? LEVELS.LL : LEVELS.UL

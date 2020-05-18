@@ -19,7 +19,6 @@ const getShop = (shopCode) => {
   shops.map((shop) => {
     if (SHOP_LIST[shop].shopCodes.includes(shopCode)) {
       foundShop = SHOP_LIST[shop];
-      console.log("does include:", foundShop);
     }
   });
   return foundShop;
