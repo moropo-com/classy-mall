@@ -28,7 +28,7 @@ export const SHOP_LIST: IShopList = {
       require("../../assets/img/promos/orange/2.jpg"),
       require("../../assets/img/promos/orange/3.jpg"),
     ],
-    atLevels: [LEVELS.LL, LEVELS.UL],
+    // atLevels: [LEVELS.LL, LEVELS.UL],
     shopCodes: ["ll01", "ul01"],
   },
   tattooparlour: {
@@ -46,7 +46,7 @@ export const SHOP_LIST: IShopList = {
     },
     description: "Tattoo Parlour, great colours and lines ",
     rating: 3,
-    atLevels: [LEVELS.LL],
+    // atLevels: [LEVELS.LL],
     shopCodes: ["ll02"],
   },
   gardenshops: {
@@ -64,8 +64,8 @@ export const SHOP_LIST: IShopList = {
     },
     description: "Create the yard and garden of your dreams.",
     rating: 3,
-    atLevels: [LEVELS.LL],
-    shopCodes: ["ll03"],
+    // atLevels: [LEVELS.LL],
+    shopCodes: ["ul03"],
   },
   floraver21: {
     key: "floraver21",
@@ -83,7 +83,7 @@ export const SHOP_LIST: IShopList = {
     description:
       "Floraver 21 is the authority on flowers & the go-to florist for the latest trends, must-have bouquets & the hottest deals.",
     rating: 3,
-    atLevels: [LEVELS.LL],
+    // atLevels: [LEVELS.LL],
     shopCodes: ["ll04"],
   },
   foodcourt: {
@@ -101,7 +101,7 @@ export const SHOP_LIST: IShopList = {
     },
     description: "",
     rating: 3,
-    atLevels: [LEVELS.LL],
+    // atLevels: [LEVELS.LL],
     shopCodes: ["ll05"],
   },
   wonderland: {
@@ -119,7 +119,7 @@ export const SHOP_LIST: IShopList = {
     },
     description: "",
     rating: 3,
-    atLevels: [LEVELS.LL],
+    // atLevels: [LEVELS.LL],
     shopCodes: ["ll06", "ul01"],
   },
   shoes: {
@@ -137,7 +137,7 @@ export const SHOP_LIST: IShopList = {
     },
     description: "Shoes!",
     rating: 3,
-    atLevels: [LEVELS.LL],
+    // atLevels: [LEVELS.LL],
     shopCodes: ["ll07"],
   },
   bikeshop: {
@@ -159,8 +159,8 @@ export const SHOP_LIST: IShopList = {
       require("../../assets/img/promos/bike/1.jpg"),
       require("../../assets/img/promos/bike/2.jpg"),
     ],
-    atLevels: [LEVELS.LL],
-    shopCodes: ["ll08", "ul08"],
+    // atLevels: [LEVELS.LL],
+    shopCodes: ["ll08", "ul06"],
   },
   babies: {
     key: "babies",
@@ -177,7 +177,7 @@ export const SHOP_LIST: IShopList = {
     },
     description: "Please we are not prepared for the new borns",
     rating: 3,
-    atLevels: [LEVELS.LL, , LEVELS.UL],
+    // atLevels: [LEVELS.LL, , LEVELS.UL],
     shopCodes: [],
   },
   tea: {
@@ -195,7 +195,7 @@ export const SHOP_LIST: IShopList = {
     },
     description: "Catch up and have a cup of tea",
     rating: 3,
-    atLevels: [LEVELS.LL, LEVELS.UL],
+    // atLevels: [LEVELS.LL, LEVELS.UL],
     shopCodes: [],
   },
   artsncrafts: {
@@ -214,14 +214,15 @@ export const SHOP_LIST: IShopList = {
     description:
       "Here at Arts n Craft, we have a huge range of kids' finger paints including crayons, arts & crafts, paper and more.",
     rating: 3,
-    atLevels: [LEVELS.LL],
+    // atLevels: [LEVELS.LL],
     shopCodes: ["ll43"],
   },
 };
 
-export const SHOPS_UL = Object.values(SHOP_LIST).filter((shop) => {
-  shop.shopCodes.find((code) => code.includes("ul"));
-});
+export const SHOPS_UL = Object.values(SHOP_LIST).filter((shop) =>
+  shop.shopCodes.find((code) => code.includes("ul"))
+);
+
 export const SHOPS_LL = Object.values(SHOP_LIST).filter((shop) =>
   shop.shopCodes.find((code) => code.includes("ll"))
 );

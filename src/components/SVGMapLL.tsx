@@ -1,5 +1,4 @@
 import React from "react";
-import { View, Text as RNText } from "react-native";
 import Svg, {
   G,
   Path,
@@ -37,7 +36,6 @@ const SVGMapLL = ({
   navigateToShopId,
   highlightedShops,
 }: ISvgComponentProps) => {
-  // console.log(navigateToShopId, highlightedShops);
   return (
     <Svg width={400} height={600} viewBox="0 0 352.217 628.529">
       <G fill="none" stroke="#000" strokeMiterlimit={10} strokeWidth={0.5}>

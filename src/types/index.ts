@@ -15,7 +15,7 @@ export interface IShopRecord {
   openingHours: IShopOpeningHours;
   description: string;
   rating: number;
-  atLevels: string[];
+  // atLevels: string[];
   promos?: string[];
   shopCodes: string[];
 }

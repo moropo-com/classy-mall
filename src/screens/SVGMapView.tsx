@@ -12,6 +12,7 @@ import {
 import { Button } from "react-native-paper";
 import SVGMapLL from "../components/SVGMapLL";
 import SVGMapUL from "../components/SVGMapUL";
+import { Zoomable } from "../components/Zoomable";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "../constants/colors";
 import { searchShopsTitles } from "../helpers/filtering";
@@ -48,7 +49,7 @@ export const SVGMapView = ({ navigation }) => {
       ? searchShopsTitles(searchTerm)
       : blankShopsHighlight;
     setHighlightedShops(foundShops);
-    console.log("found shops", foundShops);
+    // console.log("found shops", foundShops);
     handleSearchResults(
       foundShops,
       position === "right" ? LEVELS.LL : LEVELS.UL
@@ -139,10 +140,11 @@ export const SVGMapView = ({ navigation }) => {
                 }),
               }}
             >
-              <SVGMapLL
+              {/* <SVGMapLL
                 navigateToShopId={navigateToShopId}
                 highlightedShops={highlightedShops[LEVELS.LL]}
-              />
+              /> */}
+              <Zoomable />
             </Animated.View>
             <Animated.View
               style={{
