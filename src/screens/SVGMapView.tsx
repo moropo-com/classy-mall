@@ -4,7 +4,6 @@ import {
   View,
   Dimensions,
   Animated,
-  ScrollView,
   StatusBar,
   StyleSheet,
   SafeAreaView,
@@ -12,7 +11,8 @@ import {
 import { Button } from "react-native-paper";
 import SVGMapLL from "../components/SVGMapLL";
 import SVGMapUL from "../components/SVGMapUL";
-import { Zoomable } from "../components/Zoomable";
+import { ZoomableMapLL } from "../components/ZoomableMapLL";
+import { ZoomableMapUL } from "../components/ZoomableMapUL";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "../constants/colors";
 import { searchShopsTitles } from "../helpers/filtering";
@@ -49,7 +49,6 @@ export const SVGMapView = ({ navigation }) => {
       ? searchShopsTitles(searchTerm)
       : blankShopsHighlight;
     setHighlightedShops(foundShops);
-    // console.log("found shops", foundShops);
     handleSearchResults(
       foundShops,
       position === "right" ? LEVELS.LL : LEVELS.UL
@@ -114,7 +113,7 @@ export const SVGMapView = ({ navigation }) => {
             name="clear"
           />
         </View>
-        <ScrollView style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
           <View style={styles.mapContainer}>
             <Animated.View
               style={{
@@ -144,7 +143,10 @@ export const SVGMapView = ({ navigation }) => {
                 navigateToShopId={navigateToShopId}
                 highlightedShops={highlightedShops[LEVELS.LL]}
               /> */}
-              <Zoomable />
+              <ZoomableMapLL
+                navigateToShopId={navigateToShopId}
+                highlightedShops={highlightedShops[LEVELS.LL]}
+              />
             </Animated.View>
             <Animated.View
               style={{
@@ -169,7 +171,11 @@ export const SVGMapView = ({ navigation }) => {
                 }),
               }}
             >
-              <SVGMapUL
+              {/* <SVGMapUL
+                navigateToShopId={navigateToShopId}
+                highlightedShops={highlightedShops[LEVELS.UL]}
+              /> */}
+              <ZoomableMapUL
                 navigateToShopId={navigateToShopId}
                 highlightedShops={highlightedShops[LEVELS.UL]}
               />
@@ -180,7 +186,7 @@ export const SVGMapView = ({ navigation }) => {
               onPress={scroll}
             />
           </View>
-        </ScrollView>
+        </View>
 
         <View style={{ backgroundColor: colors.secondary }}>
           <Button onPress={navigateToShopList} color="white">

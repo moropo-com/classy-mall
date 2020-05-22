@@ -47,3 +47,12 @@ export interface ISvgComponentProps {
   navigateToShopId: NavToShopIdFunc;
   highlightedShops: string[];
 }
+
+export interface ISvgComponentWithZoomProps extends ISvgComponentProps {
+  transform: {
+    scaleX: number;
+    scaleY: number;
+    translateX: number;
+    translateY: number;
+  };
+}

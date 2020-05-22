@@ -6,11 +6,6 @@ import { ISvgComponentProps } from "../types";
 import { shopPaths } from "../constants/shopPaths";
 import { IShopRecord } from "../types";
 
-// TODO Fix issue with TS complaining on typing of Text component from
-// react-native-svg
-
-// 2do Export each shop in an individual parametrized component
-
 const WALL_STROKE_WIDTH = 0.26432500000000003;
 
 const getShop = (shopCode) => {
