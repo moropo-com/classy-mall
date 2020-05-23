@@ -7,10 +7,16 @@ import { SHOP_LIST } from "../constants/shopList";
 import { getHighlightSvgPropsForShop } from "../helpers/hightlighting";
 import ZoomableSvg from "zoomable-svg";
 import { ISvgComponentProps, ISvgComponentWithZoomProps } from "../types";
-import * as getBounds from "svg-path-bounds";
+// import * as bounds from "svg-path-bounding-box";
+import * as bounds from "svg-boundings";
+
+console.log(<path></path>);
+console.log(bounds.path(<path d="M 10 10"></path>, false));
 
 const { width, height } = Dimensions.get("window");
 const WALL_STROKE_WIDTH = 0.26432500000000003;
+
+// console.log(bounds.Path("M10 10"));
 
 const SvgMapLL = ({
   transform,
@@ -47,15 +53,7 @@ const SvgMapLL = ({
           return (
             <G key={shop}>
               <ForeignObject x={50} y={0} width={100} height={100}>
-                <View
-                  onLayout={(event) => {
-                    const layout = event.nativeEvent.layout;
-                    console.log("height:", layout.height);
-                    console.log("width:", layout.width);
-                    console.log("x:", layout.x);
-                    console.log("y:", layout.y);
-                  }}
-                ></View>
+                <View></View>
               </ForeignObject>
               <Path
                 fill={
