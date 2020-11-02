@@ -3,7 +3,6 @@ import {
   TextInput,
   View,
   Dimensions,
-  Animated,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -20,6 +19,15 @@ import { IShopSearchResult, NavToShopIdFunc } from "../types";
 import PulseButton from "../components/PulseButton";
 import { isIos } from "../helpers/common";
 import SafeAreaViewBottomPadding from "../components/SafeAreaViewBottomPadding";
+import Animated, {
+  Extrapolate,
+  interpolate,
+  useAnimatedStyle,
+  useDerivedValue,
+  useSharedValue,
+  withSpring,
+} from "react-native-reanimated";
+import { useState } from "react";
 
 const { width, height } = Dimensions.get("window");
 
@@ -28,14 +36,24 @@ const blankShopsHighlight: IShopSearchResult = {
   [LEVELS.UL]: [],
 };
 
+export const useSpringTransition = (position: "left" | "right") => {
+  const value = useSharedValue(0);
+  useEffect(() => {
+    // eslint-disable-next-line no-nested-ternary
+    value.value = position === "left" ? 0 : -width;
+  }, [position, value]);
+  const transition = useDerivedValue(() => {
+    return withSpring(value.value);
+  });
+  return transition;
+};
+
 export const SVGMapView = ({ navigation }) => {
-  const [textInput, setTextInput] = React.useState("");
-  const [left] = React.useState(new Animated.Value(0));
-  const [position, setPosition] = React.useState("right");
-  const [shouldPulse, setShouldPulse] = React.useState(false);
-  const [highlightedShops, setHighlightedShops] = React.useState(
-    blankShopsHighlight
-  );
+  const [textInput, setTextInput] = useState("");
+  const [position, setPosition] = useState<"left" | "right">("right");
+  const transition = useSpringTransition(position);
+  const [shouldPulse, setShouldPulse] = useState(false);
+  const [highlightedShops, setHighlightedShops] = useState(blankShopsHighlight);
 
   const navigateToShopList = () => {
     navigation.navigate("ShopList", { ShopList: true });
@@ -76,13 +94,6 @@ export const SVGMapView = ({ navigation }) => {
   };
 
   const scroll = () => {
-    position === "left"
-      ? Animated.timing(left, {
-          toValue: 0,
-        }).start()
-      : Animated.timing(left, {
-          toValue: -width,
-        }).start();
     setPosition(position === "left" ? "right" : "left");
   };
 
@@ -90,6 +101,68 @@ export const SVGMapView = ({ navigation }) => {
     StatusBar.setBarStyle("dark-content", animated);
   };
 
+  const llStyle = useAnimatedStyle(() => {
+    // const rotate = (index - 1) * mix(transition.value, 0, Math.PI / 6);
+    return {
+      height,
+      width,
+      position: "absolute",
+      opacity: interpolate(
+        transition.value,
+        [-width, 0],
+        [0, 1],
+        Extrapolate.CLAMP
+      ),
+      transform: [
+        { perspective: 1000 },
+        {
+          scale: interpolate(
+            transition.value,
+            [-width, 0],
+            [0, 1],
+            Extrapolate.EXTEND
+          ),
+        },
+      ],
+      left: interpolate(
+        transition.value,
+        [-width, -width + 1, 0],
+        [1000, 0, 0],
+        Extrapolate.CLAMP
+      ),
+    };
+  });
+
+  const ulStyle = useAnimatedStyle(() => {
+    // const rotate = (index - 1) * mix(transition.value, 0, Math.PI / 6);
+    return {
+      height,
+      width,
+      position: "absolute",
+      opacity: interpolate(
+        transition.value,
+        [-width, 0],
+        [1, 0],
+        Extrapolate.CLAMP
+      ),
+      transform: [
+        {
+          scale: interpolate(
+            transition.value,
+            [-width, 0],
+            [1, 2],
+            Extrapolate.EXTEND
+          ),
+        },
+      ],
+      left: interpolate(
+        transition.value,
+        [-width, -1, 0],
+        [0, 0, 1000],
+        Extrapolate.CLAMP
+      ),
+    };
+  });
   useEffect(() => {
     search(textInput);
     makeStatusBarTextBlack();
@@ -114,58 +187,13 @@ export const SVGMapView = ({ navigation }) => {
         </View>
         <ScrollView style={{ flex: 1 }}>
           <View style={styles.mapContainer}>
-            <Animated.View
-              style={{
-                height,
-                width,
-                position: "absolute",
-                opacity: left.interpolate({
-                  inputRange: [-width, 0],
-                  outputRange: [0, 1],
-                }),
-                transform: [
-                  { perspective: 1000 },
-                  {
-                    scale: left.interpolate({
-                      inputRange: [-width, 0],
-                      outputRange: [0, 1],
-                    }),
-                  },
-                ],
-                left: left.interpolate({
-                  inputRange: [-width, -width + 1, 0],
-                  outputRange: [1000, 0, 0],
-                }),
-              }}
-            >
+            <Animated.View style={llStyle}>
               <SVGMapLL
                 navigateToShopId={navigateToShopId}
                 highlightedShops={highlightedShops[LEVELS.LL]}
               />
             </Animated.View>
-            <Animated.View
-              style={{
-                height,
-                width,
-                position: "absolute",
-                opacity: left.interpolate({
-                  inputRange: [-width, 0],
-                  outputRange: [1, 0],
-                }),
-                transform: [
-                  {
-                    scale: left.interpolate({
-                      inputRange: [-width, 0],
-                      outputRange: [1, 2],
-                    }),
-                  },
-                ],
-                left: left.interpolate({
-                  inputRange: [-width, -1, 0],
-                  outputRange: [0, 0, 1000],
-                }),
-              }}
-            >
+            <Animated.View style={ulStyle}>
               <SVGMapUL
                 navigateToShopId={navigateToShopId}
                 highlightedShops={highlightedShops[LEVELS.UL]}
