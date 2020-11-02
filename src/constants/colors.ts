@@ -7,7 +7,8 @@ export const colors = {
   green: "#5CC66D",
   darkGreen: "#41B053",
   primary: "#AE95DB",
-  secondary: "#304868"
+  // secondary: "#304868"
+  secondary: "#0d142e",
 };
 
 // #E97D8D
