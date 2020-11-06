@@ -43,7 +43,7 @@ export const useSpringTransition = (position: "left" | "right") => {
     value.value = position === "left" ? 0 : -width;
   }, [position, value]);
   const transition = useDerivedValue(() => {
-    return withSpring(value.value);
+    return withSpring(value.value, { damping: 15 });
   });
   return transition;
 };

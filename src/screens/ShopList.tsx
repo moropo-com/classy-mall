@@ -6,7 +6,6 @@ import {
   ScrollView,
   StyleSheet,
   Dimensions,
-  Animated,
   TouchableHighlight,
   TextInput,
 } from "react-native";
@@ -17,6 +16,12 @@ import theme from "../constants/theme";
 
 import { Button, IconButton } from "react-native-paper";
 import { SharedElement } from "react-navigation-shared-element";
+import Animated, {
+  interpolate,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+} from "react-native-reanimated";
 
 const PADDING = 40;
 const INDICATOR_CONTAINER_HEIGHT = 2;
@@ -28,7 +33,7 @@ export const ShopList = ({ navigation }) => {
   const [viewType, setViewType] = useState("cards");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [scrollX] = useState(new Animated.Value(0));
+  const scrollX = useSharedValue(0);
 
   const headerButton = () =>
     setViewType(viewType == "cards" ? "list" : "cards");
@@ -53,23 +58,16 @@ export const ShopList = ({ navigation }) => {
       (i + 2) * width,
     ];
 
+    const animatedStyle = useAnimatedStyle(() => ({
+      transform: [
+        { scale: interpolate(scrollX.value, inputRange, [0.3, 1, 0.3, 0.3]) },
+      ],
+    }));
+
     return (
       <View style={[theme.container, styles.shopItem]} key={i}>
         <Animated.View
-          style={[
-            styles.innerContainer,
-            { paddingTop: 130 },
-            {
-              transform: [
-                {
-                  scale: scrollX.interpolate({
-                    inputRange,
-                    outputRange: [0.3, 1, 0.3, 0.3],
-                  }),
-                },
-              ],
-            },
-          ]}
+          style={[styles.innerContainer, { paddingTop: 130 }, animatedStyle]}
         >
           <View style={{ width: width - 80, height: "100%" }}>
             <SharedElement id={shop.key}>
@@ -147,6 +145,10 @@ export const ShopList = ({ navigation }) => {
     );
   };
 
+  const scrollHandler = useAnimatedScrollHandler((event) => {
+    scrollX.value = event.contentOffset.x;
+  });
+
   return (
     <Fragment>
       <View style={[theme.container, theme.bg, { paddingBottom: 30 }]}>
@@ -157,10 +159,7 @@ export const ShopList = ({ navigation }) => {
             contentContainerStyle={styles.contentContainer}
             horizontal={true}
             showsHorizontalScrollIndicator={true}
-            onScroll={Animated.event(
-              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-              { useNativeDriver: true }
-            )}
+            onScroll={scrollHandler}
           >
             {Object.keys(SHOP_LIST).map((shop, index) => {
               return renderCard(SHOP_LIST[shop], index);

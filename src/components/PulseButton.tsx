@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Animated, StyleSheet, Easing } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-
+import Animated, {
+  withTiming,
+  useAnimatedStyle,
+  useSharedValue,
+  Easing,
+  interpolate,
+} from "react-native-reanimated";
 import { colors } from "../constants/colors";
 
 interface IPulseButtonProps {
@@ -11,61 +17,34 @@ interface IPulseButtonProps {
 }
 
 const PulseButton = ({ shouldPulse, position, onPress }: IPulseButtonProps) => {
-  const [circleScale, setCircleScale] = useState(new Animated.Value(0.01));
-  const [opacity, setOpacity] = useState(new Animated.Value(0));
+  const pulseValue = useSharedValue(1);
 
-  const PulseAnimation = Animated.loop(
-    Animated.sequence([
-      Animated.timing(circleScale, {
-        toValue: 1,
-        duration: 800,
-        easing: Easing.linear,
-        useNativeDriver: true
-      }),
-      Animated.timing(opacity, {
-        toValue: 0,
-        duration: 200,
-        easing: Easing.linear,
-        useNativeDriver: true
-      }),
-      Animated.timing(circleScale, {
-        toValue: 0.01,
-        duration: 0,
-        easing: Easing.linear,
-        useNativeDriver: true
-      }),
-      Animated.timing(opacity, {
-        toValue: 0.2,
-        duration: 0,
-        easing: Easing.linear,
-        useNativeDriver: true
-      })
-    ])
-  );
+  const pulse = (value) =>
+    (pulseValue.value = withTiming(
+      value,
+      { duration: 1000, easing: Easing.bezier(0.25, 0.1, 0.25, 1) },
+      () => shouldPulse && pulse(value === 1 ? 0 : 1)
+    ));
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: interpolate(pulseValue.value, [0, 1], [0, 0.6]),
+      transform: [{ scale: interpolate(pulseValue.value, [0, 1], [1, 0.01]) }],
+    };
+  });
 
   useEffect(() => {
-    if (shouldPulse) {
-      PulseAnimation.start();
-    } else {
-      PulseAnimation.stop();
-      setCircleScale(new Animated.Value(0.01));
-      setOpacity(new Animated.Value(0.2));
-    }
+    if (shouldPulse) pulse(0);
   }, [shouldPulse]);
 
   return (
     <Animated.View style={[styles.upButton, { opacity: 0.99, zIndex: 10 }]}>
-      <Animated.View
-        style={[
-          styles.iconContainer,
-          { transform: [{ scale: circleScale }], opacity }
-        ]}
-      />
+      <Animated.View style={[styles.iconContainer, animatedStyle]} />
       <MaterialIcons
         name="chevron-right"
         style={{
           zIndex: 10,
-          transform: [{ rotate: position === "left" ? "90deg" : "270deg" }]
+          transform: [{ rotate: position === "left" ? "90deg" : "270deg" }],
         }}
         size={40}
         color="white"
@@ -75,7 +54,6 @@ const PulseButton = ({ shouldPulse, position, onPress }: IPulseButtonProps) => {
   );
 };
 
-
 const styles = StyleSheet.create({
   iconContainer: {
     position: "absolute",
@@ -83,7 +61,7 @@ const styles = StyleSheet.create({
     zIndex: -1,
     borderRadius: 50,
     height: 50,
-    width: 50
+    width: 50,
   },
   upButton: {
     backgroundColor: colors.primary,
@@ -100,9 +78,9 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     shadowOffset: {
       height: 1,
-      width: 0
-    }
-  }
+      width: 0,
+    },
+  },
 });
 
 export default PulseButton;
