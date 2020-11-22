@@ -19,12 +19,16 @@ interface IPulseButtonProps {
 const PulseButton = ({ shouldPulse, position, onPress }: IPulseButtonProps) => {
   const pulseValue = useSharedValue(1);
 
-  const pulse = (value) =>
-    (pulseValue.value = withTiming(
+  const pulse = (value) => {
+    pulseValue.value = withTiming(
       value,
       { duration: 1000, easing: Easing.bezier(0.25, 0.1, 0.25, 1) },
-      () => shouldPulse && pulse(value === 1 ? 0 : 1)
-    ));
+      () => {
+        // todo - prevent infinite loop
+        // setTimeout(() => shouldPulse && pulse(value === 1 ? 0 : 1), 500);
+      }
+    );
+  };
 
   const animatedStyle = useAnimatedStyle(() => {
     return {

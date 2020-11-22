@@ -1,39 +1,34 @@
 import React, { Fragment, useEffect, useState } from "react";
 import {
   View,
-  Text,
-  Image,
-  ScrollView,
   StyleSheet,
-  Dimensions,
-  TouchableHighlight,
   TextInput,
+  FlatList,
+  useWindowDimensions,
 } from "react-native";
 import { SHOP_LIST } from "../constants/shopList";
-
-const { width } = Dimensions.get("window");
 import theme from "../constants/theme";
-
-import { Button, IconButton } from "react-native-paper";
-import { SharedElement } from "react-navigation-shared-element";
+import { IconButton } from "react-native-paper";
 import Animated, {
-  interpolate,
   useAnimatedScrollHandler,
-  useAnimatedStyle,
   useSharedValue,
 } from "react-native-reanimated";
+import { IShopList } from "../types";
+import Card from "../components/ShopList/Card";
+import Row from "../components/ShopList/Row";
 
-const PADDING = 40;
-const INDICATOR_CONTAINER_HEIGHT = 2;
-const INDICATOR_CONTAINER_WIDTH = width - PADDING * 2;
-const INDICATOR_WIDTH =
-  INDICATOR_CONTAINER_WIDTH / Object.keys(SHOP_LIST).length;
+const AnimatedFlatList: typeof FlatList = Animated.createAnimatedComponent(
+  FlatList
+);
 
 export const ShopList = ({ navigation }) => {
+  const { width } = useWindowDimensions();
   const [viewType, setViewType] = useState("cards");
   const [searchQuery, setSearchQuery] = useState("");
-
   const scrollX = useSharedValue(0);
+  const scrollHandler = useAnimatedScrollHandler((event) => {
+    scrollX.value = event.contentOffset.x;
+  });
 
   const headerButton = () =>
     setViewType(viewType == "cards" ? "list" : "cards");
@@ -46,246 +41,67 @@ export const ShopList = ({ navigation }) => {
     navigation.setParams({ headerButton, viewType });
   }, [viewType]);
 
-  const onShopSelect = (shopkey) => {
-    navigation.navigate("ShopDetails", { shopkey, ShopDetails: true });
-  };
-
-  const renderCard = (shop, i) => {
-    let inputRange = [
-      (i - 1) * width,
-      i * width,
-      (i + 1) * width,
-      (i + 2) * width,
-    ];
-
-    const animatedStyle = useAnimatedStyle(() => ({
-      transform: [
-        { scale: interpolate(scrollX.value, inputRange, [0.3, 1, 0.3, 0.3]) },
-      ],
-    }));
-
-    return (
-      <View style={[theme.container, styles.shopItem]} key={i}>
-        <Animated.View
-          style={[styles.innerContainer, { paddingTop: 130 }, animatedStyle]}
-        >
-          <View style={{ width: width - 80, height: "100%" }}>
-            <SharedElement id={shop.key}>
-              <Image
-                source={shop.image}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  borderTopLeftRadius: 4,
-                  borderTopRightRadius: 4,
-                }}
-              />
-            </SharedElement>
-          </View>
-          <Text style={[theme.title, { margin: 20 }]}>{shop.title}</Text>
-
-          {renderShopFooter(shop.key, i)}
-        </Animated.View>
-      </View>
-    );
-  };
-
-  const renderRow = (shop) => {
-    return (
-      <TouchableHighlight
-        underlayColor="rgba(0,0,0,0.1)"
-        key={shop.key}
-        onPress={() => onShopSelect(shop.key)}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            borderRadius: 5,
-            borderWidth: 1,
-            borderColor: "lightgrey",
-            width: width - 6,
-            marginHorizontal: 3,
-            marginVertical: 1,
-          }}
-        >
-          <SharedElement id={shop.key}>
-            <Image
-              source={
-                typeof shop.image == "string" ? { uri: shop.image } : shop.image
-              }
-              style={styles.itemImage}
-            />
-          </SharedElement>
-          <Text
-            style={[
-              // theme.customFont,
-              theme.title,
-              { margin: 20 },
-            ]}
-          >
-            {shop.title}
-          </Text>
-        </View>
-      </TouchableHighlight>
-    );
-  };
-
-  const renderShopFooter = (shopkey, i) => {
-    return (
-      <View key={i} style={[theme.groupButton, styles.footer]}>
-        <Button
-          onPress={() => onShopSelect(shopkey)}
-          color="black"
-          mode="contained"
-        >
-          View Details
-        </Button>
-      </View>
-    );
-  };
-
-  const scrollHandler = useAnimatedScrollHandler((event) => {
-    scrollX.value = event.contentOffset.x;
-  });
-
   return (
-    <Fragment>
-      <View style={[theme.container, theme.bg, { paddingBottom: 30 }]}>
-        {viewType == "cards" ? (
-          <Animated.ScrollView
-            pagingEnabled
-            scrollEventThrottle={16}
-            contentContainerStyle={styles.contentContainer}
-            horizontal={true}
-            showsHorizontalScrollIndicator={true}
-            onScroll={scrollHandler}
-          >
-            {Object.keys(SHOP_LIST).map((shop, index) => {
-              return renderCard(SHOP_LIST[shop], index);
-            })}
-          </Animated.ScrollView>
-        ) : (
-          <View>
-            <View style={styles.inputContainer}>
-              <TextInput
-                underlineColorAndroid="transparent"
-                value={searchQuery}
-                style={styles.searchInput}
-                onChangeText={setSearchQuery}
-                placeholder="Search"
-              />
-              <IconButton
-                color="grey"
-                style={styles.clearButton}
-                onPress={clearText}
-                icon="close-circle-outline"
-              />
-            </View>
-            <ScrollView style={styles.scrollView}>
-              {Object.keys(SHOP_LIST)
-                .filter((name) =>
-                  name.includes(searchQuery.replace(/ /g, "").toLowerCase())
-                )
-                .map((shop) => renderRow(SHOP_LIST[shop]))}
-            </ScrollView>
+    <View style={styles.container}>
+      {viewType == "cards" ? (
+        <AnimatedFlatList<IShopList>
+          pagingEnabled
+          scrollEventThrottle={16}
+          horizontal={true}
+          showsHorizontalScrollIndicator={true}
+          onScroll={scrollHandler}
+          data={Object.values(SHOP_LIST)}
+          renderItem={({ item: shop, index }) => (
+            <Card shop={shop} i={index} scrollX={scrollX} />
+          )}
+        />
+      ) : (
+        <>
+          <View style={styles.inputContainer}>
+            <TextInput
+              underlineColorAndroid="transparent"
+              value={searchQuery}
+              style={styles.searchInput}
+              onChangeText={setSearchQuery}
+              placeholder="Search"
+            />
+            <IconButton
+              color="grey"
+              style={styles.clearButton}
+              onPress={clearText}
+              icon="close-circle-outline"
+            />
           </View>
-        )}
-      </View>
-    </Fragment>
+          <FlatList
+            style={{ flex: 1 }}
+            keyExtractor={(item) => item}
+            data={Object.keys(SHOP_LIST).filter((name) =>
+              name.includes(searchQuery.replace(/ /g, "").toLowerCase())
+            )}
+            renderItem={({ item: shop }) => <Row shop={SHOP_LIST[shop]} />}
+          />
+        </>
+      )}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  addButton: {
-    backgroundColor: "#3cbc8d",
-    height: 50,
-    width: 50,
-    borderRadius: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    position: "absolute",
-    top: 0,
-    right: 0,
-    shadowColor: "#000000",
-    shadowOpacity: 0.6,
-    shadowRadius: 2,
-    elevation: 6,
-    shadowOffset: {
-      height: 1,
-      width: 0,
-    },
-  },
-  contentContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  innerContainer: {
-    shadowColor: "#000000",
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    shadowOffset: {
-      height: 0,
-      width: 0,
-    },
-    borderRadius: 4,
-    alignItems: "center",
-    justifyContent: "flex-end",
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#ffffff",
-  },
-  shopItem: {
-    width: width,
-    padding: 40,
-  },
-  footer: {
-    borderBottomLeftRadius: 4,
-    borderBottomRightRadius: 4,
-    overflow: "hidden",
-    borderTopWidth: 1,
-    borderTopColor: "#f0f0f0",
-    marginBottom: 30,
-  },
-  indicator: {
-    width: INDICATOR_WIDTH,
-    height: INDICATOR_CONTAINER_HEIGHT,
-    position: "absolute",
-    top: 0,
-    backgroundColor: "#c0c0c0",
-  },
-  indicatorContainer: {
-    height: INDICATOR_CONTAINER_HEIGHT,
-    marginVertical: 20,
-    // backgroundColor: "red",
-    // backgroundColor: "#ededed",
-    position: "relative",
-    width: INDICATOR_CONTAINER_WIDTH,
-    paddingHorizontal: PADDING,
-  },
+  container: { paddingBottom: 30, flex: 1 },
   inputContainer: {
-    marginTop: 8,
-    marginBottom: 8,
-    marginLeft: 16,
-    marginRight: 16,
+    marginVertical: 8,
+    marginHorizontal: 16,
     padding: 5,
     paddingLeft: 15,
     borderColor: "grey",
     borderRadius: 50,
     borderWidth: 1,
+    position: "relative",
   },
   clearButton: {
     position: "absolute",
     right: 0,
     top: -7,
-    marginBottom: 30,
-  },
-  scrollView: { width },
-  itemImage: {
-    height: 40,
-    width: 40,
-    borderRadius: 20,
-    marginLeft: 20,
   },
   searchInput: {
     fontSize: 20,
