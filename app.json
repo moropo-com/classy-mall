@@ -5,7 +5,7 @@
     "platforms": ["ios", "android", "web"],
     "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/img/square.png",
+    "icon": "./assets/img/square-bg.png",
     "splash": {
       "image": "./assets/img/launch.png",
       "resizeMode": "contain",
@@ -22,7 +22,8 @@
       "supportsTablet": true,
       "config": {
         "usesNonExemptEncryption": false
-      }
+      },
+      "bundleIdentifier": "uk.appsapiens.classymall"
     },
     "android": {
       "package": "uk.appsapiens.classymall"
