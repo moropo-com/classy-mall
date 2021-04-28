@@ -4,7 +4,13 @@ import { ShopList } from "../screens/ShopList";
 import { ShopDetails } from "../screens/ShopDetails";
 import { colors } from "../constants/colors";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
-import { View, Dimensions, StyleSheet } from "react-native";
+import {
+  View,
+  Dimensions,
+  StyleSheet,
+  StatusBar,
+  Platform,
+} from "react-native";
 import { Title } from "react-native-paper";
 import ClassyMall from "../../assets/img/ClassyMall";
 import {
@@ -13,6 +19,7 @@ import {
   Item,
 } from "react-navigation-header-buttons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { commonStyles } from "../constants/commonStyles";
 
 const Stack = createSharedElementStackNavigator();
 const { width } = Dimensions.get("window");
@@ -49,9 +56,15 @@ export const Routing = () => {
         headerTitle: () => {
           return (
             <View pointerEvents="none" style={styles.header}>
-              <Title>classy</Title>
-              <ClassyMall />
-              <Title>mall</Title>
+              <Title
+                style={[commonStyles.flexOne, commonStyles.textAlignRight]}
+              >
+                classy
+              </Title>
+              <View style={styles.headerLogo}>
+                <ClassyMall />
+              </View>
+              <Title style={commonStyles.flexOne}>mall</Title>
             </View>
           );
         },
@@ -98,17 +111,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginRight: 8,
   },
+  headerLogo: { height: StatusBar.currentHeight, width: 40 },
   header: {
-    width: width,
-    right: -width / 2,
-    height: "100%",
-    top: "-50%",
+    ...Platform.select({
+      ios: {
+        width: width,
+        right: -width / 2,
+        height: "100%",
+        top: "-50%",
+      },
+      android: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+      },
+    }),
     paddingBottom: 5,
     position: "absolute",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    zIndex: -1,
   },
 });
 
