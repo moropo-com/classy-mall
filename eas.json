@@ -1,0 +1,19 @@
+{
+  "builds": {
+    "android": {
+      "release": {
+        "workflow": "managed"
+      },
+      "preview": {
+        "workflow": "managed",
+        "buildType": "apk",
+        "releaseChannel": "sdk41"
+      }
+    },
+    "ios": {
+      "release": {
+        "workflow": "managed"
+      }
+    }
+  }
+}
