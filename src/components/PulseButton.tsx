@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import Animated, {
@@ -21,7 +21,7 @@ interface IPulseButtonProps {
 const PulseButton = ({ shouldPulse, position, onPress }: IPulseButtonProps) => {
   const pulseValue = useSharedValue(1);
 
-  const pulse = (value) => {console.log('4444',{shouldPulse});
+  const pulse = (value) => {
     pulseValue.value = withRepeat(
       withTiming(
         value,
