@@ -68,12 +68,12 @@ export const SVGMapView = ({ navigation }) => {
     setHighlightedShops(foundShops);
     handleSearchResults(
       foundShops,
-      position === "right" ? LEVELS.LL : LEVELS.UL
+      position === "right" ? LEVELS.UL : LEVELS.LL //swapped UL and LL to get the correct animation
     );
   };
 
   const handleSearchResults = (result: IShopSearchResult, floor: string) => {
-    if (floor == LEVELS.LL) {
+    if (floor === LEVELS.LL) {
       setShouldPulse(result[LEVELS.UL].length > 0);
     } else if (floor === LEVELS.UL) {
       setShouldPulse(result[LEVELS.LL].length > 0);
@@ -89,7 +89,7 @@ export const SVGMapView = ({ navigation }) => {
     setHighlightedShops(blankShopsHighlight);
     handleSearchResults(
       blankShopsHighlight,
-      position === "right" ? LEVELS.LL : LEVELS.UL
+      position === "right" ? LEVELS.UL : LEVELS.LL //swapped UL and LL to get the correct animation
     );
   };
 
