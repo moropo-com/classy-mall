@@ -7,6 +7,8 @@ import Animated, {
   useSharedValue,
   Easing,
   interpolate,
+  withRepeat,
+  cancelAnimation
 } from "react-native-reanimated";
 import { colors } from "../constants/colors";
 
@@ -20,13 +22,12 @@ const PulseButton = ({ shouldPulse, position, onPress }: IPulseButtonProps) => {
   const pulseValue = useSharedValue(1);
 
   const pulse = (value) => {
-    pulseValue.value = withTiming(
-      value,
-      { duration: 1000, easing: Easing.bezier(0.25, 0.1, 0.25, 1) },
-      () => {
-        // todo - prevent infinite loop
-        // setTimeout(() => shouldPulse && pulse(value === 1 ? 0 : 1), 500);
-      }
+    pulseValue.value = withRepeat(
+      withTiming(
+        value,
+        { duration: 1000, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }
+        ),
+      -1, false, () => { pulseValue.value = 1 }
     );
   };
 
@@ -38,7 +39,10 @@ const PulseButton = ({ shouldPulse, position, onPress }: IPulseButtonProps) => {
   });
 
   useEffect(() => {
-    if (shouldPulse) pulse(0);
+    if (shouldPulse) 
+      pulse(0);
+    else 
+      cancelAnimation(pulseValue);
   }, [shouldPulse]);
 
   return (
