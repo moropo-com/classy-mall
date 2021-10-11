@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { Routing } from "./src/navigation";
 import { initialiseOtaManager } from "expo-ota-manager";
-import { StatusBar } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import LottieView from "lottie-react-native";
 import * as SplashScreen from "expo-splash-screen";
 

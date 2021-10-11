@@ -2,7 +2,11 @@
   "expo": {
     "name": "classy-mall",
     "slug": "classy-mall",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/img/square-bg.png",
@@ -14,10 +18,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "experiments": {
-      "turboModules": true
-    },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "config": {
