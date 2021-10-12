@@ -5,18 +5,26 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "mocha --slow 20000 --bail"
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^5.1.5",
     "@react-navigation/stack": "^5.2.10",
+    "chalk": "^4.1.2",
     "expo": "^43.0.0-beta.3",
     "expo-ota-manager": "^1.1.4",
     "expo-splash-screen": "~0.13.1",
     "expo-status-bar": "~1.1.0",
     "expo-updates": "~0.10.2",
+    "find-up": "^6.2.0",
+    "fs": "^0.0.1-security",
     "lottie-react-native": "4.0.3",
+    "minimist": "^1.2.5",
+    "mocha": "^9.1.2",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.2",
@@ -30,7 +38,8 @@
     "react-native-swiper": "^1.6.0",
     "react-native-web": "0.17.1",
     "react-navigation-header-buttons": "^3.0.5",
-    "react-navigation-shared-element": "^5.0.0-alpha1"
+    "react-navigation-shared-element": "^5.0.0-alpha1",
+    "wd": "^1.14.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

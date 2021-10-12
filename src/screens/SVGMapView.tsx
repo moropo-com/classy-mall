@@ -208,7 +208,11 @@ export const SVGMapView = ({ navigation }) => {
         </ScrollView>
 
         <View style={{ backgroundColor: colors.secondary }}>
-          <Button onPress={navigateToShopList} color="white">
+          <Button
+            onPress={navigateToShopList}
+            color="white"
+            testID="shop-list-button"
+          >
             Shop List
           </Button>
         </View>
