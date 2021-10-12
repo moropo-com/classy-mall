@@ -1,6 +1,10 @@
 {
   "build": {
-    "release": {},
+    "release": {
+      "android": {
+        "buildType": "apk"
+      }
+    },
     "preview": {
       "android": {
         "releaseChannel": "sdk41",
