@@ -2,6 +2,7 @@
   "expo": {
     "name": "classy-mall",
     "slug": "classy-mall",
+    "owner": "appsapiens",
     "platforms": [
       "ios",
       "android",
