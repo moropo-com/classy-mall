@@ -1,4 +1,4 @@
-import { withNoBitcode } from "plugins/withNoBitcode";
+import { withNoBitcode } from "./plugins/withNoBitcode";
 
 const config = {
   name: "classy-mall",
