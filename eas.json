@@ -9,6 +9,9 @@
       "android": {
         "releaseChannel": "sdk41",
         "buildType": "apk"
+      },
+      "ios": {
+        "simulator": true
       }
     }
   }

@@ -17,7 +17,7 @@ const appiumConfig = {
   deviceName: "iPhone 11",
   platformVersion: "15.0",
   automationName: "XCUITest",
-  app: "/Users/Yusuf/Downloads/classymall.ipa",
+  app: "/Users/Yusuf/Downloads/classymall-new.ipa",
 };
 
 const PATH_TO_BINARY = appiumConfig.app;
