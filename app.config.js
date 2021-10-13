@@ -1,4 +1,5 @@
-import { withNoBitcode } from "./plugins/withNoBitcode";
+// import { withNoBitcode } from "./plugins/withNoBitcode";
+import { ConfigPlugin, withXcodeProject } from "@expo/config-plugins";
 
 const config = {
   name: "classy-mall",
@@ -27,6 +28,15 @@ const config = {
   android: {
     package: "uk.appsapiens.classymall",
   },
+};
+
+const withNoBitcode = (config) => {
+  return withXcodeProject(config, async (config) => {
+    const xcodeProject = config.modResults;
+    xcodeProject.addBuildProperty("ENABLE_BITCODE", "NO");
+
+    return config;
+  });
 };
 
 export default withNoBitcode(config);
