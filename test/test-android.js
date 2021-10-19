@@ -9,23 +9,8 @@ const {
   takeScreenshot,
 } = require("./commonFunctions");
 
-const appiumConfig = {
-  platformName: "iOS",
-  appPackage: "uk.appsapiens.classymall",
-  appActivity: "host.exp.exponent.MainActivity",
-  fullReset: true,
-  deviceName: "iPhone 11",
-  platformVersion: "15.0",
-  automationName: "XCUITest",
-  app: "/Users/Yusuf/Downloads/classymall 2.app",
-};
-
-const PATH_TO_BINARY = appiumConfig.app;
-
-const DEVICE_NAME = "iPhone 11";
-
+// CHANGE ANY OF THE BELOW TO FIT YOUR TEST CASES
 var wd = require("wd");
-var path = require("path");
 var os = require("os");
 var driver = wd.promiseChainRemote({
   host: "localhost",
@@ -33,23 +18,16 @@ var driver = wd.promiseChainRemote({
 });
 
 var assert = require("assert");
-const asserters = require("wd/lib/asserters");
-const { Asserter } = require("wd/lib/asserters");
 
 // SCREENSHOT_PATH is set on AWS device farm, and should not be set locally
 // By performing this check, we can run the tests locally as well as on AWS
 const capabilities =
   process.env && process.env.SCREENSHOT_PATH
-    ? {}
+    ? defaultAppiumCapabilities.awsDeviceFarm.android
     : {
-        platformName: "iOS",
-        appPackage: "uk.appsapiens.classymall",
-        appActivity: "host.exp.exponent.MainActivity",
-        fullReset: true,
-        deviceName: DEVICE_NAME,
-        platformVersion: "15.0",
-        automationName: "XCUITest",
-        app: PATH_TO_BINARY,
+        appPackage: "na.are.arenaapp",
+        appActivity: ".MainActivity",
+        ...defaultAppiumCapabilities.android,
       };
 
 const handleButtonPress = async function () {
@@ -65,7 +43,7 @@ const handleButtonPress = async function () {
 
 describe("Simple App Flow", function () {
   before(function () {
-    console.log("***** TEST RUN STARTING FOR IOS *****");
+    console.log("***** TEST RUN STARTING FOR ANDROID *****");
     const driverInit = driver.init(capabilities);
     return driverInit;
   });
@@ -75,7 +53,7 @@ describe("Simple App Flow", function () {
   });
 
   after(function () {
-    console.log("***** TEST RUN ENDING FOR IOS *****");
+    console.log("***** TEST RUN ENDING FOR ANDROID *****");
     driver.quit();
   });
 });
