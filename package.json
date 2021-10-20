@@ -6,7 +6,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "mocha --slow 20000 --bail"
+    "test": "mocha --slow 20000 --bail",
+    "test-android": "npm test test/test-android.js -- --timeout 500000"
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.10",

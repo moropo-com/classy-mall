@@ -134,7 +134,7 @@ const tapElementByXPathWait = async ({
   driver,
   sleepBefore,
   sleepAfter,
-  maximumWaitForDisplay = 10000,
+  maximumWaitForDisplay = 500000,
 }) => {
   if (sleepBefore && typeof sleepBefore === "number") {
     sleep(sleepBefore);
@@ -282,6 +282,32 @@ const takeScreenshot = async ({
     sleep(sleepAfter);
   }
 };
+
+// const findBinaryAtPath = (processArgv) => {
+//   // SCREENSHOT_PATH is set on AWS device farm, and should not be set locally
+//   // By performing this check, we can run the tests locally as well as on AWS
+//   if (!process.env.SCREENSHOT_PATH) {
+//     const argv = minimist(processArgv.slice(2));
+
+//     if (!argv.BINARY_PATH) {
+//       throw new Error(
+//         `BINARY_PATH not provided. Please ensure you add this to the 'test-android:<app>' command in package.json scripts (e.g. --BINARY_PATH="arena-social-network-app/app-release.apk".`
+//       );
+//     }
+
+//     const binaryLocation = findUp.sync(`apps/${argv.BINARY_PATH}`, {
+//       type: argv.DEVICE_PLATFORM === "ios" ? "directory" : "file",
+//     });
+//     if (!fs.existsSync(binaryLocation)) {
+//       throw new Error(
+//         `App binary could not be found at ${binaryLocation}. Please ensure the path is correct.`
+//       );
+//     }
+//     console.log(chalk.blueBright(`Using binary found at ${binaryLocation}`));
+//     return binaryLocation;
+//   }
+//   return null;
+// };
 
 module.exports = {
   sleep,

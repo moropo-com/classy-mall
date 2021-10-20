@@ -25,13 +25,26 @@ const capabilities =
   process.env && process.env.SCREENSHOT_PATH
     ? defaultAppiumCapabilities.awsDeviceFarm.android
     : {
-        appPackage: "na.are.arenaapp",
+        appPackage: "uk.appsapiens.classymall",
         appActivity: ".MainActivity",
-        ...defaultAppiumCapabilities.android,
+        platformName: "android",
+        fullReset: false,
+        deviceName: "auto", //"emulator-5554 (11)",
+        automationName: "UiAutomator2",
+        // skipServerInstallation: true,
+        // noSign: true,
+        app: "/Users/Yusuf/Downloads/classy-mall.apk",
+        resetKeyboard: true,
+        unicodeKeyboard: true,
+        autoGrantPermissions: true,
       };
 
 const handleButtonPress = async function () {
-  await tapElementByXPathWait({ driver, elementId: "shop-list-button" });
+  // sleepBefore: 5 minutes
+  await tapElementByXPathWait({
+    driver,
+    elementId: "shop-list-button",
+  });
   await takeScreenshot({
     driver,
     sleepBefore: 1,
