@@ -14,5 +14,8 @@
         "simulator": true
       }
     }
+  },
+  "cli": {
+    "version": ">= 0.46.0"
   }
 }
