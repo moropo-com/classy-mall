@@ -10,6 +10,10 @@
         "releaseChannel": "sdk41",
         "buildType": "apk"
       }
+    },
+    "development": {
+      "distribution": "internal",
+      "developmentClient": true
     }
   }
 }

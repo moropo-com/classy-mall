@@ -5,6 +5,7 @@ import { initialiseOtaManager } from "expo-ota-manager";
 import { StatusBar } from "expo-status-bar";
 import LottieView from "lottie-react-native";
 import * as SplashScreen from "expo-splash-screen";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 try {
   SplashScreen.preventAutoHideAsync();
@@ -42,14 +43,16 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer
-      theme={{
-        ...DefaultTheme,
-        colors: { ...DefaultTheme.colors, background: "white" },
-      }}
-    >
-      <StatusBar translucent backgroundColor="white" />
-      <Routing />
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer
+        theme={{
+          ...DefaultTheme,
+          colors: { ...DefaultTheme.colors, background: "white" },
+        }}
+      >
+        <StatusBar translucent backgroundColor="white" />
+        <Routing />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }

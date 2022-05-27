@@ -11,20 +11,17 @@ import {
   StatusBar,
   Platform,
 } from "react-native";
-import { Title } from "react-native-paper";
+import { IconButton, Title } from "react-native-paper";
 import ClassyMall from "../../assets/img/ClassyMall";
-import {
-  HeaderButtons,
-  HeaderButton,
-  Item,
-} from "react-navigation-header-buttons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import { commonStyles } from "../constants/commonStyles";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Stack = createSharedElementStackNavigator();
 const { width } = Dimensions.get("window");
 
 export const Routing = () => {
+  const { top } = useSafeAreaInsets();
   return (
     <Stack.Navigator
       initialRouteName="SVGMapView"
@@ -34,28 +31,27 @@ export const Routing = () => {
         cardStyleInterpolator: ({ current: { progress } }) => ({
           cardStyle: { opacity: progress },
         }),
-        headerRight: () => {
-          return (
-            params?.ShopList && (
-              <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
-                <Item
-                  style={styles.addButton}
-                  color="#fff"
-                  title=""
-                  iconName={
-                    params?.viewType === "list"
-                      ? "view-carousel"
-                      : "format-list-bulleted"
-                  }
-                  onPress={params?.headerButton}
-                />
-              </HeaderButtons>
+        headerRight: params?.ShopList
+          ? () => (
+              <IconButton
+                style={styles.addButton}
+                color="#fff"
+                icon={
+                  params?.viewType === "list"
+                    ? "view-carousel"
+                    : "format-list-bulleted"
+                }
+                onPress={params?.headerButton}
+              />
             )
-          );
-        },
+          : null,
+
         headerTitle: () => {
           return (
-            <View pointerEvents="none" style={styles.header}>
+            <View
+              pointerEvents="none"
+              style={[styles.header, { marginTop: top }]}
+            >
               <Title
                 style={[commonStyles.flexOne, commonStyles.textAlignRight]}
               >
@@ -84,22 +80,13 @@ export const Routing = () => {
         name="ShopDetails"
         component={ShopDetails}
         initialParams={{ user: "Shop Details" }}
-        sharedElementsConfig={({ params: { shopkey } }, otherRoute) =>
+        sharedElements={({ params: { shopkey } }, otherRoute) =>
           otherRoute.name === "ShopList" && [shopkey]
         }
       />
     </Stack.Navigator>
   );
 };
-
-const IoniconsHeaderButton = (passMeFurther) => (
-  <HeaderButton
-    {...passMeFurther}
-    IconComponent={MaterialCommunityIcons}
-    iconSize={20}
-    color="#fff"
-  />
-);
 
 const styles = StyleSheet.create({
   addButton: {
@@ -118,7 +105,6 @@ const styles = StyleSheet.create({
         width: width,
         right: -width / 2,
         height: "100%",
-        top: "-50%",
       },
       android: {
         left: 0,
