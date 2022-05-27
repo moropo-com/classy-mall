@@ -15,5 +15,8 @@
       "distribution": "internal",
       "developmentClient": true
     }
+  },
+  "cli": {
+    "version": ">= 0.52.0"
   }
 }
