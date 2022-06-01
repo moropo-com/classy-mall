@@ -2,7 +2,8 @@ name: "PR: Test"
 
 on:
   pull_request:
-    branches: [master]
+    branches:
+      - master
     paths:
       - "**.js"
       - "**.jsx"
