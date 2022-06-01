@@ -29,7 +29,8 @@ jobs:
           --header 'content-type: application/json' \
           --header 'x-moropo-api-key: ${{ secrets.MOROPO_API_KEY }}' \
           --header 'x-moropo-app-id: ${{ secrets.MOROPO_APP_ID }}' \
-          --header 'x-moropo-origin: ${{ github.event.pull_request.url}}'​
+          --header 'x-moropo-origin: ${{ github.event.pull_request.url}}' \
+          --header 'x-moropo-devclient: https://expo.dev/accounts/morrowdigital/projects/classy-mall/builds/0f64dd34-422a-4c93-a889-8aef050e8a31'
       - name: Failed to send request
         if: ${{ failure() }}
         uses: thollander/actions-comment-pull-request@v1
