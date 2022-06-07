@@ -27,7 +27,7 @@ jobs:
         id: preview
 
       - name: Split QR code Url
-      - uses: rishabhgupta/split-by@v1
+        uses: rishabhgupta/split-by@v1
         id: split
         with:
           string: "${{ steps.preview.outputs.EXPO_QR_CODE_URL }}"
