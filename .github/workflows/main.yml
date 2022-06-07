@@ -24,10 +24,8 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
       - name: 📦 Install dependencies
         run: yarn install
-
       - name: 🚀 Publish app
         run: expo publish --release-channel moropo-test-$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
-
  Moropo:
     needs: publish
     runs-on: ubuntu-latest
@@ -48,7 +46,7 @@ jobs:
           --header 'x-moropo-api-key: ${{ secrets.MOROPO_API_KEY }}' \
           --header 'x-moropo-app-id: ${{ secrets.MOROPO_APP_ID }}' \
           --header 'x-moropo-origin: ${{ github.event.pull_request.url}}' \
-          --header 'x-moropo-devclient: $moropo-test-$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")'
+          --header 'x-moropo-devclient: ${{ steps.publish.outputs.EXPO_PROJECT_URL }}'
       - name: Failed to send request
         if: ${{ failure() }}
         uses: thollander/actions-comment-pull-request@v1
