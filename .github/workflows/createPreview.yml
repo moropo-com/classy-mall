@@ -1,8 +1,6 @@
 name: Create preview
 on:
   pull_request:
-    branches: [master]
-  
     paths:
       - 'package.json'
       - 'app.json'
