@@ -37,7 +37,8 @@ jobs:
             QR code not working or need a different client? Try the QR code or deep link from the [project page](${{steps.preview.outputs.EXPO_PROJECT_URL}}).
             <br><br>
             manifest url : ${{ steps.publish.outputs.EXPO_MANIFEST_URL }}
-             EXPO_PROJECT_URL : ${{ steps.publish.outputs.EXPO_PROJECT_URL }}
+             EXPO_PROJECT_URL : ${{ steps.preview.outputs.EXPO_PROJECT_URL }}
+               ${{ steps }}
             <br><br>
-            ${{ steps.publish.outputs.EXPO_NEW_BUILD_IS_REQUIRED_MESSAGE }}
+            ${{ steps.preview.outputs.EXPO_NEW_BUILD_IS_REQUIRED_MESSAGE }}
 
