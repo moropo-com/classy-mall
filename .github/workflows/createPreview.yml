@@ -8,9 +8,6 @@ on:
       - 'app.json'
       - '**/*.js'
       - '**/*.ts'
-      
- # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
   
 jobs:
   preview:
