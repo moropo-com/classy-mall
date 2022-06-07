@@ -1,1 +1,1 @@
-<p align="center"><img src="https://github.com/app-sapiens/classy-mall/blob/master/img/splash.png" />t</p>
+<p align="center"><img src="https://github.com/app-sapiens/classy-mall/blob/master/img/splash.png" />te</p>
