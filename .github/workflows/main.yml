@@ -1,59 +1,37 @@
 # This is a basic workflow to help you get started with Actions
-
 name: Moropo Test Trigger
-
 # Controls when the workflow will run
 on:
   pull_request:
     branches: [ master ]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
 jobs:
  publish:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
         uses: actions/checkout@v3
-
       - name: 🏗 Setup Node
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
           cache: yarn
-
       - name: 🏗 Setup Expo
         uses: expo/expo-github-action@v7
         with:
           expo-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
-
       - name: 📦 Install dependencies
         run: yarn install
 
       - name: 🚀 Publish app
-        run: expo publish --release-channel moropo-test-$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH") > release-channel.txt
-        
-      - name: Upload math result for job 1
-        uses: actions/upload-artifact@v3
-        with:
-          name: release-channel
-          path: release-channel.txt
+        run: expo publish --release-channel moropo-test-$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
 
  Moropo:
     needs: publish
     runs-on: ubuntu-latest
     steps:
-      - name: Download release-channel for job 2 - publish
-        uses: actions/download-artifact@v3
-        with:
-          name: release-channel
-      - name: Print the final result
-        shell: bash
-        run: |
-          value=`cat release-channel.txt`
-          echo The result is $value
       - name: Checkout Repository
         uses: actions/checkout@v3
       - name: Post/Edit Comment
@@ -70,7 +48,7 @@ jobs:
           --header 'x-moropo-api-key: ${{ secrets.MOROPO_API_KEY }}' \
           --header 'x-moropo-app-id: ${{ secrets.MOROPO_APP_ID }}' \
           --header 'x-moropo-origin: ${{ github.event.pull_request.url}}' \
-          --header 'x-moropo-devclient: $value'
+          --header 'x-moropo-devclient: https://expo.dev/accounts/morrowdigital/projects/classy-mall/builds/0f64dd34-422a-4c93-a889-8aef050e8a31'
       - name: Failed to send request
         if: ${{ failure() }}
         uses: thollander/actions-comment-pull-request@v1
