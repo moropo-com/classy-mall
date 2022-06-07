@@ -3,11 +3,11 @@ name: Moropo Test Trigger
 # Controls when the workflow will run
 on:
   pull_request:
-    branches: [ master ]
+    branches: [master]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 jobs:
- publish:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
@@ -42,7 +42,7 @@ jobs:
           --header 'x-moropo-api-key: ${{ secrets.MOROPO_API_KEY }}' \
           --header 'x-moropo-app-id: ${{ secrets.MOROPO_APP_ID }}' \
           --header 'x-moropo-origin: ${{ github.event.pull_request.url}}' \
-          --header 'x-moropo-devclient: ${{ steps.publish.outputs.EXPO_PROJECT_URL }}'
+          --header 'x-moropo-devclient: ${{ steps.publish.outputs.EXPO_MANIFEST_URL }}'
       - name: Failed to send request
         if: ${{ failure() }}
         uses: thollander/actions-comment-pull-request@v1
