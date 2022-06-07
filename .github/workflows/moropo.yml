@@ -27,12 +27,11 @@ jobs:
         id: preview
 
       - name: Split QR code Url
-        uses: rishabhgupta/split-by@v1
+      - uses: rishabhgupta/split-by@v1
         id: split
         with:
           string: "${{ steps.preview.outputs.EXPO_QR_CODE_URL }}"
           split-by: "url="
-        run: echo "${{ steps.split.outputs._1}}"
 
       - name: Comment deployment link
         uses: unsplash/comment-on-pr@master
