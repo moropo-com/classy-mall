@@ -41,4 +41,10 @@ jobs:
                ${{ steps }}
             <br><br>
             ${{ steps.preview.outputs.EXPO_NEW_BUILD_IS_REQUIRED_MESSAGE }}
+      - uses: rishabhgupta/split-by@v1
+        id: split
+        with:
+         string: ${{ steps.preview.outputs.EXPO_PROJECT_URL }}
+         split-by: 'url='
+      - run: echo "${{ steps.split.outputs._1}}"
 
