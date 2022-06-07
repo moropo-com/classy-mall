@@ -26,10 +26,6 @@ jobs:
         run: yarn install
       - name: 🚀 Publish app
         run: expo publish --release-channel moropo-test-$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
- Moropo:
-    needs: publish
-    runs-on: ubuntu-latest
-    steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
       - name: Post/Edit Comment
