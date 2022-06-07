@@ -1,16 +1,11 @@
 name: Create preview
 on:
   pull_request:
-    branches: [master]
-  
     paths:
       - 'package.json'
       - 'app.json'
       - '**/*.js'
       - '**/*.ts'
-      
- # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
   
 jobs:
   preview:
