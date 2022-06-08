@@ -12,6 +12,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
+          
+      - uses: actions/upload-artifact@v3
+        id: artifact
+        with:
+          name: my-artifact
+          path: src/types
+    
       - name: Set up Expo
         uses: expo/expo-github-action@v5
         with:
@@ -47,6 +54,7 @@ jobs:
             ${{ steps.preview.outputs.EXPO_NEW_BUILD_IS_REQUIRED_MESSAGE }}
             <br><br>          
             Release Url :${{ steps.split.outputs._1 }}
+            Artifact: ${{ steps.artifact.outputs }}
 
       - name: Post/Edit Comment
         uses: thollander/actions-comment-pull-request@v1
