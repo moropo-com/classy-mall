@@ -1,5 +1,5 @@
 ---
-name: Create preview
+name: Moropo Publish and Test
 on: [pull_request]
 jobs:
   preview:
