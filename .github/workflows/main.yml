@@ -1,5 +1,5 @@
 ---
-name: Moropo Publish and Test
+name: Moropo Deploy and Test
 on: [pull_request]
 jobs:
   preview:
@@ -12,13 +12,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
-          
-      - uses: actions/upload-artifact@v3
-        id: artifact
-        with:
-          name: my-artifact
-          path: src/types
-    
       - name: Set up Expo
         uses: expo/expo-github-action@v5
         with:
@@ -37,8 +30,8 @@ jobs:
         uses: rishabhgupta/split-by@v1
         id: split
         with:
-          string: "${{ steps.preview.outputs.EXPO_QR_CODE_URL }}"
-          split-by: "url="
+          string: '${{ steps.preview.outputs.EXPO_QR_CODE_URL }}'
+          split-by: 'url='
 
       - name: Comment deployment link
         uses: unsplash/comment-on-pr@master
@@ -46,21 +39,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           msg: >
-            You can [preview the PR here](${{ steps.preview.outputs.EXPO_QR_CODE_URL }}).<br><br>
-            <a href="${{ steps.publish.outputs.EXPO_QR_CODE_URL }}"><img src="${{ steps.preview.outputs.EXPO_QR_CODE_URL }}" height="512px" width="512px"></a>
-            <br><br>
-            QR code not working or need a different client? Try the QR code or deep link from the [project page](${{steps.preview.outputs.EXPO_PROJECT_URL}}).
-            <br><br>          
-            ${{ steps.preview.outputs.EXPO_NEW_BUILD_IS_REQUIRED_MESSAGE }}
-            <br><br>          
-            Release Url :${{ steps.split.outputs._1 }}
-            Artifact: ${{ steps.artifact.outputs }}
+            <p align="center">
+              Release Url :${{ steps.split.outputs._1 }}
+            </p>
 
       - name: Post/Edit Comment
         uses: thollander/actions-comment-pull-request@v1
         with:
-          message: "Sending a test request to Moropo for commit ${{ github.sha }}... this may take a few minutes"
-          comment_includes: "test request"
+          message: 'Sending a test request to Moropo for commit ${{ github.sha }}... this may take a few minutes'
+          comment_includes: 'test request'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Send Test Request to Moropo
         run: |
@@ -75,12 +62,12 @@ jobs:
         if: ${{ failure() }}
         uses: thollander/actions-comment-pull-request@v1
         with:
-          message: "Something went wrong sending a test request to Moropo for commit ${{ github.sha }}"
-          comment_includes: "test request"
+          message: 'Something went wrong sending a test request to Moropo for commit ${{ github.sha }}'
+          comment_includes: 'test request'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Successfully sent test request
         uses: thollander/actions-comment-pull-request@v1
         with:
-          message: "A test request was successfully sent to Moropo for commit ${{ github.sha }}!"
-          comment_includes: "test request"
+          message: 'A test request was successfully sent to Moropo for commit ${{ github.sha }}!'
+          comment_includes: 'test request'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
