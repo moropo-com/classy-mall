@@ -52,7 +52,7 @@ jobs:
       - name: Send Test Request to Moropo
         run: |
           curl --request POST \
-          --url http://moropo.netlify.app/.netlify/functions/scheduleTestRun \
+          --url http://moropo.netlify.app/.netlify/functions/scheduleTestRun-background \
           --header 'content-type: application/json' \
           --header 'x-moropo-api-key: ${{ secrets.MOROPO_API_KEY }}' \
           --header 'x-moropo-app-id: ${{ secrets.MOROPO_APP_ID }}' \
