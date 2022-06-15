@@ -42,9 +42,6 @@ jobs:
             <p align="center">
               Release Channel Url : ${{ steps.split.outputs._1 }}
             </p>
-            <p align="center">
-              Center ?
-            </p>
 
       - name: Post/Edit Comment
         uses: thollander/actions-comment-pull-request@v1
