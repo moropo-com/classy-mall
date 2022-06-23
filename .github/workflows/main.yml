@@ -6,19 +6,25 @@ jobs:
     name: Create preview
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: pull-request
-        id: open-pr
-        uses: repo-sync/pull-request@v2
-        with:
-          destination_branch: "main"
-          github_token: ${{ secrets.GITHUB_TOKEN }}      
+     - uses: actions/checkout@v2
+     - name: pull-request
+       id: open-pr
+       uses: repo-sync/pull-request@v2
+       with:
+        destination_branch: "main"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+     - name: output-url
+       run: echo ${{steps.open-pr.outputs.pr_url}}
+     - name: output-number
+       run: echo ${{steps.open-pr.outputs.pr_number}}
+     - name: output-has-changed-files
+       run: echo ${{steps.open-pr.outputs.has_changed_files}} 
 
-      - name: Comment deployment link
-        uses: unsplash/comment-on-pr@master
-        env:
+     - name: Comment deployment link
+       uses: unsplash/comment-on-pr@master
+       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
+       with:
           msg: >
             <p align="center">
               url : ${{ steps.open-pr.outputs.pr_url }}
