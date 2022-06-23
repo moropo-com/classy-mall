@@ -6,7 +6,68 @@ jobs:
     name: Create preview
     runs-on: ubuntu-latest
     steps:
-    - uses: kceb/pull-request-url-action@v1
-      id: pr-url
+      - name: Set up repository
+        uses: actions/checkout@v2
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Set up Expo
+        uses: expo/expo-github-action@v5
+        with:
+          expo-cache: true
+          expo-version: 4.x
+          expo-token: ${{ secrets.EXPO_TOKEN }}
+      - name: Install dependencies
+        run: yarn install
+      - name: Publish to Expo & create a QR code
+        uses: expo/expo-preview-action@v1
+        with:
+          channel: moropo-test-${{ github.event.number }}
+        id: preview
 
-    - run: echo "${{ steps.pr-url.outputs.url }}"
+      - name: Split QR code Url
+        uses: rishabhgupta/split-by@v1
+        id: split
+        with:
+          string: '${{ steps.preview.outputs.EXPO_QR_CODE_URL }}'
+          split-by: 'url='
+
+      - name: Comment deployment link
+        uses: unsplash/comment-on-pr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          msg: >
+            <p align="center">
+              Release Channel Url : ${{ steps.split.outputs._1 }}
+            </p>
+
+      - name: Post/Edit Comment
+        uses: thollander/actions-comment-pull-request@v1
+        with:
+          message: 'Sending a test request to Moropo for commit ${{ github.sha }}... this may take a few minutes'
+          comment_includes: 'test request'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Send Test Request to Moropo
+        run: |
+          curl --request POST \
+          --url http://moropo.netlify.app/.netlify/functions/scheduleTestRun-background \
+          --header 'content-type: application/json' \
+          --header 'x-moropo-api-key: ${{ secrets.MOROPO_API_KEY }}' \
+          --header 'x-moropo-app-id: ${{ secrets.MOROPO_APP_ID }}' \
+          --header 'x-moropo-origin: ${{ github.event.pull_request.url}}' \
+          --header 'x-moropo-expo-manifest-url: ${{ steps.split.outputs._1  }}'
+      - name: Failed to send request
+        if: ${{ failure() }}
+        uses: thollander/actions-comment-pull-request@v1
+        with:
+          message: 'Something went wrong sending a test request to Moropo for commit ${{ github.sha }}'
+          comment_includes: 'test request'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Successfully sent test request
+        uses: thollander/actions-comment-pull-request@v1
+        with:
+          message: 'A test request was successfully sent to Moropo for commit ${{ github.sha }}!'
+          comment_includes: 'test request'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
