@@ -8,6 +8,7 @@ jobs:
     steps:
       - name: Set up repository
         uses: actions/checkout@v2
+        id: open-pr
       - name: Set up Node
         uses: actions/setup-node@v1
         with:
@@ -56,7 +57,7 @@ jobs:
           --header 'content-type: application/json' \
           --header 'x-moropo-api-key: ${{ secrets.MOROPO_API_KEY }}' \
           --header 'x-moropo-app-id: ${{ secrets.MOROPO_APP_ID }}' \
-          --header 'x-moropo-origin: ${{ github.event.pull_request.url}}' \
+          --header 'x-moropo-origin: ${{ steps.open-pr.outputs.pr_url }}' \
           --header 'x-moropo-expo-manifest-url: ${{ steps.split.outputs._1  }}'
       - name: Failed to send request
         if: ${{ failure() }}
