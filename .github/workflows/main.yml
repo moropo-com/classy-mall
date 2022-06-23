@@ -5,10 +5,14 @@ jobs:
   preview:
     name: Create preview
     runs-on: ubuntu-latest
-    steps:
+    steps:     
+      - uses: actions/checkout@v2
       - name: Set up repository
-        uses: actions/checkout@v2
         id: open-pr
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: "main"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Node
         uses: actions/setup-node@v1
         with:
@@ -42,6 +46,7 @@ jobs:
           msg: >
             <p align="center">
               Release Channel Url : ${{ steps.split.outputs._1 }}
+              URL :  ${{ steps.open-pr.outputs.pr_url }}
             </p>
 
       - name: Post/Edit Comment
