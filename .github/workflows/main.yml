@@ -18,15 +18,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
-      - name: Set up Expo
-        uses: expo/expo-github-action@v5
-        with:
-          expo-cache: true
-          expo-version: 4.x
-          expo-token: ${{ secrets.EXPO_TOKEN }}
-      - name: Install dependencies
-        run: yarn install
+          node-version: 14.x 
 
       - name: Comment deployment link
         uses: unsplash/comment-on-pr@master
