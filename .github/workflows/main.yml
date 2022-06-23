@@ -12,13 +12,7 @@ jobs:
         uses: repo-sync/pull-request@v2
         with:
           destination_branch: "main"
-          github_token: ${{ secrets.GITHUB_TOKEN }}        
-      - name: Set up repository
-        uses: actions/checkout@v2
-      - name: Set up Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x 
+          github_token: ${{ secrets.GITHUB_TOKEN }}      
 
       - name: Comment deployment link
         uses: unsplash/comment-on-pr@master
@@ -27,6 +21,5 @@ jobs:
         with:
           msg: >
             <p align="center">
-              Release Channel Url : ${{ steps.split.outputs._1 }}
               url : ${{ steps.open-pr.outputs.pr_url }}
             </p>
