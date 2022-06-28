@@ -17,9 +17,8 @@ import { IShopList } from "../types";
 import Card from "../components/ShopList/Card";
 import Row from "../components/ShopList/Row";
 
-const AnimatedFlatList: typeof FlatList = Animated.createAnimatedComponent(
-  FlatList
-);
+const AnimatedFlatList: typeof FlatList =
+  Animated.createAnimatedComponent(FlatList);
 
 export const ShopList = ({ navigation }) => {
   const { width } = useWindowDimensions();
@@ -63,7 +62,7 @@ export const ShopList = ({ navigation }) => {
               value={searchQuery}
               style={styles.searchInput}
               onChangeText={setSearchQuery}
-              placeholder="Search"
+              placeholder="Jack Replace Text Test"
             />
             <IconButton
               color="grey"
