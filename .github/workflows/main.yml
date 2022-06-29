@@ -2,6 +2,7 @@ name: Moropo Deploy and Test
 on: [pull_request]
 jobs:
   Create:
+    name: Create
     runs-on: ubuntu-latest
     steps:
       - name: Set up repository
