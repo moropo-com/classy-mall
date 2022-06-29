@@ -177,7 +177,7 @@ export const SVGMapView = ({ navigation }) => {
             value={textInput}
             style={styles.searchInput}
             onChangeText={search}
-            placeholder="Search"
+            placeholder="Search test"
           />
           <MaterialIcons
             style={styles.clearIcon}
