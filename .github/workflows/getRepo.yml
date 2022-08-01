@@ -1,0 +1,25 @@
+name: Moropo Get Repo
+on: [pull_request]
+jobs:
+  GetRepo:
+    name: GetRepo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v2
+        id: repo
+
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Install dependencies
+        run: yarn install
+        
+      - name: Comment Repo
+        uses: thollander/actions-comment-pull-request@v1
+        with:
+          message: 'Repo:  ${{ steps.preview.outputs.repo }}'
+          comment_includes: 'test request'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
