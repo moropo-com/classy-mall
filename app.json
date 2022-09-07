@@ -3,7 +3,11 @@
     "name": "classy-mall",
     "slug": "classy-mall",
     "owner": "morrowdigital",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/img/square-bg.png",
@@ -15,7 +19,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "config": {
@@ -25,6 +31,11 @@
     },
     "android": {
       "package": "uk.morrow.classymall"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ab71b43a-e6cd-454e-9051-9eb4178926c8"
+      }
     }
   }
 }
