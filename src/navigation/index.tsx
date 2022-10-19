@@ -12,9 +12,6 @@ import {
   Platform,
 } from "react-native";
 import { IconButton, Title } from "react-native-paper";
-import ClassyMall from "../../assets/img/ClassyMall";
-
-import { commonStyles } from "../constants/commonStyles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Stack = createSharedElementStackNavigator();

@@ -1,13 +1,6 @@
-import React, { Fragment, useEffect, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  FlatList,
-  useWindowDimensions,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, TextInput, FlatList } from "react-native";
 import { SHOP_LIST } from "../constants/shopList";
-import theme from "../constants/theme";
 import { IconButton } from "react-native-paper";
 import Animated, {
   useAnimatedScrollHandler,
@@ -17,12 +10,10 @@ import { IShopList } from "../types";
 import Card from "../components/ShopList/Card";
 import Row from "../components/ShopList/Row";
 
-const AnimatedFlatList: typeof FlatList = Animated.createAnimatedComponent(
-  FlatList
-);
+const AnimatedFlatList: typeof FlatList =
+  Animated.createAnimatedComponent(FlatList);
 
 export const ShopList = ({ navigation }) => {
-  const { width } = useWindowDimensions();
   const [viewType, setViewType] = useState("cards");
   const [searchQuery, setSearchQuery] = useState("");
   const scrollX = useSharedValue(0);

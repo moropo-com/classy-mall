@@ -1,17 +1,10 @@
 import React, { useEffect, Fragment, useCallback } from "react";
-import {
-  TextInput,
-  View,
-  Dimensions,
-  StatusBar,
-  StyleSheet,
-  SafeAreaView,
-} from "react-native";
+import { View, Dimensions, SafeAreaView, LayoutRectangle } from "react-native";
 import { Button, IconButton } from "react-native-paper";
 import SVGMapLL from "../components/SVGMapLL";
 import SVGMapUL from "../components/SVGMapUL";
-import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "../constants/colors";
+import { Search } from "../components/Search";
 import { searchShopsTitles } from "../helpers/filtering";
 import { LEVELS } from "../constants/shopList";
 import { IShopSearchResult, NavToShopIdFunc } from "../types";
@@ -29,7 +22,7 @@ import Animated, {
 import { useState } from "react";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
 const blankShopsHighlight: IShopSearchResult = {
   [LEVELS.LL]: [],
@@ -49,34 +42,18 @@ export const useSpringTransition = (position: "left" | "right") => {
 };
 
 export const SVGMapView = () => {
-  const [textInput, setTextInput] = useState("");
-  const searching = useSharedValue(false);
   const [position, setPosition] = useState<"left" | "right">("left");
   const transition = useSpringTransition(position);
   const [shouldPulse, setShouldPulse] = useState(false);
-  const [layout, setLayout] = useState({});
+  const [layout, setLayout] = useState<LayoutRectangle>();
   const [highlightedShops, setHighlightedShops] = useState(blankShopsHighlight);
   const navigation = useNavigation();
-  useFocusEffect(
-    useCallback(() => {
-      navigation.setOptions({
-        headerLeft: () => (
-          <IconButton
-            color="#333"
-            icon={"magnify"}
-            onPress={() => (searching.value = !searching.value)}
-          />
-        ),
-      });
-    }, [])
-  );
 
   const navigateToShopList = () => {
     navigation.navigate("ShopList", { ShopList: true });
   };
 
-  const search = (text) => {
-    setTextInput(text);
+  const search = (text: string) => {
     const searchTerm = text.replace(/ /g, "").toLowerCase();
     const foundShops = searchTerm
       ? searchShopsTitles(searchTerm)
@@ -90,31 +67,17 @@ export const SVGMapView = () => {
 
   const handleSearchResults = (result: IShopSearchResult, floor: string) => {
     if (floor === LEVELS.LL) {
-      setShouldPulse(result[LEVELS.UL].length > 0);
-    } else if (floor === LEVELS.UL) {
-      setShouldPulse(result[LEVELS.LL].length > 0);
+      return setShouldPulse(result[LEVELS.UL].length > 0);
     }
+    setShouldPulse(result[LEVELS.LL].length > 0);
   };
 
   const navigateToShopId: NavToShopIdFunc = (shopkey) => {
     navigation.navigate("ShopDetails", { shopkey, ShopDetails: true });
   };
 
-  const clearText = () => {
-    setTextInput("");
-    setHighlightedShops(blankShopsHighlight);
-    handleSearchResults(
-      blankShopsHighlight,
-      position === "right" ? LEVELS.UL : LEVELS.LL //swapped UL and LL to get the correct animation
-    );
-  };
-
   const scroll = () => {
     setPosition(position === "left" ? "right" : "left");
-  };
-
-  const makeStatusBarTextBlack = (animated = true) => {
-    StatusBar.setBarStyle("dark-content", animated);
   };
 
   const llStyle = useAnimatedStyle(() => {
@@ -177,37 +140,11 @@ export const SVGMapView = () => {
       ),
     };
   });
-  useEffect(() => {
-    search(textInput);
-    makeStatusBarTextBlack();
-  }, [position]); // make sure that button stops pulsating if needed, when changing level
 
-  const searchStyle = useAnimatedStyle(() => ({
-    position: "absolute",
-    top: withSpring(searching.value ? -90 : 0),
-  }));
-  console.log({
-    ul: JSON.stringify(ulStyle),
-    ll: console.log(llStyle),
-    position,
-  });
   return (
     <Fragment>
       <SafeAreaView style={{ flex: 1 }}>
-        <Animated.View style={[styles.clearButton, searchStyle]}>
-          <TextInput
-            underlineColorAndroid="rgba(0,0,0,0)"
-            value={textInput}
-            style={styles.searchInput}
-            onChangeText={search}
-            placeholder="Search"
-          />
-          <MaterialIcons
-            style={styles.clearIcon}
-            onPress={clearText}
-            name="clear"
-          />
-        </Animated.View>
+        <Search search={search} />
         <View
           onLayout={(e) => setLayout(e.nativeEvent.layout)}
           style={{ flex: 1 }}
@@ -244,31 +181,3 @@ export const SVGMapView = () => {
     </Fragment>
   );
 };
-
-const styles = StyleSheet.create({
-  clearButton: {
-    marginTop: 5,
-    marginLeft: 10,
-    marginRight: 10,
-    padding: 5,
-    paddingLeft: 15,
-    borderColor: "lightgrey",
-    borderRadius: 50,
-    borderWidth: 1,
-    left: 0,
-    right: 0,
-    backgroundColor: "white",
-    zIndex: 100,
-  },
-  clearIcon: {
-    position: "absolute",
-    color: "grey",
-    right: 5,
-    top: 3,
-    fontSize: 30,
-  },
-  searchInput: {
-    fontSize: 20,
-    backgroundColor: "white",
-  },
-});

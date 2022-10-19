@@ -8,11 +8,37 @@ import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
 
+import {
+  configureFonts,
+  DefaultTheme as PaperDefaultTheme,
+  Provider as PaperProvider,
+} from "react-native-paper";
 try {
   SplashScreen.preventAutoHideAsync();
 } catch (e) {
   console.warn(e);
 }
+export const DEFAULT_FONT_CONFIG = {
+  light: { fontFamily: "light" },
+  regular: { fontFamily: "regular" },
+  bold: { fontFamily: "bold" },
+  medium: { fontFamily: "regular" },
+  thin: { fontFamily: "light" },
+};
+const fonts = configureFonts({
+  ios: DEFAULT_FONT_CONFIG, // needs explicit dreclaration for iOS
+  default: DEFAULT_FONT_CONFIG,
+});
+
+const theme = {
+  ...PaperDefaultTheme,
+  colors: {
+    ...PaperDefaultTheme.colors,
+    primary: "tomato",
+    secondary: "yellow",
+  },
+  fonts,
+};
 
 export default function App() {
   const [played, setPlayed] = useState(false);
@@ -50,15 +76,17 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer
-        theme={{
-          ...DefaultTheme,
-          colors: { ...DefaultTheme.colors, background: "white" },
-        }}
-      >
-        <StatusBar translucent backgroundColor="white" />
-        <Routing />
-      </NavigationContainer>
+      <PaperProvider theme={theme}>
+        <NavigationContainer
+          theme={{
+            ...DefaultTheme,
+            colors: { ...DefaultTheme.colors, background: "white" },
+          }}
+        >
+          <StatusBar translucent backgroundColor="white" />
+          <Routing />
+        </NavigationContainer>
+      </PaperProvider>
     </SafeAreaProvider>
   );
 }
