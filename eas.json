@@ -1,6 +1,7 @@
 {
   "build": {
-    "release": {
+    "demo": {
+      "releaseChannel": "demo",
       "android": {
         "buildType": "apk"
       }
@@ -17,6 +18,7 @@
     }
   },
   "cli": {
-    "version": ">= 0.52.0"
+    "version": ">= 0.52.0",
+    "promptToConfigurePushNotifications": false
   }
 }

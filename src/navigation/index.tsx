@@ -25,12 +25,13 @@ export const Routing = () => {
   return (
     <Stack.Navigator
       initialRouteName="SVGMapView"
-      screenOptions={({ route: { params } }) => ({
+      screenOptions={({ route: { params, name } }) => ({
         gestureEnabled: false,
         headerTintColor: colors.secondary,
         cardStyleInterpolator: ({ current: { progress } }) => ({
           cardStyle: { opacity: progress },
         }),
+
         headerRight: params?.ShopList
           ? () => (
               <IconButton
@@ -52,15 +53,9 @@ export const Routing = () => {
               pointerEvents="none"
               style={[styles.header, { marginTop: top }]}
             >
-              <Title
-                style={[commonStyles.flexOne, commonStyles.textAlignRight]}
-              >
-                classy
+              <Title style={{ fontFamily: "regular", fontSize: 30 }}>
+                classy mall
               </Title>
-              <View style={styles.headerLogo}>
-                <ClassyMall />
-              </View>
-              <Title style={commonStyles.flexOne}>mall</Title>
             </View>
           );
         },

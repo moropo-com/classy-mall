@@ -3,6 +3,7 @@ import Svg, { G, Path, Text, TSpan } from "react-native-svg";
 import { getHighlightSvgPropsForShop } from "../helpers/hightlighting";
 import { SHOP_LIST } from "../constants/shopList";
 import { ISvgComponentProps } from "../types";
+import MapWrapper from "./MapWrapper";
 
 // TODO Fix issue with TS complaining on typing of Text component from
 // react-native-svg
@@ -14,8 +15,9 @@ const WALL_STROKE_WIDTH = 1.0007899999999998;
 const SvgComponent = ({
   navigateToShopId,
   highlightedShops,
+  layout,
 }: ISvgComponentProps) => (
-  <Svg width={400} height={558} viewBox="10 -25 250 1000">
+  <MapWrapper layout={layout} viewBox={"10 -25 250 1000"}>
     <G fill="none" stroke="#000" strokeWidth={0.493}>
       <Path
         d="M123.08 236.065l-4.568.304v5.989l4.567-.305v-5.988M139.827 184.34l-4.568.305v5.988l4.568-.304v-5.989M152.717 183.955l-4.567.304v5.989l4.567-.305v-5.988M168.653 244.895l-4.568.305v5.988l4.568-.304v-5.989M164.694 482.304l4.77.101v-5.988l-2.232-.102h-2.538v5.989M105.824 397.754h4.568v-5.887h-4.568v5.887M157.386 465.76l.305-2.538-15.631-.203v9.947l14.21.304 1.116-7.51"
@@ -427,7 +429,7 @@ const SvgComponent = ({
         </TSpan>
       </Text>
     </G>
-  </Svg>
+  </MapWrapper>
 );
 
 export default SvgComponent;

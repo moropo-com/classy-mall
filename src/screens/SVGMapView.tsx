@@ -1,14 +1,13 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, useCallback } from "react";
 import {
   TextInput,
   View,
   Dimensions,
-  ScrollView,
   StatusBar,
   StyleSheet,
   SafeAreaView,
 } from "react-native";
-import { Button } from "react-native-paper";
+import { Button, IconButton } from "react-native-paper";
 import SVGMapLL from "../components/SVGMapLL";
 import SVGMapUL from "../components/SVGMapUL";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -28,6 +27,7 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 import { useState } from "react";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
@@ -48,12 +48,28 @@ export const useSpringTransition = (position: "left" | "right") => {
   return transition;
 };
 
-export const SVGMapView = ({ navigation }) => {
+export const SVGMapView = () => {
   const [textInput, setTextInput] = useState("");
-  const [position, setPosition] = useState<"left" | "right">("right");
+  const searching = useSharedValue(false);
+  const [position, setPosition] = useState<"left" | "right">("left");
   const transition = useSpringTransition(position);
   const [shouldPulse, setShouldPulse] = useState(false);
+  const [layout, setLayout] = useState({});
   const [highlightedShops, setHighlightedShops] = useState(blankShopsHighlight);
+  const navigation = useNavigation();
+  useFocusEffect(
+    useCallback(() => {
+      navigation.setOptions({
+        headerLeft: () => (
+          <IconButton
+            color="#333"
+            icon={"magnify"}
+            onPress={() => (searching.value = !searching.value)}
+          />
+        ),
+      });
+    }, [])
+  );
 
   const navigateToShopList = () => {
     navigation.navigate("ShopList", { ShopList: true });
@@ -102,10 +118,9 @@ export const SVGMapView = ({ navigation }) => {
   };
 
   const llStyle = useAnimatedStyle(() => {
-    // const rotate = (index - 1) * mix(transition.value, 0, Math.PI / 6);
     return {
-      height,
-      width,
+      top: 0,
+      bottom: 0,
       position: "absolute",
       opacity: interpolate(
         transition.value,
@@ -134,10 +149,9 @@ export const SVGMapView = ({ navigation }) => {
   });
 
   const ulStyle = useAnimatedStyle(() => {
-    // const rotate = (index - 1) * mix(transition.value, 0, Math.PI / 6);
     return {
-      height,
-      width,
+      top: 0,
+      bottom: 0,
       position: "absolute",
       opacity: interpolate(
         transition.value,
@@ -168,10 +182,19 @@ export const SVGMapView = ({ navigation }) => {
     makeStatusBarTextBlack();
   }, [position]); // make sure that button stops pulsating if needed, when changing level
 
+  const searchStyle = useAnimatedStyle(() => ({
+    position: "absolute",
+    top: withSpring(searching.value ? -90 : 0),
+  }));
+  console.log({
+    ul: JSON.stringify(ulStyle),
+    ll: console.log(llStyle),
+    position,
+  });
   return (
     <Fragment>
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.clearButton}>
+        <Animated.View style={[styles.clearButton, searchStyle]}>
           <TextInput
             underlineColorAndroid="rgba(0,0,0,0)"
             value={textInput}
@@ -184,28 +207,31 @@ export const SVGMapView = ({ navigation }) => {
             onPress={clearText}
             name="clear"
           />
-        </View>
-        <ScrollView style={{ flex: 1 }}>
-          <View style={styles.mapContainer}>
-            <Animated.View style={llStyle}>
-              <SVGMapLL
-                navigateToShopId={navigateToShopId}
-                highlightedShops={highlightedShops[LEVELS.LL]}
-              />
-            </Animated.View>
-            <Animated.View style={ulStyle}>
-              <SVGMapUL
-                navigateToShopId={navigateToShopId}
-                highlightedShops={highlightedShops[LEVELS.UL]}
-              />
-            </Animated.View>
-            <PulseButton
-              shouldPulse={shouldPulse}
-              position={position}
-              onPress={scroll}
+        </Animated.View>
+        <View
+          onLayout={(e) => setLayout(e.nativeEvent.layout)}
+          style={{ flex: 1 }}
+        >
+          <Animated.View style={llStyle}>
+            <SVGMapLL
+              layout={layout}
+              navigateToShopId={navigateToShopId}
+              highlightedShops={highlightedShops[LEVELS.LL]}
             />
-          </View>
-        </ScrollView>
+          </Animated.View>
+          <Animated.View style={ulStyle}>
+            <SVGMapUL
+              layout={layout}
+              navigateToShopId={navigateToShopId}
+              highlightedShops={highlightedShops[LEVELS.UL]}
+            />
+          </Animated.View>
+          <PulseButton
+            shouldPulse={shouldPulse}
+            position={position}
+            onPress={scroll}
+          />
+        </View>
 
         <View style={{ backgroundColor: colors.secondary }}>
           <Button onPress={navigateToShopList} color="white">
@@ -226,9 +252,13 @@ const styles = StyleSheet.create({
     marginRight: 10,
     padding: 5,
     paddingLeft: 15,
-    borderColor: "grey",
+    borderColor: "lightgrey",
     borderRadius: 50,
     borderWidth: 1,
+    left: 0,
+    right: 0,
+    backgroundColor: "white",
+    zIndex: 100,
   },
   clearIcon: {
     position: "absolute",
@@ -237,12 +267,8 @@ const styles = StyleSheet.create({
     top: 3,
     fontSize: 30,
   },
-  mapContainer: {
-    flexDirection: "row",
-    width,
-    height: height - 170,
-  },
   searchInput: {
     fontSize: 20,
+    backgroundColor: "white",
   },
 });

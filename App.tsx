@@ -6,6 +6,7 @@ import { StatusBar } from "expo-status-bar";
 import LottieView from "lottie-react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { useFonts } from "expo-font";
 
 try {
   SplashScreen.preventAutoHideAsync();
@@ -16,6 +17,11 @@ try {
 export default function App() {
   const [played, setPlayed] = useState(false);
   const lottieRef = useRef<LottieView>();
+  const [loaded] = useFonts({
+    regular: require("./assets/fonts/Comfortaa-Regular.ttf"),
+    light: require("./assets/fonts/Comfortaa-Light.ttf"),
+    bold: require("./assets/fonts/Comfortaa-Bold.ttf"),
+  });
   useEffect(() => {
     initialiseOtaManager({
       noButtonText: "Not Now",
@@ -30,17 +36,17 @@ export default function App() {
     }, 100);
   }, []);
 
-  if (!played) {
-    return (
-      <LottieView
-        ref={lottieRef}
-        loop={false}
-        style={{ flex: 1 }}
-        source={require("./assets/img/openbag.json")}
-        onAnimationFinish={() => setPlayed(true)}
-      />
-    );
-  }
+  // if (!played) {
+  //   return (
+  //     <LottieView
+  //       ref={lottieRef}
+  //       loop={false}
+  //       style={{ flex: 1 }}
+  //       source={require("./assets/img/openbag.json")}
+  //       onAnimationFinish={() => setPlayed(true)}
+  //     />
+  //   );
+  // }
 
   return (
     <SafeAreaProvider>

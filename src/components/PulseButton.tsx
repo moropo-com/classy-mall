@@ -8,7 +8,7 @@ import Animated, {
   Easing,
   interpolate,
   withRepeat,
-  cancelAnimation
+  cancelAnimation,
 } from "react-native-reanimated";
 import { colors } from "../constants/colors";
 
@@ -23,11 +23,15 @@ const PulseButton = ({ shouldPulse, position, onPress }: IPulseButtonProps) => {
 
   const pulse = (value) => {
     pulseValue.value = withRepeat(
-      withTiming(
-        value,
-        { duration: 1000, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }
-        ),
-      -1, false, () => { pulseValue.value = 1 }
+      withTiming(value, {
+        duration: 1000,
+        easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+      }),
+      -1,
+      false,
+      () => {
+        pulseValue.value = 1;
+      }
     );
   };
 
@@ -39,14 +43,13 @@ const PulseButton = ({ shouldPulse, position, onPress }: IPulseButtonProps) => {
   });
 
   useEffect(() => {
-    if (shouldPulse) 
-      pulse(0);
-    else 
-      cancelAnimation(pulseValue);
+    console.log({ shouldPulse });
+    if (shouldPulse) return pulse(0);
+    cancelAnimation(pulseValue);
   }, [shouldPulse]);
 
   return (
-    <Animated.View style={[styles.upButton, { opacity: 0.99, zIndex: 10 }]}>
+    <Animated.View style={[styles.upButton]}>
       <Animated.View style={[styles.iconContainer, animatedStyle]} />
       <MaterialIcons
         name="chevron-right"
@@ -67,11 +70,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     backgroundColor: "white",
     zIndex: -1,
-    borderRadius: 50,
-    height: 50,
-    width: 50,
+    // borderRadius: 50,
+    // height: 50,
+    // width: 50,
   },
   upButton: {
+    opacity: 0.99,
+    zIndex: 10,
     backgroundColor: colors.primary,
     height: 50,
     width: 50,
