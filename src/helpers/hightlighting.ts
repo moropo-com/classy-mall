@@ -3,13 +3,13 @@ import { colors } from "../constants/colors";
 const notHighlightedColors = {
   fill: "transparent",
   stroke: "#000",
-  strokeWidthScale: 1
+  strokeWidth: 1,
 };
 
 const highLightedColors = {
   fill: colors.green,
-  stroke: colors.darkGreen,
-  strokeWidthScale: 5
+  stroke: "blue",
+  strokeWidth: 5,
 };
 
 export const getHighlightSvgPropsForShop = (

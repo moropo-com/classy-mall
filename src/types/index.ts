@@ -22,17 +22,29 @@ export interface IShopRecord {
 }
 
 export interface IShopList {
-  orangecafe: IShopRecord;
-  tattooparlour: IShopRecord;
-  gardenshops: IShopRecord;
-  floraver21: IShopRecord;
-  foodcourt: IShopRecord;
-  wonderland: IShopRecord;
-  shoes: IShopRecord;
-  bikeshop: IShopRecord;
-  babies: IShopRecord;
-  tea: IShopRecord;
-  artsncrafts: IShopRecord;
+  escalator_b: IShopRecord;
+  petal: IShopRecord;
+  yoga: IShopRecord;
+  juice: IShopRecord;
+  gelato: IShopRecord;
+  travel: IShopRecord;
+  lingerie: IShopRecord;
+  cell: IShopRecord;
+  accessories: IShopRecord;
+  bakery: IShopRecord;
+  toys: IShopRecord;
+  seating: IShopRecord;
+  caviard: IShopRecord;
+  mexhut: IShopRecord;
+  sarnie: IShopRecord;
+  paper: IShopRecord;
+  page: IShopRecord;
+  amore: IShopRecord;
+  department: IShopRecord;
+  treatment: IShopRecord;
+  toilets: IShopRecord;
+  manager: IShopRecord;
+  escalator_a: IShopRecord;
 }
 
 // TODO make this type dynamic based on the

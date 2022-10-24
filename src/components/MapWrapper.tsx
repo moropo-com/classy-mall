@@ -5,14 +5,14 @@ import Animated, {
   useSharedValue,
 } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { LayoutRectangle } from "react-native";
+import { LayoutRectangle, View } from "react-native";
 import { Button } from "react-native-paper";
 
 const AnimatedG = Animated.createAnimatedComponent(G);
 
 interface IMapWrapper {
   layout: LayoutRectangle;
-  viewBox: string;
+  viewBox: { left: number; right: number; bottom: number; top: number };
 }
 const MapWrapper: FC<PropsWithChildren<IMapWrapper>> = ({
   layout = {},
@@ -23,25 +23,23 @@ const MapWrapper: FC<PropsWithChildren<IMapWrapper>> = ({
   const start = useSharedValue({ x: 0, y: 0 });
   const scale = useSharedValue(1);
   const savedScale = useSharedValue(1);
-
+  const svgRatio = viewBox.right / viewBox.bottom;
+  const layoutRatio = layout.width / layout.height;
   const panGesture = Gesture.Pan()
     .onUpdate((e) => {
       const newX =
         (e.translationX * viewBox.right) / layout.width + start.value.x;
-      const newY =
-        (((e.translationY * viewBox.bottom) / layout.height + start.value.y) *
-          layout.height) /
-        viewBox.bottom;
-
+      const newY = (e.translationY * svgRatio) / layoutRatio + start.value.y;
+      console.log(newX, viewBox);
       offset.value = {
         x:
-          newX < viewBox.right * 0.5 * scale.value &&
-          newX > -viewBox.right * 0.5 * scale.value
+          newX > -viewBox.right - viewBox.right / 2 &&
+          newX < viewBox.right - 200
             ? newX
             : offset.value.x,
         y:
-          newX < viewBox.bottom * scale.value * 0.5 &&
-          newX > -viewBox.bottom * scale.value * 0.5
+          newY > -viewBox.bottom - viewBox.bottom / 2 &&
+          newY < viewBox.bottom - 200
             ? newY
             : offset.value.y,
       };
@@ -62,7 +60,7 @@ const MapWrapper: FC<PropsWithChildren<IMapWrapper>> = ({
       savedScale.value = scale.value;
     });
 
-  const composed = Gesture.Simultaneous(panGesture, pinchGesture);
+  const composed = Gesture.Race(panGesture, pinchGesture);
   const animatedProps = useAnimatedProps(() => ({
     x: offset.value.x,
     y: offset.value.y,
@@ -72,15 +70,17 @@ const MapWrapper: FC<PropsWithChildren<IMapWrapper>> = ({
   return (
     <>
       <GestureDetector gesture={composed}>
-        <Svg
-          width={layout.width}
-          height={layout.height}
-          viewBox={`${viewBox.left} ${viewBox.top} ${viewBox.right} ${viewBox.bottom}`}
-        >
-          <AnimatedG animatedProps={animatedProps} fill={"black"}>
-            {children}
-          </AnimatedG>
-        </Svg>
+        <View style={{ flex: 1 }}>
+          <Svg
+            width={layout.width}
+            height={layout.height}
+            viewBox={`${viewBox.left} ${viewBox.top} ${viewBox.right} ${viewBox.bottom}`}
+          >
+            <AnimatedG animatedProps={animatedProps} fill={"black"}>
+              {children}
+            </AnimatedG>
+          </Svg>
+        </View>
       </GestureDetector>
       <Button
         style={{ position: "absolute", bottom: 0, right: 0 }}
