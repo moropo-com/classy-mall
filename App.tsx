@@ -73,6 +73,7 @@ export default function App() {
   //     />
   //   );
   // }
+  if (!loaded) return null;
 
   return (
     <SafeAreaProvider>
