@@ -30,7 +30,7 @@ const MapWrapper: FC<PropsWithChildren<IMapWrapper>> = ({
       const newX =
         (e.translationX * viewBox.right) / layout.width + start.value.x;
       const newY = (e.translationY * svgRatio) / layoutRatio + start.value.y;
-      console.log(newX, viewBox);
+      // console.log(newX, viewBox);
       offset.value = {
         x:
           newX > -viewBox.right - viewBox.right / 2 &&
