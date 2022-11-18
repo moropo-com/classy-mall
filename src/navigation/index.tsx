@@ -55,7 +55,7 @@ export const Routing = () => {
               <Title
                 style={[commonStyles.flexOne, commonStyles.textAlignRight]}
               >
-                classy
+                classier
               </Title>
               <View style={styles.headerLogo}>
                 <ClassyMall />
