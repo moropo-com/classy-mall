@@ -3,11 +3,7 @@
     "name": "classy-mall",
     "slug": "classy-mall",
     "owner": "moropo",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/img/square-bg.png",
@@ -20,9 +16,7 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/cd0e344b-8011-4434-91a6-dec86deb68c0"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "config": {
@@ -35,6 +29,6 @@
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
-    },
+    }
   }
 }
