@@ -49,6 +49,7 @@ const PulseButton = ({ shouldPulse, position, onPress }: IPulseButtonProps) => {
     <Animated.View style={[styles.upButton, { opacity: 0.99, zIndex: 10 }]}>
       <Animated.View style={[styles.iconContainer, animatedStyle]} />
       <MaterialIcons
+        testID="pulseButton"
         name="chevron-right"
         style={{
           zIndex: 10,
