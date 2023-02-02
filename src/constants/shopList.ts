@@ -1,3 +1,4 @@
+import { Dimensions } from "react-native";
 import { IShopList } from "../types";
 
 export const LEVELS: { UL: string; LL: string } = {
@@ -6,10 +7,14 @@ export const LEVELS: { UL: string; LL: string } = {
 };
 
 export const LEVEL_VALUES = Object.values(LEVELS);
-
+const { height: windowHeight, width: windowWidth } = Dimensions.get("window");
 export const SHOP_LIST: IShopList = {
   orangecafe: {
     key: "orangecafe",
+    height: 50,
+    width: 50,
+    top: Math.random() * windowHeight,
+    left: Math.random() * windowWidth,
     image: require("../../assets/img/promos/orange/main.jpg"),
     title: "Orange Cafe",
     openingHours: {
@@ -32,6 +37,10 @@ export const SHOP_LIST: IShopList = {
   },
   tattooparlour: {
     key: "tattooparlour",
+    height: 50,
+    width: 50,
+    top: Math.random() * windowHeight,
+    left: Math.random() * windowWidth,
     image: require("../../assets/img/promos/tattoo/main.jpg"),
     title: "Tattoo Parlour",
     openingHours: {
@@ -49,6 +58,10 @@ export const SHOP_LIST: IShopList = {
   },
   gardenshops: {
     key: "gardenshops",
+    height: 50,
+    width: 50,
+    top: Math.random() * windowHeight,
+    left: Math.random() * windowWidth,
     image: require("../../assets/img/promos/garden/main.jpg"),
     title: "Garden Shops",
     openingHours: {
@@ -66,6 +79,10 @@ export const SHOP_LIST: IShopList = {
   },
   floraver21: {
     key: "floraver21",
+    height: 50,
+    width: 50,
+    top: Math.random() * windowHeight,
+    left: Math.random() * windowWidth,
     image: require("../../assets/img/promos/flower/main.jpg"),
     title: "Floraver 21",
     openingHours: {
@@ -84,6 +101,10 @@ export const SHOP_LIST: IShopList = {
   },
   foodcourt: {
     key: "foodcourt",
+    height: 50,
+    width: 50,
+    top: Math.random() * windowHeight,
+    left: Math.random() * windowWidth,
     image: require("../../assets/img/promos/foodcourt/main.jpg"),
     title: "Food Court",
     openingHours: {
@@ -101,6 +122,10 @@ export const SHOP_LIST: IShopList = {
   },
   wonderland: {
     key: "wonderland",
+    height: 50,
+    width: 50,
+    top: Math.random() * windowHeight,
+    left: Math.random() * windowWidth,
     image: require("../../assets/img/square.png"),
     title: "Wonderland",
     openingHours: {
@@ -118,6 +143,10 @@ export const SHOP_LIST: IShopList = {
   },
   shoes: {
     key: "shoes",
+    height: 50,
+    width: 50,
+    top: Math.random() * windowHeight,
+    left: Math.random() * windowWidth,
     image: require("../../assets/img/promos/shoes/main.jpg"),
     title: "Shoes!",
     openingHours: {
@@ -135,6 +164,10 @@ export const SHOP_LIST: IShopList = {
   },
   bikeshop: {
     key: "bikeshop",
+    height: 50,
+    width: 50,
+    top: Math.random() * windowHeight,
+    left: Math.random() * windowWidth,
     image: require("../../assets/img/promos/bike/main.jpg"),
     title: "Bike shop",
     openingHours: {
@@ -156,6 +189,10 @@ export const SHOP_LIST: IShopList = {
   },
   babies: {
     key: "babies",
+    height: 50,
+    width: 50,
+    top: Math.random() * windowHeight,
+    left: Math.random() * windowWidth,
     image: require("../../assets/img/promos/babies/main.jpg"),
     title: "Babies",
     openingHours: {
@@ -173,6 +210,10 @@ export const SHOP_LIST: IShopList = {
   },
   tea: {
     key: "tea",
+    height: 50,
+    width: 50,
+    top: Math.random() * windowHeight,
+    left: Math.random() * windowWidth,
     image: require("../../assets/img/promos/tea/main.jpg"),
     title: "Tea me meet again",
     openingHours: {
@@ -190,6 +231,10 @@ export const SHOP_LIST: IShopList = {
   },
   artsncrafts: {
     key: "artsncrafts",
+    height: 50,
+    width: 50,
+    top: Math.random() * windowHeight,
+    left: Math.random() * windowWidth,
     image: require("../../assets/img/promos/art/main.jpg"),
     title: "Arts n Craft",
     openingHours: {
