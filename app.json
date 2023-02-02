@@ -3,11 +3,7 @@
     "name": "classy-mall",
     "slug": "classy-mall",
     "owner": "moropo",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/img/square-bg.png",
@@ -17,16 +13,12 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/cd0e344b-8011-4434-91a6-dec86deb68c0"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "config": {
-        "usesNonExemptEncryption": false
-      },
       "bundleIdentifier": "uk.morrow.classymall"
     },
     "android": {
@@ -34,8 +26,11 @@
     },
     "extra": {
       "eas": {
-        "projectId": "ab71b43a-e6cd-454e-9051-9eb4178926c8"
+        "projectId": "cd0e344b-8011-4434-91a6-dec86deb68c0"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }

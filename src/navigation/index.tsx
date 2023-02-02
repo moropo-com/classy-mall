@@ -53,14 +53,20 @@ export const Routing = () => {
               style={[styles.header, { marginTop: top }]}
             >
               <Title
-                style={[commonStyles.flexOne, commonStyles.textAlignRight]}
+                style={[
+                  commonStyles.flexOne,
+                  commonStyles.textAlignRight,
+                  { lineHeight: 20 },
+                ]}
               >
                 classy
               </Title>
               <View style={styles.headerLogo}>
                 <ClassyMall />
               </View>
-              <Title style={commonStyles.flexOne}>mall</Title>
+              <Title style={[commonStyles.flexOne, { lineHeight: 20 }]}>
+                mall
+              </Title>
             </View>
           );
         },
@@ -98,26 +104,24 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginRight: 8,
   },
-  headerLogo: { height: StatusBar.currentHeight, width: 40 },
+  headerLogo: { height: 25, width: 40 },
   header: {
     ...Platform.select({
       ios: {
         width: width,
         right: -width / 2,
         height: "100%",
+        position: "absolute",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
       },
       android: {
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
+        width: 180,
+        flexDirection: "row",
+        position: "absolute",
       },
     }),
-    paddingBottom: 5,
-    position: "absolute",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
 
