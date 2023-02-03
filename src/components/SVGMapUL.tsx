@@ -1,8 +1,33 @@
 import React from "react";
+import { getHighlightSvgPropsForShop } from "../helpers/hightlighting";
 import { LEVELS, SHOP_LIST } from "../constants/shopList";
 import { ISvgComponentProps } from "../types";
-import { View } from "react-native";
-import { Shop } from "./SVGMapLL";
+import { TouchableOpacity, View, Text } from "react-native";
+
+export const Shop = ({ navigateToShopId, highlightedShops, shop }) => (
+  <TouchableOpacity
+    onPress={() => navigateToShopId(shop.key)}
+    testID={shop.key}
+    style={{
+      backgroundColor: getHighlightSvgPropsForShop(shop.key, highlightedShops)
+        .fill,
+      borderColor: getHighlightSvgPropsForShop(shop.key, highlightedShops)
+        .stroke,
+      borderWidth: getHighlightSvgPropsForShop(shop.key, highlightedShops)
+        .strokeWidthScale,
+      position: "absolute",
+      zIndex: -1,
+      width: shop.width,
+      height: shop.height,
+      top: shop.top,
+      left: shop.left,
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
+    <Text>{shop.title}</Text>
+  </TouchableOpacity>
+);
 
 const SvgComponent = ({
   navigateToShopId,
