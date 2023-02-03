@@ -10,25 +10,22 @@ export const Shop = ({ navigateToShopId, highlightedShops, shop }) => (
   <TouchableOpacity
     onPress={() => navigateToShopId(shop.key)}
     testID={shop.key}
+    style={{
+      backgroundColor: getHighlightSvgPropsForShop(shop.key, highlightedShops)
+        .fill,
+      borderColor: getHighlightSvgPropsForShop(shop.key, highlightedShops)
+        .stroke,
+      borderWidth: getHighlightSvgPropsForShop(shop.key, highlightedShops)
+        .strokeWidthScale,
+      position: "absolute",
+      zIndex: -1,
+      width: shop.width,
+      height: shop.height,
+      top: shop.top,
+      left: shop.left,
+    }}
   >
-    <View
-      style={{
-        backgroundColor: getHighlightSvgPropsForShop(shop.key, highlightedShops)
-          .fill,
-        borderColor: getHighlightSvgPropsForShop(shop.key, highlightedShops)
-          .stroke,
-        borderWidth: getHighlightSvgPropsForShop(shop.key, highlightedShops)
-          .strokeWidthScale,
-        position: "absolute",
-        zIndex: -1,
-        width: shop.width,
-        height: shop.height,
-        top: shop.top,
-        left: shop.left,
-      }}
-    >
-      <Text>{shop.title}</Text>
-    </View>
+    <Text>{shop.title}</Text>
   </TouchableOpacity>
 );
 
