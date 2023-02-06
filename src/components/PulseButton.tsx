@@ -27,7 +27,7 @@ const PulseButton = ({ shouldPulse, position, onPress }: IPulseButtonProps) => {
         duration: 1000,
         easing: Easing.bezier(0.25, 0.1, 0.25, 1),
       }),
-      -1,
+      2,
       false,
       () => {
         pulseValue.value = 1;
