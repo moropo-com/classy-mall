@@ -1,5 +1,7 @@
 import React from "react";
 
+//TODO test comment
+
 
 import { SVGMapView } from "../screens/SVGMapView";
 import { ShopList } from "../screens/ShopList";
