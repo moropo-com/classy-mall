@@ -35,6 +35,7 @@ export interface IShopList {
 
 // TODO make this type dynamic based on the
 // values of LEVELS array
+// TEST
 
 export interface IShopSearchResult {
   [x: string]: string[];
