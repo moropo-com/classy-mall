@@ -1,6 +1,6 @@
 import React from "react";
 
-//TODO test comment 1
+//TODO test
 
 
 import { SVGMapView } from "../screens/SVGMapView";
