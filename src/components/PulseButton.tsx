@@ -8,7 +8,7 @@ import Animated, {
   Easing,
   interpolate,
   withRepeat,
-  cancelAnimation
+  cancelAnimation,
 } from "react-native-reanimated";
 import { colors } from "../constants/colors";
 
@@ -23,11 +23,15 @@ const PulseButton = ({ shouldPulse, position, onPress }: IPulseButtonProps) => {
 
   const pulse = (value) => {
     pulseValue.value = withRepeat(
-      withTiming(
-        value,
-        { duration: 1000, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }
-        ),
-      -1, false, () => { pulseValue.value = 1 }
+      withTiming(value, {
+        duration: 1000,
+        easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+      }),
+      2,
+      false,
+      () => {
+        pulseValue.value = 1;
+      }
     );
   };
 
@@ -39,16 +43,15 @@ const PulseButton = ({ shouldPulse, position, onPress }: IPulseButtonProps) => {
   });
 
   useEffect(() => {
-    if (shouldPulse) 
-      pulse(0);
-    else 
-      cancelAnimation(pulseValue);
+    if (shouldPulse) pulse(0);
+    else cancelAnimation(pulseValue);
   }, [shouldPulse]);
 
   return (
     <Animated.View style={[styles.upButton, { opacity: 0.99, zIndex: 10 }]}>
       <Animated.View style={[styles.iconContainer, animatedStyle]} />
       <MaterialIcons
+        testID="pulse-button"
         name="chevron-right"
         style={{
           zIndex: 10,

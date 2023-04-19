@@ -9,8 +9,8 @@ import {
   SafeAreaView,
 } from "react-native";
 import { Button } from "react-native-paper";
-import SVGMapLL from "../components/SVGMapLL";
-import SVGMapUL from "../components/SVGMapUL";
+import SVGMapLL from "../components/SVGMapUL";
+import SVGMapUL from "../components/SVGMapLL";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "../constants/colors";
 import { searchShopsTitles } from "../helpers/filtering";

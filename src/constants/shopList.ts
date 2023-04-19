@@ -1,3 +1,4 @@
+import { Dimensions } from "react-native";
 import { IShopList } from "../types";
 
 export const LEVELS: { UL: string; LL: string } = {
@@ -6,10 +7,14 @@ export const LEVELS: { UL: string; LL: string } = {
 };
 
 export const LEVEL_VALUES = Object.values(LEVELS);
-
+const { height: windowHeight, width: windowWidth } = Dimensions.get("window");
 export const SHOP_LIST: IShopList = {
   orangecafe: {
     key: "orangecafe",
+    height: "5%",
+    width: "25%",
+    top: "40%",
+    left: "30%",
     image: require("../../assets/img/promos/orange/main.jpg"),
     title: "Orange Cafe",
     openingHours: {
@@ -32,6 +37,10 @@ export const SHOP_LIST: IShopList = {
   },
   tattooparlour: {
     key: "tattooparlour",
+    height: "10%",
+    width: "25%",
+    top: "5%",
+    left: "30%",
     image: require("../../assets/img/promos/tattoo/main.jpg"),
     title: "Tattoo Parlour",
     openingHours: {
@@ -49,6 +58,10 @@ export const SHOP_LIST: IShopList = {
   },
   gardenshops: {
     key: "gardenshops",
+    height: "15%",
+    width: "30%",
+    top: "20%",
+    left: "5%",
     image: require("../../assets/img/promos/garden/main.jpg"),
     title: "Garden Shops",
     openingHours: {
@@ -66,6 +79,10 @@ export const SHOP_LIST: IShopList = {
   },
   floraver21: {
     key: "floraver21",
+    height: "5%",
+    width: "15%",
+    top: "35%",
+    left: "40%",
     image: require("../../assets/img/promos/flower/main.jpg"),
     title: "Floraver 21",
     openingHours: {
@@ -84,6 +101,10 @@ export const SHOP_LIST: IShopList = {
   },
   foodcourt: {
     key: "foodcourt",
+    height: "15%",
+    width: "25%",
+    top: "40%",
+    left: "70%",
     image: require("../../assets/img/promos/foodcourt/main.jpg"),
     title: "Food Court",
     openingHours: {
@@ -97,10 +118,14 @@ export const SHOP_LIST: IShopList = {
     },
     description: "",
     rating: 3,
-    atLevels: [LEVELS.LL],
+    atLevels: [LEVELS.LL, LEVELS.UL],
   },
   wonderland: {
     key: "wonderland",
+    height: "20%",
+    width: "25%",
+    top: "50%",
+    left: "5%",
     image: require("../../assets/img/square.png"),
     title: "Wonderland",
     openingHours: {
@@ -114,10 +139,14 @@ export const SHOP_LIST: IShopList = {
     },
     description: "",
     rating: 3,
-    atLevels: [LEVELS.LL],
+    atLevels: [LEVELS.LL, LEVELS.UL],
   },
   shoes: {
     key: "shoes",
+    height: "15%",
+    width: "15%",
+    top: "25%",
+    left: "70%",
     image: require("../../assets/img/promos/shoes/main.jpg"),
     title: "Shoes!",
     openingHours: {
@@ -135,6 +164,10 @@ export const SHOP_LIST: IShopList = {
   },
   bikeshop: {
     key: "bikeshop",
+    height: "20%",
+    width: "30%",
+    top: "5%",
+    left: "55%",
     image: require("../../assets/img/promos/bike/main.jpg"),
     title: "Bike shop",
     openingHours: {
@@ -152,10 +185,14 @@ export const SHOP_LIST: IShopList = {
       require("../../assets/img/promos/bike/1.jpg"),
       require("../../assets/img/promos/bike/2.jpg"),
     ],
-    atLevels: [LEVELS.LL],
+    atLevels: [LEVELS.LL, LEVELS.UL],
   },
   babies: {
     key: "babies",
+    height: "8%",
+    width: "20%",
+    top: "50%",
+    left: "50%",
     image: require("../../assets/img/promos/babies/main.jpg"),
     title: "Babies",
     openingHours: {
@@ -169,10 +206,14 @@ export const SHOP_LIST: IShopList = {
     },
     description: "Please we are not prepared for the new borns",
     rating: 3,
-    atLevels: [LEVELS.LL, , LEVELS.UL],
+    atLevels: [LEVELS.LL],
   },
   tea: {
     key: "tea",
+    height: "8%",
+    width: "20%",
+    top: "12%",
+    left: "5%",
     image: require("../../assets/img/promos/tea/main.jpg"),
     title: "Tea me meet again",
     openingHours: {
@@ -186,12 +227,16 @@ export const SHOP_LIST: IShopList = {
     },
     description: "Catch up and have a cup of tea",
     rating: 3,
-    atLevels: [LEVELS.LL, LEVELS.UL],
+    atLevels: [LEVELS.LL],
   },
   artsncrafts: {
     key: "artsncrafts",
+    height: "8%",
+    width: "20%",
+    top: "50%",
+    left: "30%",
     image: require("../../assets/img/promos/art/main.jpg"),
-    title: "Arts n Craft",
+    title: "Arts n Crafts",
     openingHours: {
       Monday: "9am–5pm",
       Tuesday: "9am–6pm",
