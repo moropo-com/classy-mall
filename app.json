@@ -4,7 +4,7 @@
     "slug": "classy-mall",
     "owner": "moropo",
     "platforms": ["ios", "android", "web"],
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/img/square-bg.png",
     "splash": {
@@ -24,13 +24,13 @@
     "android": {
       "package": "uk.morrow.classymall"
     },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
     "extra": {
       "eas": {
         "projectId": "cd0e344b-8011-4434-91a6-dec86deb68c0"
       }
-    },
-    "runtimeVersion": {
-      "policy": "appVersion"
     }
   }
 }

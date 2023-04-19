@@ -7,13 +7,17 @@
     },
     "preview": {
       "android": {
-        "releaseChannel": "sdk41",
+        "channel": "sdk41",
         "buildType": "apk"
+      },
+      "ios": {
+        "channel": "preview"
       }
     },
     "development": {
       "distribution": "internal",
-      "developmentClient": true
+      "developmentClient": true,
+      "channel": "development"
     }
   },
   "cli": {
