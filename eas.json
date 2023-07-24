@@ -14,10 +14,13 @@
         "channel": "preview"
       }
     },
-    "development": {
+    "development-simulator": {
       "distribution": "internal",
       "developmentClient": true,
-      "channel": "development"
+      "channel": "development",
+      "ios": {
+        "simulator": true
+      }
     }
   },
   "cli": {
