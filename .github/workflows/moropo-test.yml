@@ -1,0 +1,15 @@
+name: Moropo Test Run
+on: [push, pull_request]
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Run Moropo Tests
+        uses: ./moropo_gha/
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          scheduled_test_id: 98e9f642-6ae6-4b69-9a72-7cc7945f04c3
+          app_secret: ${{ secrets.MOROPO_API_KEY }}
