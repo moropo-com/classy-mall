@@ -85,7 +85,7 @@ const run = async () => {
       expoReleaseChannel,
     };
 
-    const triggerTestRun = await fetch('https://dev.moropo.com/.netlify/functions/triggerTestRun', {
+    const triggerTestRun = await fetch('https://test.moropo.com/.netlify/functions/triggerTestRun', {
       method: 'POST',
       body: JSON.stringify(body),
       headers: headers
@@ -98,7 +98,7 @@ const run = async () => {
     const testRunResponse = await triggerTestRun.json();
     const newTestRunId = testRunResponse.newTestRunId;
 
-    const statusCheck = await fetch('https://dev.moropo.com/.netlify/functions/updateCIComment', {
+    const statusCheck = await fetch('https://test.moropo.com/.netlify/functions/updateCIComment', {
       method: 'POST',
       headers: {
         'x-github-token': process.env.GITHUB_TOKEN,
