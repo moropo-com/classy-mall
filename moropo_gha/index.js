@@ -27,30 +27,11 @@ const buildMessageString = ({
 [View Results](${url})
 `;
 
-const uploadBuild = async (headers, customBuild) => {
-  const isBlob = fs.existsSync(path.resolve(__dirname, customBuild));
-  const requestBody = isBlob
-    ? { blob: fs.readFileSync(path.resolve(__dirname, customBuild)).toString() }
-    : { url: customBuild };
-
-    // to replace with uploadBuild endpoint
-  const uploadResponse = await fetch('http://localhost/uploadBuild', {
-    method: 'POST',
-    body: JSON.stringify(requestBody),
-    headers: headers
-  });
-
-  const uploadData = await uploadResponse.json();
-  return uploadData.build_id;
-};
-
 const run = async () => {
   try {
     const expoReleaseChannel = core.getInput('expo_release_channel');
     const testRunId = core.getInput('scheduled_test_id');
     const moropoApiKey = core.getInput('app_secret');
-    const customBuild = core.getInput('build_input');
-    let customBuildId;
 
     const headers = {
       'Content-Type': 'application/json'
@@ -58,10 +39,6 @@ const run = async () => {
 
     if(moropoApiKey) {
       headers['x-moropo-api-key'] = moropoApiKey;
-    }
-
-    if (customBuild) {
-      //customBuildId = await uploadBuild(headers, customBuild);
     }
 
     const octokit = new Octokit({
@@ -105,7 +82,6 @@ const run = async () => {
 
     const body = {
       testRunId,
-      buildId: customBuildId || undefined,
       expoReleaseChannel,
     };
 
