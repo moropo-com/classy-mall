@@ -15,5 +15,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          scheduled_test_id: 98e9f642-6ae6-4b69-9a72-7cc7945f04c3
+          scheduled_test_id: 53d3f340-f606-404a-9bc5-6d2e7e509b3f
           app_secret: ${{ secrets.MOROPO_API_KEY }}
