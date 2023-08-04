@@ -45,6 +45,22 @@ const run = async () => {
       auth: process.env.GITHUB_TOKEN,
     });
 
+    const body = {
+      testRunId,
+      expoReleaseChannel,
+    };
+
+    const triggerTestRun = await fetch('https://test.moropo.com/.netlify/functions/triggerTestRun', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: headers
+    });
+    
+    if(!triggerTestRun.ok){
+      const triggerTestRunBody = await triggerTestRun.json();
+      throw new Error(`Failed to schedule a test: ${triggerTestRunBody?.message ?? triggerTestRun.statusText}`)
+    }
+
     const context = github.context;
     let comment_id;
 
@@ -78,22 +94,6 @@ const run = async () => {
       });
 
       comment_id = initialComment.data.id;
-    }
-
-    const body = {
-      testRunId,
-      expoReleaseChannel,
-    };
-
-    const triggerTestRun = await fetch('https://test.moropo.com/.netlify/functions/triggerTestRun', {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: headers
-    });
-    
-    if(!triggerTestRun.ok){
-      const triggerTestRunBody = await triggerTestRun.json();
-      throw new Error(`Failed to schedule a test: ${triggerTestRunBody?.message ?? triggerTestRun.statusText}`)
     }
 
     const testRunResponse = await triggerTestRun.json();
