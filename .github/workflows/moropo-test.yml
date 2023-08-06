@@ -10,8 +10,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-      - name: Moropo - Trigger Mobile App Test Run
-        uses: moropo-com/action-trigger-test-run@v1.0.0
+      - name: Run Moropo Tests
+        uses: moropo-com/action-trigger-test-run@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
