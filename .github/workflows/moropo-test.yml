@@ -17,3 +17,4 @@ jobs:
         with:
           scheduled_test_id: 53d3f340-f606-404a-9bc5-6d2e7e509b3f
           app_secret: ${{ secrets.MOROPO_API_KEY }}
+          expo_release_channel: https%3A%2F%2Fu.expo.dev%2Fcd0e344b-8011-4434-91a6-dec86deb68c0%3Fchannel-name%3Dmoropo-410%26runtime-version%3Dexposdk%3A47.0.0%26platform%3Dandroid%26disableOnboarding%3D1
