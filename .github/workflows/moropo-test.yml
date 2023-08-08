@@ -10,7 +10,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
       - name: Run Moropo Tests
-        uses: moropo-com/action-trigger-test-run@master
+        uses: moropo-com/action-trigger-test-run@flow-tests-Eduardo
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
