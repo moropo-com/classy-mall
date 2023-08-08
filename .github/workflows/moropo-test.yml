@@ -7,8 +7,6 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
       - name: Run Moropo Tests
         uses: moropo-com/action-trigger-test-run@v1.0.1
         with:
