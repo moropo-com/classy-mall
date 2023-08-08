@@ -1,7 +1,5 @@
 name: Moropo Test Run
-on: [push, pull_request]
-permissions:
-  pull-requests: write
+on: pull_request
 jobs:
   run-tests:
     runs-on: ubuntu-latest
