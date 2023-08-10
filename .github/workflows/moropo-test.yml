@@ -11,4 +11,5 @@ jobs:
         with:
           scheduled_test_id: 53d3f340-f606-404a-9bc5-6d2e7e509b3f
           app_secret: ${{ secrets.MOROPO_API_KEY }}
-          
+          expo_release_channel: ""
+
