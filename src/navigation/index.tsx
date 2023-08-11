@@ -59,7 +59,7 @@ export const Routing = () => {
                   { lineHeight: 20 },
                 ]}
               >
-                classier
+                classy
               </Title>
               <View style={styles.headerLogo}>
                 <ClassyMall />
