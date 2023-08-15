@@ -9,6 +9,6 @@ jobs:
       - name: Run Moropo Tests
         uses: moropo-com/action-trigger-test-run@staging
         with:
-          scheduled_test_id: 8e2cb181-257a-40b7-8f55-56a5b5d182d7
-          api_key: 5871aabf-ff92-4a5d-977f-dbae5bab5a08
+          scheduled_test_id: 04c6e4d8-29ad-4582-b4dc-acbc4293baea
+          api_key: b87615a2-9db4-4f15-82fa-18a51c20b823
           #expo_release_channel: https://u.expo.dev/cd0e344b-8011-4434-91a6-dec86deb68c0?channel-name=moropo-410&runtime-version=exposdk:47.0.0&platform=android&disableOnboarding=1
