@@ -14,6 +14,6 @@ jobs:
           moropo_url: https://test.moropo.com/
           moropo_api_url: https://api.test.moropo.com/
           scheduled_test_id: 8e2cb181-257a-40b7-8f55-56a5b5d182d7
-          api_key: e1d238ed-f44f-4bbd-9b68-32200ff61a82
+          api_key: 5871aabf-ff92-4a5d-977f-dbae5bab5a08
           expo_release_channel: https://u.expo.dev/cd0e344b-8011-4434-91a6-dec86deb68c0?channel-name=moropo-410&runtime-version=exposdk:47.0.0&platform=android&disableOnboarding=1
           build_path: builds/ios.app.zip
