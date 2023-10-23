@@ -9,7 +9,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run Moropo Tests
-        uses: moropo-com/action-trigger-test-run@v2
+        uses: moropo-com/action-trigger-test-run@v1
         with:
           moropo_url: https://test.moropo.com/
           moropo_api_url: https://api.test.moropo.com/
