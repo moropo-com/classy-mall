@@ -15,7 +15,7 @@ jobs:
           moropo_api_url: https://api.test.moropo.com/
           scheduled_test_id: 52be1fc2-b307-4126-b339-803fe12ed5d0 #8e2cb181-257a-40b7-8f55-56a5b5d182d7
           api_key: 3552b4eb-35a2-4eec-96c7-f4be8a694a6a #5871aabf-ff92-4a5d-977f-dbae5bab5a08
-          #github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: null #${{ secrets.GITHUB_TOKEN }}
           #sync: true
           #expo_release_channel: https://u.expo.dev/cd0e344b-8011-4434-91a6-dec86deb68c0?channel-name=moropo-410&runtime-version=exposdk:47.0.0&platform=android&disableOnboarding=1
           #build_path: builds/ios.app.zip
