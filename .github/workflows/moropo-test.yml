@@ -9,7 +9,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run Moropo Tests
-        uses: moropo-com/action-trigger-test-run@master
+        uses: moropo-com/action-trigger-test-run@CU-86937917g_Using-GHA-with-PAT-incorrectly-shows-error-message_Charles-Killer
         with:
           moropo_url: https://test.moropo.com/
           moropo_api_url: https://api.test.moropo.com/
