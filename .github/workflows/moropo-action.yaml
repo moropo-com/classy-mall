@@ -9,12 +9,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run Moropo Tests
-        uses: moropo-com/action-trigger-test-run@octokit-logging
+        uses: moropo-com/action-trigger-test-run@master
         with:
           moropo_url: https://test.moropo.com/
           moropo_api_url: https://api.test.moropo.com/
           scheduled_test_id: 8e2cb181-257a-40b7-8f55-56a5b5d182d7 #Android
-          #github_token: ${{ secrets.CK_GITHUB_TOKEN }}
+          github_token: ${{ secrets.CK_GITHUB_TOKEN }}
           #scheduled_test_id: 53d3f340-f606-404a-9bc5-6d2e7e509b3f #iOS
           api_key:  5871aabf-ff92-4a5d-977f-dbae5bab5a08 #f81ba9de-7a49-4f04-a907-f27ca83b886a
           env: '{"EXPORELEASECHANNEL":"https%3A%2F%2Fu.expo.dev%2Fcd0e344b-8011-4434-91a6-dec86deb68c0%3Fchannel-name%3Dmoropo-458%26runtime-version%3Dexposdk%3A47.0.0%26platform%3Dandroid%26disableOnboarding%3D1","VAR_1":"newVar"}'
