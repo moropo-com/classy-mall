@@ -17,7 +17,7 @@ jobs:
           moropo_api_url: https://api.dev.moropo.com/
           api_key:  62017e33-bf21-4f46-a747-cf414dc16919
           scheduled_test_id: 614b709b-0248-4f18-a8b9-092b284fbdde #Android
-          #scheduled_test_id: #iOSS
+          #scheduled_test_id: #iOS
         
           #staging
           #moropo_url: https://test.moropo.com/
