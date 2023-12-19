@@ -20,17 +20,17 @@ jobs:
           #scheduled_test_id: #iOS
         
           #staging
-          #moropo_url: https://test.moropo.com/
-          #moropo_api_url: https://api.test.moropo.com/
-          #api_key:  5871aabf-ff92-4a5d-977f-dbae5bab5a08 #staging
-          #scheduled_test_id: 8e2cb181-257a-40b7-8f55-56a5b5d182d7 #Android
+          moropo_url: https://test.moropo.com/
+          moropo_api_url: https://api.test.moropo.com/
+          api_key:  5871aabf-ff92-4a5d-977f-dbae5bab5a08 #staging
+          scheduled_test_id: 8e2cb181-257a-40b7-8f55-56a5b5d182d7 #Android
           #scheduled_test_id: 53d3f340-f606-404a-9bc5-6d2e7e509b3f #iOS
           
           #prod
-          moropo_url: https://app.moropo.com/
-          moropo_api_url: https://api.moropo.com/
-          api_key: f81ba9de-7a49-4f04-a907-f27ca83b886a #Classy Mall
-          scheduled_test_id: 04f1acb4-c4d5-4389-b31e-55002a2ae059 #iOS
+          #moropo_url: https://app.moropo.com/
+          #moropo_api_url: https://api.moropo.com/
+          #api_key: f81ba9de-7a49-4f04-a907-f27ca83b886a #Classy Mall
+          #scheduled_test_id: 04f1acb4-c4d5-4389-b31e-55002a2ae059 #iOS
           #api_key: b97029c8-8ee1-44cc-88cc-83d6058a4597
           #scheduled_test_id: 5f609bd9-e0fc-431b-8849-e74166a538d7
 
@@ -39,5 +39,5 @@ jobs:
           #env: '{"EXPORELEASECHANNEL":"https%3A%2F%2Fu.expo.dev%2Fcd0e344b-8011-4434-91a6-dec86deb68c0%3Fchannel-name%3Dmoropo-458%26runtime-version%3Dexposdk%3A47.0.0%26platform%3Dandroid%26disableOnboarding%3D1","VAR_1":"newVar"}'
           #env: '{"EXPORELEASECHANNEL":"FAKE","VAR_1":"newVar"}'
           #expo_release_channel: https://u.expo.dev/cd0e344b-8011-4434-91a6-dec86deb68c0?channel-name=moropo-410&runtime-version=exposdk:47.0.0&platform=android&disableOnboarding=1
-          build_path: builds/ios.app.zip
+          #build_path: builds/ios.app.zip
           #build_path: builds/app-debug.apk
