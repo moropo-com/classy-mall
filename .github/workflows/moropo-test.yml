@@ -9,7 +9,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run Moropo Tests
-        uses: moropo-com/action-trigger-test-run@action-id
+        uses: moropo-com/action-trigger-test-run@v2
         with:
         
           #dev
@@ -22,8 +22,8 @@ jobs:
           #staging
           moropo_url: https://test.moropo.com/
           moropo_api_url: https://api.test.moropo.com/
-          api_key:  5871aabf-ff92-4a5d-977f-dbae5bab5a08 #staging
-          scheduled_test_id: 8e2cb181-257a-40b7-8f55-56a5b5d182d7 #Android
+          api_key:  4b36e08f-678b-4c22-a0ef-c92b423b705a #staging
+          scheduled_test_id: ad140787-284b-4e1c-b06f-10af6748034e #Android
           #scheduled_test_id: 53d3f340-f606-404a-9bc5-6d2e7e509b3f #iOS
           
           #prod
