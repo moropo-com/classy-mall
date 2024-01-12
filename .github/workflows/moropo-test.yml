@@ -9,7 +9,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run Moropo Tests
-        uses: moropo-com/action-trigger-test-run@v2.0.5
+        uses: moropo-com/action-trigger-test-run@v2
         with:
         
           #dev
