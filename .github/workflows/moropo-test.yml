@@ -9,7 +9,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run Moropo Tests
-        uses: moropo-com/action-trigger-test-run@master
+        uses: moropo-com/action-trigger-test-run@CU-8693gc9we_Improve-error-message-for-GHA-when-test-config-incorrect_Dec-Burns
         with:
           #dev
           #moropo_url: https://dev.moropo.com/
