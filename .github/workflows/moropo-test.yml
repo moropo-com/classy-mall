@@ -13,17 +13,17 @@ jobs:
         with:
         
           #dev
-          #moropo_url: https://dev.moropo.com/
-          #moropo_api_url: https://api.dev.moropo.com/
-          #api_key:  ac92a20f-6bef-4c39-8666-74927b604f61
-          #scheduled_test_id: 98e9f642-6ae6-4b69-9a72-7cc7945f04c3 #Android
+          moropo_url: https://dev.moropo.com/
+          moropo_api_url: https://api.dev.moropo.com/
+          api_key:  ac92a20f-6bef-4c39-8666-74927b604f61
+          scheduled_test_id: 98e9f642-6ae6-4b69-9a72-7cc7945f04c3 #Android
           #scheduled_test_id: #iOS
         
           #staging
-          moropo_url: https://test.moropo.com/
-          moropo_api_url: https://api.test.moropo.com/
-          api_key: 5871aabf-ff92-4a5d-977f-dbae5bab5a08 #staging
-          scheduled_test_id: 8e2cb181-257a-40b7-8f55-56a5b5d182d7 #Android
+          #moropo_url: https://test.moropo.com/
+          #moropo_api_url: https://api.test.moropo.com/
+          #api_key: 5871aabf-ff92-4a5d-977f-dbae5bab5a08 #staging
+          #scheduled_test_id: 8e2cb181-257a-40b7-8f55-56a5b5d182d7 #Android
           #scheduled_test_id: 53d3f340-f606-404a-9bc5-6d2e7e509b3f #iOS
           
           #prod
