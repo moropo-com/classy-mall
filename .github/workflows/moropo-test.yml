@@ -9,7 +9,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Zip Files
-        run: zip -r tests.zip /tests/ -x ".git/*" ".github/*"
+        run: |
+        ls -l
+        cd /
+        ls -l
+        zip -r tests.zip /tests/ -x ".git/*" ".github/*"
       - name: Run Moropo Tests
         uses: moropo-com/action-trigger-test-run@v2
         with:
