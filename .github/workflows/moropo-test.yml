@@ -17,7 +17,7 @@ jobs:
           --data '{
             "file": tests.zip,
             "branch_name": main,
-            "merge_stragegy": change_only
+            "merge_stragegy": changes_only
             }'
       - name: Run Moropo Tests
         uses: moropo-com/action-trigger-test-run@v2
