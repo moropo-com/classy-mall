@@ -15,7 +15,7 @@ jobs:
           curl -x POST https://api.test.moropo.com/apps/upload-tests \
           -H "x-moropo-api-key:  78c5b68c-451f-4973-aa77-8db81078caad" \
           --data '{
-            "file": tests.zip.
+            "file": tests.zip,
             "branch_name": main,
             "merge_stragegy": change_only
             }'
