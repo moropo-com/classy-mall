@@ -10,6 +10,11 @@ jobs:
         uses: actions/checkout@v4
       - name: Zip Files
         run: zip -r tests.zip tests/ -x ".git/*" ".github/*"
+      - name: Upload Tests
+        run: |
+          --curl -x POST https://app.moropo.com/apps/upload-tests \
+          -H "x-moropo-api-key:  78c5b68c-451f-4973-aa77-8db81078caad" \
+          --file tests.zip --branch_name: main --merge_stragegy: change_only
       - name: Run Moropo Tests
         uses: moropo-com/action-trigger-test-run@v2
         with:
@@ -39,9 +44,6 @@ jobs:
           #github_token: ${{ secrets.TB_GITHUB_TOKEN }}
           tags: '["demo"]'
           sync: true
-          merge_strategy: changes_only
-          file: tests.zip
-          branch_name: main
           #env: '{"EXPORELEASECHANNEL":"https%3A%2F%2Fu.expo.dev%2Fcd0e344b-8011-4434-91a6-dec86deb68c0%3Fchannel-name%3Dmoropo-458%26runtime-version%3Dexposdk%3A47.0.0%26platform%3Dandroid%26disableOnboarding%3D1","VAR_1":"newVar"}'
           #env: '{"EXPORELEASECHANNEL":"FAKE","VAR_1":"newVar"}'
           #expo_release_channel: https://u.expo.dev/cd0e344b-8011-4434-91a6-dec86deb68c0?channel-name=moropo-410&runtime-version=exposdk:47.0.0&platform=android&disableOnboarding=1
