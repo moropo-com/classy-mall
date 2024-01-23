@@ -9,7 +9,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Zip Files
-        run: zip -r tests.zip tests/ -x ".git/*" ".github/*"
+        run: |
+          zip -r tests.zip tests/ -x ".git/*" ".github/*"
+          ls -l
       - name: Upload Tests
         run: |
           curl -X POST https://api.test.moropo.com/apps/upload-tests \
