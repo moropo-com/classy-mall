@@ -10,8 +10,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Zip Files
         run: |
-          cd /
-          ls
+          ls -l
           zip -r tests.zip tests/ -x ".git/*" ".github/*"
       - name: Run Moropo Tests
         uses: moropo-com/action-trigger-test-run@v2
