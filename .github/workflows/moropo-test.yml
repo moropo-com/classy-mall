@@ -12,7 +12,7 @@ jobs:
         run: zip -r tests.zip tests/ -x ".git/*" ".github/*"
       - name: Upload Tests
         run: |
-          curl -x POST https://app.moropo.com/apps/upload-tests \
+          curl -x POST https://api.test.moropo.com/apps/upload-tests \
           -H "x-moropo-api-key:  78c5b68c-451f-4973-aa77-8db81078caad" \
           --data '{
             "file": tests.zip.
