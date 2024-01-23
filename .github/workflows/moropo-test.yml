@@ -14,11 +14,9 @@ jobs:
         run: |
           curl -x POST https://api.test.moropo.com/apps/upload-tests \
           -H "x-moropo-api-key:  78c5b68c-451f-4973-aa77-8db81078caad" \
-          --data '{
-            "file": tests.zip,
-            "branch_name": main,
-            "merge_stragegy": changes_only
-            }'
+          -H "x-merge-strategy: changes_only" \
+          -H "x-branch-name: main" \
+          -F tests=@tests.zip
       - name: Run Moropo Tests
         uses: moropo-com/action-trigger-test-run@v2
         with:
