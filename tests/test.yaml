@@ -1,0 +1,51 @@
+appId: ${BUNDLEID}
+tags:
+    - demo
+---
+- runFlow:
+    commands:
+      - openLink:
+          link: '${BUNDLEID}://expo-development-client/?url=${EXPORELEASECHANNEL}%26disableOnboarding%3D1'
+    when:
+      platform: 'android'
+- runFlow:
+    commands:
+      - openLink:
+          link: '${BUNDLEID}://expo-development-client/?url=${EXPORELEASECHANNEL}&disableOnboarding=1'
+      - tapOn:
+          text: 'Open'
+    when:
+      platform: 'ios'
+- extendedWaitUntil:
+    visible: 'Search'
+    timeout: 40000
+- takeScreenshot: 'Map'
+- tapOn:
+    text: 'Search'
+- inputText: 'orange'
+- pressKey: 'enter'
+- tapOn:
+    id: 'pulse-button'
+- takeScreenshot: 'Search'
+- tapOn:
+    text: 'Orange Cafe'
+- takeScreenshot: 'Orange'
+- swipe:
+    start: '10%, 75%'
+    end: '90%, 75%'
+- swipe:
+    start: '10%, 75%'
+    end: '90%, 75%'
+- tapOn:
+    text: 'Map View, back'
+- tapOn:
+    text: 'SHOP LIST'
+- takeScreenshot: 'ShopList'
+- swipe:
+    direction: 'LEFT'
+- takeScreenshot: 'Swipe'
+- swipe:
+    direction: 'LEFT'
+- tapOn:
+    text: 'VIEW DETAILS'
+- takeScreenshot: 'Gardenshop'
