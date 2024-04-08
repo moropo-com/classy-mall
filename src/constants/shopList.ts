@@ -63,7 +63,7 @@ export const SHOP_LIST: IShopList = {
     top: "20%",
     left: "5%",
     image: require("../../assets/img/promos/garden/main.jpg"),
-    title: "Garden Store",
+    title: "Garden Shop",
     openingHours: {
       Monday: "9am–5pm",
       Tuesday: "9am–6pm",
