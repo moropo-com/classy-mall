@@ -20,7 +20,7 @@ jobs:
       #    -H "x-branch-name: main" \
       #    -F tests=@tests.zip
       - name: Run Moropo Tests
-        uses: moropo-com/action-trigger-test-run@v2
+        uses: moropo-com/action-trigger-test-run@master
         with:
 
           #dev
