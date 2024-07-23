@@ -3,11 +3,7 @@
     "name": "classy-mall",
     "slug": "classy-mall",
     "owner": "riglar",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/img/square-bg.png",
@@ -20,9 +16,7 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/ae6f0b91-f1ab-44d8-8a7e-973a70fca4ee"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "uk.morrow.classymall"
