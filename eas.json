@@ -17,7 +17,6 @@
     "development-simulator": {
       "distribution": "internal",
       "developmentClient": true,
-      "channel": "development",
       "ios": {
         "simulator": true
       }
