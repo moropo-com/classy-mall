@@ -34,6 +34,6 @@ jobs:
         uses: moropo-com/action-trigger-test-run@v2
         with:
           api_key: ${{ secrets.RIGLAR_MOROPO_API_KEY }}
-          scheduled_test_id: ab9f6a84-6d81-4591-85d4-8b3855787ae1
+          scheduled_test_id: 895cd9d1-d267-46f2-b3a6-7cdd40d7ff16
           sync: true
           expo_release_channel: https://u.expo.dev/ae6f0b91-f1ab-44d8-8a7e-973a70fca4ee?channel-name=${{ github.event.pull_request.head.ref }}&runtime-version=1.0.0&platform=ios
