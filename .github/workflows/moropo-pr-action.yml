@@ -1,0 +1,39 @@
+on: [pull_request]
+permissions:
+  pull-requests: write
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+          cache: yarn
+
+      - name: 🏗 Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.RIGLAR_EXPO_TOKEN }}
+
+      - name: 📦 Install dependencies
+        run: yarn install
+
+      - name: 🚀 Create preview
+        uses: expo/expo-github-action/preview@v8
+        with:
+          # `github.event.pull_request.head.ref` is only available on `pull_request` triggers.
+          # Use your own, or keep the automatically infered branch name from `--auto`, when using different triggers.
+          command: eas update --auto --branch ${{ github.event.pull_request.head.ref }}
+
+      - name: Moropo - Trigger Mobile App Test Run
+        uses: moropo-com/action-trigger-test-run@v2
+        with:
+          api_key: ${{ secrets.RIGLAR_MOROPO_API_KEY }}
+          scheduled_test_id: 00234218-20e2-4045-bca7-fbfccdcfbe2d
+          sync: true
+          expo_release_channel: https://u.expo.dev/ae6f0b91-f1ab-44d8-8a7e-973a70fca4ee?channel-name=${{ github.event.pull_request.head.ref }}&runtime-version=1.0.0&platform=ios
