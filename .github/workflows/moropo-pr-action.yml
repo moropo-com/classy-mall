@@ -34,5 +34,5 @@ jobs:
           api_key: ${{ secrets.MOROPO_API_KEY }}
           scheduled_test_id: 3af43f7c-1506-45d9-88d9-edf5d23b98ce
           sync: true
-          moropo_api_url: https://api.dev.moropo.com
+          moropo_api_url: https://b8f4-92-232-9-64.ngrok-free.app
           expo_release_channel: https://u.expo.dev/ae6f0b91-f1ab-44d8-8a7e-973a70fca4ee?channel-name=${{ github.event.pull_request.head.ref }}&runtime-version=1.0.0&platform=ios
