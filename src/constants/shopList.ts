@@ -73,7 +73,7 @@ export const SHOP_LIST: IShopList = {
       Saturday: "9am–6pm",
       Sunday: "Closed",
     },
-    description: "Create the yard and garden of your dreams.",
+    description: "Create the yard and garden of your dreams. ",
     rating: 3,
     atLevels: [LEVELS.LL],
   },
