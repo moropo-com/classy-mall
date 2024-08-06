@@ -63,7 +63,7 @@ export const SHOP_LIST: IShopList = {
     top: "20%",
     left: "5%",
     image: require("../../assets/img/promos/garden/main.jpg"),
-    title: "Garden Shops",
+    title: "Ourdoor Store",
     openingHours: {
       Monday: "9am–5pm",
       Tuesday: "9am–6pm",
@@ -73,7 +73,7 @@ export const SHOP_LIST: IShopList = {
       Saturday: "9am–6pm",
       Sunday: "Closed",
     },
-    description: "Create the yard and garden of your dreams.",
+    description: "Create the yard and garden of your dreams. ",
     rating: 3,
     atLevels: [LEVELS.LL],
   },
